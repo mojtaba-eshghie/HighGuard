@@ -36,3 +36,9 @@
     transform: rotate(30deg);
   }
 }
+
+#target_address {
+  font-size: 18px;
+  padding: 5px;
+  min-width: 350px !important;
+}

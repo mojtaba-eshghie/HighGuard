@@ -10,7 +10,7 @@ contract HelloWorld {
 
     modifier before() {
         require(oneIsDone);
-        
+
         _;
     }
 
@@ -19,8 +19,7 @@ contract HelloWorld {
         emit OneInvoked();
     }
 
-    
-    function two() before public {
-        emit TwoInvoked(); 
+    function two() public before {
+        emit TwoInvoked();
     }
 }
