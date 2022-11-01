@@ -1,44 +1,24 @@
 let WaitQueue = require('wait-queue');
 let queue = new WaitQueue();
 
+/**
+ * Listens to all blockchain events on a particular smart contract
+ */
 let listen = (address) => {
-
+  
+  // following lines are just dummy to keep the queue busy
+  queue.push('one');
+  queue.push('two');
+  queue.push('three');
+  queue.push('four');
   setInterval(() => {
     console.log('just another item pushed...')
     queue.push('new item');
-  }, 1000);
-  /*
-  setTimeout(function() {
-    queue.push('first item ');
-  }, 5000);
+  }, 1500);
 
-  setTimeout(function() {
-    queue.push('second item');
-  }, 2000);
-
-  setTimeout(function() {
-    queue.push('third item');
-  }, 3000);
-
-  setTimeout(function() {
-    queue.push('fourth item');
-  }, 4000);
-  */
-
-  //return queue;
+  return queue;
 }
 
 
-setInterval(() => {
-  console.log('just another item pushed...')
-  queue.push('new item');
-}, 1000);
+module.exports = listen;
 
-queue.push('one');
-queue.push('two');
-queue.push('three');
-queue.push('four');
-
-//module.exports = listen;
-
-module.exports = queue;

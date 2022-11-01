@@ -8,11 +8,11 @@ let dcr_caller = require('./dcr-caller');
 
 let monitor = (address) => {
   //contract_watcher(address);
-  //let queue = contract_watcher(address);
+  let queue = contract_watcher(address);
 
-  //dcr_caller(queue);
+  dcr_caller(queue);
 
-  dcr_caller(contract_watcher);
+  //dcr_caller(contract_watcher);
   
   /*
   let func = () => {
