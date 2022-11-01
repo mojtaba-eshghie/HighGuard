@@ -4,11 +4,15 @@
 let caller = (queue) => {
   let listen = () => {
     queue.shift().then( (event) => {
-      console.log(event);
+      serve(event);
       setImmediate(listen);
     });
   }
   listen();
+}
+
+let serve = (event) => {
+  console.log(event);
 }
 
 
