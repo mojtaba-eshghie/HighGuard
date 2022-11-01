@@ -1,31 +1,44 @@
 let WaitQueue = require('wait-queue');
+let queue = new WaitQueue();
+
+let listen = (address) => {
+
+  setInterval(() => {
+    console.log('just another item pushed...')
+    queue.push('new item');
+  }, 1000);
+  /*
+  setTimeout(function() {
+    queue.push('first item ');
+  }, 5000);
+
+  setTimeout(function() {
+    queue.push('second item');
+  }, 2000);
+
+  setTimeout(function() {
+    queue.push('third item');
+  }, 3000);
+
+  setTimeout(function() {
+    queue.push('fourth item');
+  }, 4000);
+  */
+
+  //return queue;
+}
 
 
-const wq = new WaitQueue();
-
-wq.shift().then(function(item) {
-  // will wait until got value
-  console.log(item);
-  // "foo"
-});
-
-
-
-setTimeout(function() {
-    wq.push('foo: ');
+setInterval(() => {
+  console.log('just another item pushed...')
+  queue.push('new item');
 }, 1000);
 
-/*
-const queue = [];
+queue.push('one');
+queue.push('two');
+queue.push('three');
+queue.push('four');
 
-queue.push( 'item 1' );
-queue.push( 'item 2' );
-queue.push( 'item 3' );
+//module.exports = listen;
 
-
-console.log(queue)
-
-console.log( queue.shift() ); // item 1
-console.log( queue.shift() ); // item 2
-console.log( queue.shift() ); // undefined
-*/
+module.exports = queue;

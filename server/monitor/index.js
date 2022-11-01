@@ -1,19 +1,35 @@
-let contract_watcher = require('contract-watcher');
-let dcr_invoker = require('dcr-caller');
-
-// this waitqueue should be gererated in producer
-let queue = new WaitQueue();
+let contract_watcher = require('./contract-watcher');
+let dcr_caller = require('./dcr-caller');
 
 
 
-queue.shift().then(function(item) {
-  // will wait until got value
-  console.log(item);
-});
 
 
-let monitor = () => {
-  console.log('hello world from index.js')
+
+let monitor = (address) => {
+  //contract_watcher(address);
+  //let queue = contract_watcher(address);
+
+  //dcr_caller(queue);
+
+  dcr_caller(contract_watcher);
+  
+  /*
+  let func = () => {
+    contract_watcher.shift().then( (item) => {
+      // will wait until got value
+      console.log(item);
+    });
+  }
+
+  func();
+  */
+
+
+
+  //console.log('hello world from monitor index file')
+
+
 }
 
 
