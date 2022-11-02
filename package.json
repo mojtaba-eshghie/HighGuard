@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/mojtaba-eshghie/dragonclaw#readme",
   "dependencies": {
+    "@alch/alchemy-web3": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "node-fetch": "^3.2.10",
+    "nodemon": "^2.0.20",
+    "wait-queue": "^1.1.4",
+    "web3": "^1.8.0"
   }
 }

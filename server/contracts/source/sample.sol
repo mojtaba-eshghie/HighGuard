@@ -5,8 +5,8 @@ pragma solidity ^0.8.17;
 contract HelloWorld {
     bool public oneIsDone = false;
 
-    event OneInvoked();
-    event TwoInvoked();
+    event one_a();
+    event two_a();
 
     modifier before() {
         require(oneIsDone);
@@ -16,10 +16,10 @@ contract HelloWorld {
 
     function one() public {
         oneIsDone = true;
-        emit OneInvoked();
+        emit one_a();
     }
 
     function two() public before {
-        emit TwoInvoked();
+        emit two_a();
     }
 }
