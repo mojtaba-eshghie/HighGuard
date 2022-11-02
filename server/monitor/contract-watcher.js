@@ -9,7 +9,6 @@ SIGNER_PRIVATE_KEY = "507fa0895604a7826a816b4100da7d5c05a1d53b18c26a1db5eebac335
 
 
 let connect = () => {
-  
 
   const Web3 = require("web3");
 
