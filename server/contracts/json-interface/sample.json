@@ -2,13 +2,13 @@
 	{
 		"anonymous": false,
 		"inputs": [],
-		"name": "OneInvoked",
+		"name": "one_a",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [],
-		"name": "TwoInvoked",
+		"name": "two_a",
 		"type": "event"
 	},
 	{
