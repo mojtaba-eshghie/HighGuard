@@ -48,3 +48,17 @@
 #dropdown-basic {
   width: 100%;
 }
+
+#startmon {
+  width: 100%;
+}
+
+#selectedSimHolder {
+  display: none;
+}
+
+#makemesmaller {
+  width: 99% !important;
+  margin-top:25px !important;
+  padding: 15px !important;
+}

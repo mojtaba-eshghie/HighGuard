@@ -6,7 +6,10 @@ const app = express();
 const cors = require('cors');
 const axios = require('axios');
 const parser = require('xml2json');
+let monitor = require('./monitor/index');
 
+
+const { Server } = require('ws');
 
 let req_instance = axios.create({
   headers: {
@@ -59,6 +62,33 @@ app.get("/nodeapp", (req, res) => {
 });
 
 
+
+/*
+const wss = new WebSocket.Server({ port: 7071 });
+const clients = new Map();
+
+wss.on('connection', (ws) => {
+  clients.set(ws);
+})
+*/
+
+
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+
+const ws_server = new Server({ server: app, port:4000 });
+
+ws_server.on('connection', (ws) => {
+  console.log('New client connected!');
+  ws.on('close', () => console.log('Client has disconnected!'));
+});
+
+setInterval(() => {
+  ws_server.clients.forEach((client) => {
+    console.log('sending.... the date and time!');
+    client.send(new Date().toTimeString());
+  });
+}, 1000);

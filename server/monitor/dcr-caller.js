@@ -12,12 +12,16 @@ async function execute_event(dcr_id, sim_id, event_name) {
 
   req_instance.post(exec_event_address)
     .then(response => {
+      
       console.log(`Event "${event_name}" is executed.`);
+      return true;
     })
     .catch(error => {
       if (error.response.status == 400) {
         // BAD REQUEST returned from the server; the event is not executable.
+
         console.log(`Error: Event ${event_name} is not executable.`);
+        return false;
       } 
     });
 }
@@ -26,9 +30,9 @@ async function execute_event(dcr_id, sim_id, event_name) {
 /**
  * Serves the newly arrived event in the queue
  */
-let serve = (event, dcr_id, sim_id) => {
+let serve = async (event, dcr_id, sim_id) => {
   let event_name = event.event;
-  execute_event(dcr_id, sim_id, event_name);
+  result = await execute_event(dcr_id, sim_id, event_name);
 }
 
 /**

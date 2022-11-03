@@ -5,38 +5,6 @@ import * as ReactDOM from 'react-dom/client';
 import React, { useState }  from 'react';
 import Button from 'react-bootstrap/Button';
 
-/*
-let getAllSims = (dcrID) => {
-    
-    async function fetchAPI() {
-        let options = {
-            method: 'GET',
-        } 
-        let response = await fetch(`http://localhost:3001/api/listsims?dcrID=${dcrID}`, options);
-
-        if (response.status === 200) {
-            let data = JSON.parse(await response.text());
-            
-            let temp_array = [];
-            let innerHTML = '';
-            data.message.map((item) => {
-                temp_array.push(`Trace id: ${item.id}, title: ${item.title} , last modified: ${item.modified}`);
-            })
-            document.getElementById('dpdn').innerHTML.
-            //setSimIDs(temp_array);
-
-
-            console.log(temp_array);
-            
-            //return temp_array;
-
-        } else {
-            console.log(response);
-        }
-    }
-    fetchAPI(); 
-}
-*/
 
 
 let getitems = (dcrID) => {
@@ -51,22 +19,11 @@ let getitems = (dcrID) => {
             
             let temp_array = [];
             data.message.map((item) => {
-                //temp_array.push(`Trace id: ${item.id}, title: ${item.title} , last modified: ${item.modified}`);
                 temp_array.push(item);
             })
-            //setSimIDs(temp_array);
-
-            /*
-            setSimIDs( // Replace the state
-                [
-                    ...temp_array, // that contains all the new items
-                ]
-            );
-            */
             console.log(temp_array);
             if (data.message.length > 0) {   
             }
-            //return temp_array;
         } else {
             console.log(response);
         }     
@@ -82,6 +39,7 @@ let DropdownItems = ({ dcrID, items }) => {
         console.log('changed....');
         console.log(event.target.innerText.split(',')[0].split(':')[1].split(' ')[1]);
         setSelectedSim(parseInt(event.target.innerText.split(',')[0].split(':')[1].split(' ')[1]));
+        document.getElementById('selectedSimHolder').innerHTML = event.target.innerText.split(',')[0].split(':')[1].split(' ')[1];
     }
 
     if (dcrID != prevSimID) {
@@ -156,21 +114,59 @@ let SimIDs = ({ dcrID }) => {
         }
         fetchAPI();
     }
+
+    let handleMainFormSubmit = () => {
+        let simulation_id = document.getElementById('selectedSimHolder').innerHTML;
+        //console.log('fighting for ' + dcrID + ' ' + simulation_id);
+
+    }
     
     
     return (
-        <div className="col-md-9">      
-            <div className="row">
-                <div className="col-md-3">
-                    <Button variant="info" onClick={fetchItemsClicked}>
-                        Fetch Simulations
-                    </Button> 
+        
+          <div className="homecontrainerdiv">
+            <Form.Group className="row" controlId="">
+              <div className="col-md-3">
+                <Form.Label>Simulation ID to monitor against</Form.Label>
+              </div>
+              
+            <div className="col-md-9">      
+                <div className="row">
+                    <div className="col-md-3">
+                        <Button variant="info" onClick={fetchItemsClicked}>
+                            Fetch Simulations
+                        </Button> 
+                    </div>
+                    <div className="col-md-9">
+                        <DropdownItems dcrID={dcrID} items={simItems}/>
+                    </div>
                 </div>
-                <div className="col-md-9">
-                    <DropdownItems dcrID={dcrID} items={simItems}/>
+                <div className="row">
+                    <div className="col-md-8"></div>
+                    <div className="col-md-4">
+                        <div className="homecontrainerdiv">
+                            <Button variant="primary" id="startmon" onClick={handleMainFormSubmit}>
+                                Start the monitor
+                            </Button> 
+                        </div>
+                    </div>
+                </div>
+                <div id="selectedSimHolder"></div>
+            </div>
+
+                  
+            </Form.Group>
+
+
+            <div className="row">
+                <div className="col-md-12 card" id="makemesmaller">
+                {/*<div class="p-3 mb-2 bg-success text-white">.bg-success</div>*/}
                 </div>
             </div>
-        </div>
+          </div>
+
+            
+        
     );
 
     
