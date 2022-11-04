@@ -1,7 +1,7 @@
 let WaitQueue = require('wait-queue');
-//let { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const Web3 = require("web3");
 let fs = require('fs');
+var path = require('path');
 
 ETHEREUM_NETWORK = "goerli"
 INFURA_API_KEY = "wss://goerli.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
@@ -29,28 +29,33 @@ let connect = () => {
 }
 
 let get_contract_abi = (contract_name) => {
-  let contract_interface = JSON.parse(fs.readFileSync('./contracts/json-interface/' + contract_name + '.json'));
-  return contract_interface;
+  console.log(path.join(__dirname,'/contracts/json-interface/'));
+  
+  //let contract_interface = JSON.parse(fs.readFileSync('./../contracts/json-interface/' + contract_name + '.json'));
+  let contract_interface = JSON.parse(fs.readFileSync(path.join(__dirname,'/contracts/json-interface/') + contract_name + '.json'));
+
+  return contract_interface; 
 }
 
 
 /**
  * Listens to all blockchain events on a particular smart contract
  */
-let listen = (address) => {
+let listen = (address, contract_abi_name) => {
   
-  let queue = new WaitQueue();
+  let contract_queue = new WaitQueue();
   
   web3 = connect();
-  json_interface = get_contract_abi('sample');
+  //json_interface = get_contract_abi('sample');
+  json_interface = get_contract_abi(contract_abi_name);
   let contract = new web3.eth.Contract(json_interface, address);
 
   contract.events.allEvents({}, (error, event) => {
-    queue.push(event);
+    contract_queue.push(event);
   })
   
 
-  return queue;
+  return contract_queue;
 }
 
 

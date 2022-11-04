@@ -32,7 +32,6 @@ app.get("/api", (req, res) => {
 });
 
 app.get('/api/listsims', (req, res) => {
-  //console.log(req.query.dcrID);
 
   console.log(`https://repository.dcrgraphs.net/api/graphs/${req.query.dcrID}/sims/`);
 
@@ -43,10 +42,12 @@ app.get('/api/listsims', (req, res) => {
     let data = JSON.parse(parser.toJson(response.data))
     let result_array = [];
     data.log.trace.map((item, index) => {
+      //console.log(item['init']);
+      
       result_array.push({
         'id': item['id'],
         'title': item['title'],
-        'modified': item['modified']
+        'initialized': item['init']
       })
     })
 
@@ -63,32 +64,43 @@ app.get("/nodeapp", (req, res) => {
 
 
 
-/*
-const wss = new WebSocket.Server({ port: 7071 });
-const clients = new Map();
 
-wss.on('connection', (ws) => {
-  clients.set(ws);
-})
-*/
-
-
-
+// run the rest api server
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 
 
+// create the websocket server companion
 const ws_server = new Server({ server: app, port:4000 });
-
 ws_server.on('connection', (ws) => {
   console.log('New client connected!');
   ws.on('close', () => console.log('Client has disconnected!'));
 });
 
+
+
+let monitor_results_queue = monitor('0x76845822857079df6447767AAcC7753D62E0d245', 1327657, 1472502, 'sample');
+
+let run = () => {
+    monitor_results_queue.shift().then( (event) => {
+      console.log('an event came!');
+        ws_server.clients.forEach((client) => {
+          console.log(`Sending event: ${event} to the client`);
+          client.send(event);
+        });
+        setImmediate(run);
+    });
+  }
+run();
+
+
+/*
+// send data to client at fixed intervals!
 setInterval(() => {
   ws_server.clients.forEach((client) => {
     console.log('sending.... the date and time!');
     client.send(new Date().toTimeString());
   });
 }, 1000);
+*/
