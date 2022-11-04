@@ -32,7 +32,7 @@ let MainForm = () => {
               <Form.Label>Target deployed contract address</Form.Label>
             </div>
             <div className="col-md-9">
-              <Form.Control type="text" placeholder="e.g. 0xd1a0b5843f384f92a6759015c742fc12d1d579a1" />
+              <Form.Control type="text" placeholder="e.g. 0xd1a0b5843f384f92a6759015c742fc12d1d579a1" id="contract_addr"/>
             </div>
           </Form.Group>
 

@@ -28,9 +28,7 @@ let connect = () => {
   return web3;
 }
 
-let get_contract_abi = (contract_name) => {
-  console.log(path.join(__dirname,'/contracts/json-interface/'));
-  
+let get_contract_abi = (contract_name) => {  
   //let contract_interface = JSON.parse(fs.readFileSync('./../contracts/json-interface/' + contract_name + '.json'));
   let contract_interface = JSON.parse(fs.readFileSync(path.join(__dirname,'/contracts/json-interface/') + contract_name + '.json'));
 
