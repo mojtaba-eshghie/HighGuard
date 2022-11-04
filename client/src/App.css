@@ -28,17 +28,37 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(30deg);
-  }
+.App-logo {
+  width: 100px;
+  height: 100px;
 }
+
 
 #target_address {
   font-size: 18px;
   padding: 5px;
   min-width: 350px !important;
+}
+
+.homecontrainerdiv {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#dropdown-basic {
+  width: 100%;
+}
+
+#startmon {
+  width: 100%;
+}
+
+#selectedSimHolder {
+  display: none;
+}
+
+#makemesmaller {
+  width: 99% !important;
+  margin-top:25px !important;
+  padding: 15px !important;
 }

@@ -2,11 +2,11 @@
 // compiler version must be greater than or equal to 0.8.13 and less than 0.9.0
 pragma solidity ^0.8.17;
 
-contract HelloWorld {
+contract Sample {
     bool public oneIsDone = false;
 
-    event OneInvoked();
-    event TwoInvoked();
+    event one_a();
+    event two_a();
 
     modifier before() {
         require(oneIsDone);
@@ -15,11 +15,12 @@ contract HelloWorld {
     }
 
     function one() public {
-        oneIsDone = true;
-        emit OneInvoked();
+        //oneIsDone = true;
+
+        emit one_a();
     }
 
     function two() public before {
-        emit TwoInvoked();
+        emit two_a();
     }
 }
