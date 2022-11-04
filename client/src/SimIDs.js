@@ -2,9 +2,10 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import * as ReactDOM from 'react-dom/client';
-import React, { useState }  from 'react';
+import React from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-
+import WebSocket from 'WebSocket';
 
 
 let getitems = (dcrID) => {
@@ -39,6 +40,7 @@ let DropdownItems = ({ dcrID, items }) => {
         console.log('changed....');
         console.log(event.target.innerText.split(',')[0].split(':')[1].split(' ')[1]);
         setSelectedSim(parseInt(event.target.innerText.split(',')[0].split(':')[1].split(' ')[1]));
+        setSelectedText(event.target.innerText);
         document.getElementById('selectedSimHolder').innerHTML = event.target.innerText.split(',')[0].split(':')[1].split(' ')[1];
     }
 
@@ -93,7 +95,7 @@ let SimIDs = ({ dcrID }) => {
                 let temp_array = [];
                 let innerHTML = '';
                 data.message.map((item) => {
-                    temp_array.push(`Trace id: ${item.id}, title: ${item.title} , last modified: ${item.modified}`);
+                    temp_array.push(`Trace id: ${item.id}, title: ${item.title} , initialized: ${item.initialized}`);
                 })
 
                 /*
@@ -118,6 +120,11 @@ let SimIDs = ({ dcrID }) => {
     let handleMainFormSubmit = () => {
         let simulation_id = document.getElementById('selectedSimHolder').innerHTML;
         //console.log('fighting for ' + dcrID + ' ' + simulation_id);
+        //let webSocket = new WebSocket("ws://localhost:4000");
+        /*
+        ws = webSocket.onmessage = (event) => { 
+            console.log(event);
+        }*/
 
     }
     
