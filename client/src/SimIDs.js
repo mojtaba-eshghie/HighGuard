@@ -5,7 +5,10 @@ import * as ReactDOM from 'react-dom/client';
 import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import WebSocket from 'WebSocket';
+//import WebSocket from 'WebSocket';
+import useWebSocket, { ReadyState }  from "react-use-websocket";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+let client = new W3CWebSocket("ws://localhost:4000");
 
 
 let getitems = (dcrID) => {
@@ -81,6 +84,10 @@ let DropdownItems = ({ dcrID, items }) => {
 
 let SimIDs = ({ dcrID }) => {
     let [simItems, setSimItems] = useState([]);
+    let [isStarted, setIsStarted] = useState("none");
+        
+    //let { sendMessage, lastMessage, readyState } = useWebSocket("ws://localhost:4000");
+
 
     let fetchItemsClicked = () => {
         async function fetchAPI() {
@@ -118,14 +125,22 @@ let SimIDs = ({ dcrID }) => {
     }
 
     let handleMainFormSubmit = () => {
+        isStarted = true;
         let simulation_id = document.getElementById('selectedSimHolder').innerHTML;
-        //console.log('fighting for ' + dcrID + ' ' + simulation_id);
-        //let webSocket = new WebSocket("ws://localhost:4000");
-        /*
-        ws = webSocket.onmessage = (event) => { 
-            console.log(event);
-        }*/
+        
+        let contract_addr = document.getElementById('contract_addr');
+        client.send(`${dcrID},${simulation_id},${contract_addr.value}`);
 
+        client.onmessage = (message) => {
+            console.log(message.data);
+            const dataFromServer = message.data;
+            console.log('got reply! ', dataFromServer.toString());
+            if (dataFromServer.toString().includes('Violation')) {
+                document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-danger" role="alert">${dataFromServer.toString()}</div>`;
+            } else {
+                document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-success" role="alert">${dataFromServer.toString()}</div>`;
+            }
+        }
     }
     
     

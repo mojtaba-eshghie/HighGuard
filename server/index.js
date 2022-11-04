@@ -71,14 +71,42 @@ app.listen(PORT, () => {
 });
 
 
-// create the websocket server companion
-const ws_server = new Server({ server: app, port:4000 });
-ws_server.on('connection', (ws) => {
-  console.log('New client connected!');
-  ws.on('close', () => console.log('Client has disconnected!'));
+
+
+
+app.post("/startmonitor", (req, res) => {
+  
+  res.json({ message: "Connected to nodejs!" });
 });
 
 
+
+
+// create the websocket server companion
+const ws_server = new Server({ server: app, port:4000 });
+
+ws_server.on('connection', (ws) => {
+  console.log('New client connected!');
+  ws.on('message', (message) => {
+    console.log(message.split(','));
+    let monitor_results_queue = monitor(message.split(',')[2], parseInt(message.split(',')[0]), parseInt(message.split(',')[1]), 'sample');
+
+    let run = () => {
+      monitor_results_queue.shift().then( (event) => {
+        console.log('an event came!');
+          ws_server.clients.forEach((client) => {
+            console.log(`Sending event: ${event} to the client`);
+            client.send(event);
+          });
+          setImmediate(run);
+      });
+    }
+    run();
+  })
+  ws.on('close', () => console.log('Client has disconnected!'));
+});
+
+/*
 
 let monitor_results_queue = monitor('0x76845822857079df6447767AAcC7753D62E0d245', 1327657, 1472502, 'sample');
 
@@ -93,7 +121,7 @@ let run = () => {
     });
   }
 run();
-
+*/
 
 /*
 // send data to client at fixed intervals!
