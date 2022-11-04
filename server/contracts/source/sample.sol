@@ -15,7 +15,8 @@ contract Sample {
     }
 
     function one() public {
-        oneIsDone = true;
+        //oneIsDone = true;
+
         emit one_a();
     }
 

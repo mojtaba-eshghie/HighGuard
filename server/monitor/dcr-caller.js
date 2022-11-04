@@ -14,7 +14,9 @@ async function execute_event(dcr_id, sim_id, event_name) {
     .then(response => {
       
       console.log(`Event "${event_name}" is executed.`);
-      return true;
+      
+      // I would say the (dcr_id, sim_id, event_name, time, success) tupple should be put in a shared queue (producer/consumer)
+      // between dcr-caller and main server application
     })
     .catch(error => {
       if (error.response.status == 400) {
@@ -42,7 +44,7 @@ let listen = (queue, dcr_id, sim_id) => {
   let run = () => {
     queue.shift().then( (event) => {
       serve(event, dcr_id, sim_id);
-      setImmediate(run);
+      setImmediate(run); 
     });
   }
   run();
