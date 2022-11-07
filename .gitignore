@@ -1,2 +1,3 @@
 node_modules/
 server/monitor/node_modules
+server/monitor/datastore/*

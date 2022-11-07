@@ -2,13 +2,11 @@ const axios = require('axios');
 let get_basic_auth = require('./utils/get-basic-auth');
 
 
-
 let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
 
   get_basic_auth().then(basic_authorization => {
     let req_instance = axios.create({
       headers: {
-        //Authorization: 'Basic ZXNoZ2hpZUBrdGguc2U6RXNoZ2hhbVhvZGFzdFRhMTAwMFNhbA=='
         Authorization: basic_authorization
       }
     })
