@@ -6,17 +6,19 @@ import * as ReactDOM from 'react-dom/client';
 import React, { useState }  from 'react';
 import SimIDs from './SimIDs';
 import { useSelector, useDispatch } from 'react-redux'
-import { setInterfaceName } from './interfaceNameSlice'
+import { setInterfaceFile } from './interfaceFileSlice'
 
 let MainForm = () => {
+  let interfaceFile = useSelector((state) => state.interfaceFile.value)
+  let dispatch = useDispatch()
   
   let [dcrID, setDcrID] = useState(0);
 
-  let handleMainFormSubmit = () => {
-
-    
-    
-  }
+  let fileAddressChangeHandler = (event) => {
+    //console.log(event);
+    dispatch(setInterfaceFile(event.target.files[0]));
+    //console.log(interfaceFile);
+  } 
 
   
   
@@ -42,7 +44,7 @@ let MainForm = () => {
                 <Form.Label>Upload contract interface json file</Form.Label>
               </div>
               <div className="col-md-9">
-                <Form.Control type="file" />
+                <Form.Control type="file" onChange={fileAddressChangeHandler}/>
               </div> 
             </Form.Group>
             

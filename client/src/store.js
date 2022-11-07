@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import interfaceReducer from './interfaceNameSlice'
+import counterReducer from './interfaceFileSlice'
+console.log(counterReducer);
 
 export default configureStore({
   reducer: {
-    interfaceName: interfaceReducer
+    interfaceFile: counterReducer
   },
 })
