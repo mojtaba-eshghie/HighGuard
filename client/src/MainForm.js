@@ -24,8 +24,6 @@ let MainForm = () => {
   
     return (
       <div class="row">
-
-
           <div className="col-md-2"></div>
           <div className="col-md-8">
         <Form>
@@ -62,11 +60,6 @@ let MainForm = () => {
 
 
           <SimIDs dcrID={dcrID}/>
-
-    
-
-          
-
 
           <div id="results">
 
