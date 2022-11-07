@@ -4,9 +4,9 @@ import * as ReactDOM from 'react-dom/client';
 import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-//import WebSocket from 'WebSocket';
-import useWebSocket, { ReadyState }  from "react-use-websocket";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+// Creating websocket client
 let client = new W3CWebSocket("ws://localhost:4000");
 
 
@@ -84,9 +84,6 @@ let DropdownItems = ({ dcrID, items }) => {
 let SimIDs = ({ dcrID }) => {
     let [simItems, setSimItems] = useState([]);
     let [isStarted, setIsStarted] = useState("none");
-        
-    //let { sendMessage, lastMessage, readyState } = useWebSocket("ws://localhost:4000");
-
 
     let fetchItemsClicked = () => {
         async function fetchAPI() {
