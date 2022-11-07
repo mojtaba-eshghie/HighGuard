@@ -1,1 +1,1 @@
-# Smart Contract Runtime Monitoring Via DCR Graphs
+# Smart Contract Runtime Verification w.r.t DCR Sepecifications
