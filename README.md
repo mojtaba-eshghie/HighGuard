@@ -1,1 +1,1 @@
-# Smart Contract Runtime Verification w.r.t DCR Sepecifications
+# Runtime Verification of Smart Contracts Using to Dynamic Condition Response Specifications
