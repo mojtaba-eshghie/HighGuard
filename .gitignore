@@ -1,7 +1,0 @@
-node_modules/
-server/monitor/node_modules
-server/monitor/datastore/auth.db
-.DS_Store
-*/.DS_Store
-*/*/.DS_Store
-.gitignore
