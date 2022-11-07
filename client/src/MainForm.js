@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import * as ReactDOM from 'react-dom/client';
 import React, { useState }  from 'react';
 import SimIDs from './SimIDs';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setInterfaceName } from './interfaceNameSlice'
 
 let MainForm = () => {
   
@@ -27,15 +28,24 @@ let MainForm = () => {
           <div className="col-md-8">
         <Form>
           <div className="homecontrainerdiv">
-          <Form.Group className="row" controlId="">
-            <div className="col-md-3">
-              <Form.Label>Target deployed contract address</Form.Label>
-            </div>
-            <div className="col-md-9">
-              <Form.Control type="text" placeholder="e.g. 0xd1a0b5843f384f92a6759015c742fc12d1d579a1" id="contract_addr"/>
-            </div>
-          </Form.Group>
+            <Form.Group className="row" controlId="">
+                <div className="col-md-3">
+                  <Form.Label>Target deployed contract address</Form.Label>
+                </div>
+                <div className="col-md-9">
+                  <Form.Control type="text" placeholder="e.g. 0xd1a0b5843f384f92a6759015c742fc12d1d579a1" id="contract_addr"/>
+                </div>
+            </Form.Group>
 
+            <Form.Group controlId="formFile" className="row marginer">
+              <div className="col-md-3">
+                <Form.Label>Upload contract interface json file</Form.Label>
+              </div>
+              <div className="col-md-9">
+                <Form.Control type="file" />
+              </div> 
+            </Form.Group>
+            
           <div className="homecontrainerdiv">
             <Form.Group className="row" controlId="">
               <div className="col-md-3">

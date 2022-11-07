@@ -8,7 +8,6 @@ const axios = require('axios');
 const parser = require('xml2json');
 let monitor = require('./monitor/index');
 
-
 const { Server } = require('ws');
 
 let req_instance = axios.create({
@@ -33,26 +32,32 @@ app.get("/api", (req, res) => {
 
 app.get('/api/listsims', (req, res) => {
 
-  console.log(`https://repository.dcrgraphs.net/api/graphs/${req.query.dcrID}/sims/`);
+  if (req.query.dcrID != 0) {
 
-  req_instance.get(`https://repository.dcrgraphs.net/api/graphs/${req.query.dcrID}/sims/`)
-  .then(response => {
-    
+    console.log(`https://repository.dcrgraphs.net/api/graphs/${req.query.dcrID}/sims/`);
 
-    let data = JSON.parse(parser.toJson(response.data))
-    let result_array = [];
-    data.log.trace.map((item, index) => {
-      //console.log(item['init']);
+    req_instance.get(`https://repository.dcrgraphs.net/api/graphs/${req.query.dcrID}/sims/`)
+    .then(response => {
       
-      result_array.push({
-        'id': item['id'],
-        'title': item['title'],
-        'initialized': item['init']
+
+      let data = JSON.parse(parser.toJson(response.data))
+      let result_array = [];
+      data.log.trace.map((item, index) => {
+        //console.log(item['init']);
+        result_array.push({
+          'id': item['id'],
+          'title': item['title'],
+          'initialized': item['init']
+        })
       })
+
+      res.json({ message: result_array});
+      
     })
 
-    res.json({ message: result_array});
-  })
+  } else {
+    console.log('No dcrID supplied! Aborting the request!')
+  }
   
 })
 
