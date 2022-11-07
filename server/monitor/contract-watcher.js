@@ -39,13 +39,16 @@ let get_contract_abi = (contract_name) => {
 /**
  * Listens to all blockchain events on a particular smart contract
  */
-let listen = (address, contract_abi_name) => {
+let listen = (address, contract_abi) => {
   
   let contract_queue = new WaitQueue();
   
   web3 = connect();
   //json_interface = get_contract_abi('sample');
-  json_interface = get_contract_abi(contract_abi_name);
+  //json_interface = get_contract_abi(contract_abi_name);
+  json_interface = JSON.parse(contract_abi);
+  console.log(json_interface);
+  
   let contract = new web3.eth.Contract(json_interface, address);
 
   contract.events.allEvents({}, (error, event) => {

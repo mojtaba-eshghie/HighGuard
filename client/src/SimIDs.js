@@ -5,6 +5,8 @@ import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { useSelector, useDispatch } from 'react-redux'
+import { setInterfaceFile } from './interfaceFileSlice'
 
 // Creating websocket client
 let client = new W3CWebSocket("ws://localhost:4000");
@@ -84,6 +86,8 @@ let DropdownItems = ({ dcrID, items }) => {
 let SimIDs = ({ dcrID }) => {
     let [simItems, setSimItems] = useState([]);
     let [isStarted, setIsStarted] = useState("none");
+    let interfaceFile = useSelector((state) => state.interfaceFile.value)
+    let dispatch = useDispatch()
 
     let fetchItemsClicked = () => {
         async function fetchAPI() {
@@ -121,22 +125,32 @@ let SimIDs = ({ dcrID }) => {
     }
 
     let handleMainFormSubmit = () => {
-        isStarted = true;
-        let simulation_id = document.getElementById('selectedSimHolder').innerHTML;
         
-        let contract_addr = document.getElementById('contract_addr');
-        client.send(`${dcrID},${simulation_id},${contract_addr.value}`);
+        console.log('this is the interface file: ', interfaceFile);
+        let reader = new FileReader();
+        reader.readAsText(interfaceFile);
+        reader.onloadend = () => {
+            //console.log('DONE', reader.result); // readyState will be 2
+            isStarted = true;
+            let simulation_id = document.getElementById('selectedSimHolder').innerHTML;
+            
+            let contract_addr = document.getElementById('contract_addr');
+            client.send(`${dcrID}@${simulation_id}@${contract_addr.value}@${reader.result}`);
 
-        client.onmessage = (message) => {
-            console.log(message.data);
-            const dataFromServer = message.data;
-            console.log('got reply! ', dataFromServer.toString());
-            if (dataFromServer.toString().includes('Violation')) {
-                document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-danger" role="alert">${dataFromServer.toString()}</div>`;
-            } else {
-                document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-success" role="alert">${dataFromServer.toString()}</div>`;
+            client.onmessage = (message) => {
+                console.log(message.data);
+                const dataFromServer = message.data;
+                console.log('got reply! ', dataFromServer.toString());
+                if (dataFromServer.toString().includes('Violation')) {
+                    document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-danger" role="alert">${dataFromServer.toString()}</div>`;
+                } else {
+                    document.getElementById('makemesmaller').innerHTML = document.getElementById('makemesmaller').innerHTML + `<div class="alert alert-success" role="alert">${dataFromServer.toString()}</div>`;
+                }
             }
-        }
+        };
+        
+
+
     }
     
     

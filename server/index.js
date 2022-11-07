@@ -93,8 +93,9 @@ const ws_server = new Server({ server: app, port:4000 });
 ws_server.on('connection', (ws) => {
   console.log('New client connected!');
   ws.on('message', (message) => {
-    console.log(message.split(','));
-    let monitor_results_queue = monitor(message.split(',')[2], parseInt(message.split(',')[0]), parseInt(message.split(',')[1]), 'sample');
+    //console.log(message.split('@')[3]);
+    
+    let monitor_results_queue = monitor(message.split('@')[2], parseInt(message.split('@')[0]), parseInt(message.split('@')[1]), message.split('@')[3]);
 
     let run = () => {
       monitor_results_queue.shift().then( (event) => {
@@ -105,8 +106,11 @@ ws_server.on('connection', (ws) => {
           });
           setImmediate(run);
       });
+      
     }
     run();
+    
+    
   })
   ws.on('close', () => console.log('Client has disconnected!'));
 });
