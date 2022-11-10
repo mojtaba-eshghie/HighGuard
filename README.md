@@ -7,7 +7,7 @@ Run the `npm install` in the main repository directory and the following directo
  
  ```client```
 
-The system is tested with Node 16.17.0. The 
+The system is tested with Node 16.17.0.
 
 
 ### Usage
