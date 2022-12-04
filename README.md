@@ -1,4 +1,5 @@
-### Runtime Verification of Smart Contracts Using to Dynamic Condition Response Specifications
+### CLawK: Runtime Monitoring of Smart Contracts Using to Dynamic Condition Response Specifications
+
 
 ### Installation
 Run the `npm install` in the main repository directory and the following directories:
