@@ -1,5 +1,6 @@
 ### CLawK: Runtime Monitoring of Smart Contracts Using to Dynamic Condition Response Specifications
 
+The is still a work in progress. If you are interested in this project, contact me by email: eshghie@kth.se
 
 ### Installation
 Run the `npm install` in the main repository directory and the following directories:
