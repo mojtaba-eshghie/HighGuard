@@ -1,0 +1,447 @@
+<dcrgraph title="DCR -  Casino - latest version - without proxy" dataTypesStatus="hide" filterLevel="-1" insightFilter="false" zoomLevel="-2" formGroupStyle="Normal" formLayoutStyle="Horizontal" formShowPendingCount="true" graphBG="#ffffff" graphType="0" exercise="false">
+    <meta>
+        <graph id="1480501" hash="1304CC1CB8E77A588054CADE9B2BECF2" guid="9BBB8D1D-D65C-453D-8E3A-5FE294E92287" OwnerName="Mojtaba Eshghie" OwnerId="127017" categoryId="6830" categoryTitle="Default" Keywords=""/>
+        <revision id="3050833" type="minor" date="2023-01-09T16:02:59.570"/>
+        <organization id="1" name="Community"/>
+    </meta>
+    <specification>
+        <resources>
+            <events>
+                <event id="Activity6_1" type="subprocess">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="375" yLoc="75"/>
+                            <colors bg="#f3f3f3" textStroke="#000000" stroke="#999999"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>16</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                    <event id="Activity1">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="900" yLoc="550"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Operator</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>2</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity11">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="900" yLoc="125"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Operator</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose>closeCasino is like a sink component! It receives inclusions but does not give any!</purpose>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>15</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity4">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="575" yLoc="125"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Operator</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>6</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity4_1">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="400" yLoc="125"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Operator</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>8</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity6">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="400" yLoc="325"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Operator</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>10</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity7">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="900" yLoc="325"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role>Player</role>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>17</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="Activity9" type="subprocess">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="625" yLoc="500"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role/>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>19</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                        <event id="Activity10">
+                            <precondition message=""/>
+                            <custom>
+                                <visualization>
+                                    <location xLoc="650" yLoc="550"/>
+                                    <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                                </visualization>
+                                <roles>
+                                    <role>Player</role>
+                                </roles>
+                                <readRoles>
+                                    <readRole/>
+                                </readRoles>
+                                <groups>
+                                    <group/>
+                                </groups>
+                                <phases>
+                                    <phase/>
+                                </phases>
+                                <eventType/>
+                                <eventScope>private</eventScope>
+                                <eventTypeData/>
+                                <eventDescription/>
+                                <purpose/>
+                                <guide/>
+                                <insight use="false"/>
+                                <level>1</level>
+                                <sequence>20</sequence>
+                                <costs>0</costs>
+                                <eventData/>
+                                <interfaces/>
+                            </custom>
+                        </event>
+                    </event>
+                </event>
+            </events>
+            <subProcesses/>
+            <distribution/>
+            <labels>
+                <label id="Casino                                                                         "/>
+                <label id="addToPot"/>
+                <label id="closeCasino"/>
+                <label id="removeFromPot"/>
+                <label id="createGame"/>
+                <label id="decideBet"/>
+                <label id="timeoutBet"/>
+                <label id="placeBetWrapper"/>
+                <label id="placeBet"/>
+            </labels>
+            <labelMappings>
+                <labelMapping eventId="Activity6_1" labelId="Casino                                                                         "/>
+                <labelMapping eventId="Activity1" labelId="addToPot"/>
+                <labelMapping eventId="Activity11" labelId="closeCasino"/>
+                <labelMapping eventId="Activity4" labelId="removeFromPot"/>
+                <labelMapping eventId="Activity4_1" labelId="createGame"/>
+                <labelMapping eventId="Activity6" labelId="decideBet"/>
+                <labelMapping eventId="Activity7" labelId="timeoutBet"/>
+                <labelMapping eventId="Activity9" labelId="placeBetWrapper"/>
+                <labelMapping eventId="Activity10" labelId="placeBet"/>
+            </labelMappings>
+            <expressions/>
+            <variables/>
+            <variableAccesses>
+                <writeAccesses/>
+            </variableAccesses>
+            <custom>
+                <keywords/>
+                <roles>
+                    <role description="" specification="">Internal</role>
+                    <role description="" specification="">Operator</role>
+                    <role description="" specification="">Player</role>
+                </roles>
+                <groups/>
+                <phases/>
+                <eventTypes/>
+                <eventParameters/>
+                <graphDetails>DCR Process</graphDetails>
+                <graphDocumentation/>
+                <graphLanguage>en-US</graphLanguage>
+                <graphDomain>process</graphDomain>
+                <graphFilters>
+                    <filteredGroups/>
+                    <filteredRoles/>
+                    <filteredPhases/>
+                </graphFilters>
+                <hightlighterMarkup id="HLM"/>
+                <highlighterMarkup>
+                    <highlightLayers>
+                        <highlightLayer default="true" name="description">DCR Process</highlightLayer>
+                    </highlightLayers>
+                    <highlights/>
+                </highlighterMarkup>
+            </custom>
+        </resources>
+        <constraints>
+            <conditions>
+                <condition sourceId="Activity9" targetId="Activity7" filterLevel="1" description="" time="P1D" groups="" link="Activity6_1.Activity9--condition--Activity6_1.Activity7"/>
+            </conditions>
+            <responses/>
+            <coresponses/>
+            <excludes>
+                <exclude sourceId="Activity11" targetId="Activity11" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity4_1" targetId="Activity4_1" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity6" targetId="Activity6" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity11" targetId="Activity6_1" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity6" targetId="Activity7" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity7" targetId="Activity7" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity10" targetId="Activity10" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity10" targetId="Activity4" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="Activity7" targetId="Activity6" filterLevel="1" description="" time="" groups=""/>
+            </excludes>
+            <includes>
+                <include sourceId="Activity6" targetId="Activity11" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity6" targetId="Activity4_1" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity6" targetId="Activity4" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity7" targetId="Activity11" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity7" targetId="Activity4" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity7" targetId="Activity4_1" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity10" targetId="Activity6" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity4_1" targetId="Activity10" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="Activity9" targetId="Activity7" filterLevel="1" description="" time="" groups=""/>
+            </includes>
+            <milestones>
+                <milestone sourceId="Activity9" targetId="Activity7" filterLevel="1" description="" time="P1D" groups="" link="Activity6_1.Activity9--condition--Activity6_1.Activity7"/>
+            </milestones>
+            <updates/>
+            <spawns/>
+            <templateSpawns/>
+        </constraints>
+    </specification>
+    <runtime>
+        <custom>
+            <globalMarking>
+                <enabled>
+                    <event fullLabel="addToPot" fullPath="Activity1"/>
+                    <event fullLabel="closeCasino" fullPath="Activity11"/>
+                    <event fullLabel="removeFromPot" fullPath="Activity4"/>
+                    <event fullLabel="createGame" fullPath="Activity4_1" time="2023-01-09T14:02:10.5330000+00:00"/>
+                </enabled>
+                <enabledSubprocesses>
+                    <event fullLabel="Casino                                                                         .placeBetWrapper" fullPath="Activity6_1.Activity9" time="2023-01-09T14:02:10.5330000+00:00"/>
+                </enabledSubprocesses>
+                <executed>
+                    <event fullLabel="placeBet" fullPath="Activity10" time="2023-01-09T14:02:10.5330000+00:00"/>
+                    <event fullLabel="createGame" fullPath="Activity4_1" time="2023-01-09T14:02:10.5330000+00:00"/>
+                    <event fullLabel="timeoutBet" fullPath="Activity7" time="2023-01-10T14:02:10.5330000+00:00"/>
+                </executed>
+                <included>
+                    <event fullLabel="addToPot" fullPath="Activity1"/>
+                    <event fullLabel="closeCasino" fullPath="Activity11"/>
+                    <event fullLabel="removeFromPot" fullPath="Activity4"/>
+                    <event fullLabel="createGame" fullPath="Activity4_1" time="2023-01-09T14:02:10.5330000+00:00"/>
+                </included>
+            </globalMarking>
+            <time current="2023-01-10T14:02:10.533Z" deadline="null" delay="null"/>
+        </custom>
+        <marking>
+            <globalStore/>
+            <executed>
+                <event id="Activity4_1" time="2023-01-09T14:02:10.533Z"/>
+                <event id="Activity7" time="2023-01-10T14:02:10.533Z"/>
+                <event id="Activity9" time="2023-01-09T14:02:10.533Z"/>
+                <event id="Activity10" time="2023-01-09T14:02:10.533Z"/>
+            </executed>
+            <included>
+                <event id="Activity6_1"/>
+                <event id="Activity1"/>
+                <event id="Activity11"/>
+                <event id="Activity4"/>
+                <event id="Activity4_1"/>
+                <event id="Activity9"/>
+            </included>
+            <pendingResponses/>
+        </marking>
+    </runtime>
+</dcrgraph>

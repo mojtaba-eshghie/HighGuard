@@ -1,0 +1,1170 @@
+<dcrgraph title="Chainlink Bridge Contract - COMPLEX - v2" dataTypesStatus="hide" filterLevel="-1" insightFilter="false" zoomLevel="-3" formGroupStyle="Normal" formLayoutStyle="Horizontal" formShowPendingCount="true" graphBG="#efefef" graphType="0" exercise="false">
+    <specification>
+        <resources>
+            <events>
+                <event id="_hasVotedOnProposal">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="475" yLoc="75"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>2</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="Activity2">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="300" yLoc="250"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>3</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="renounceAdmin">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="475" yLoc="250"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>4</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminAddRelayer">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="800" yLoc="100"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>8</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                    <event id="_totalRelayers">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="825" yLoc="150"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role/>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>16</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                </event>
+                <event id="adminRemoveRelayer">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="650" yLoc="250"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>9</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminSetResource">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="825" yLoc="425"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>10</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminSetGenericResource">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1000" yLoc="250"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>11</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminSetBurnable">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1000" yLoc="425"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>12</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminSetDepositNonce">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1175" yLoc="250"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>13</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminSetForwarder">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1175" yLoc="425"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>14</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="getProposal">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="650" yLoc="75"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>15</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminChangeFee">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1000" yLoc="75"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>17</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="adminWithdraw">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="1300" yLoc="75"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>18</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="deposit">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="150" yLoc="775"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>19</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="voteProposal">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="150" yLoc="925"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>relayers</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>20</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="transferFunds">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="675" yLoc="425"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>23</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="_pause">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="550" yLoc="775"/>
+                            <colors bg="#d9d2e9" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>25</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="_unpause">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="550" yLoc="975"/>
+                            <colors bg="#d9d2e9" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>26</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="relayerThreshold">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="700" yLoc="1375"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>admin</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>32</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="blockNumber" computation="blockNumber-computation">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="700" yLoc="1125"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>blockchain</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>34</sequence>
+                        <costs>0</costs>
+                        <eventData>
+                            <dataType sequence="34" width="small" min="NaN" max="NaN" placeholder="1" hinttext="">int</dataType>
+                            <validationRules/>
+                        </eventData>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="_expiry">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="700" yLoc="975"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>relayers</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>38</sequence>
+                        <costs>0</costs>
+                        <eventData>
+                            <dataType sequence="38" width="small" min="NaN" max="NaN" placeholder="" hinttext="">int</dataType>
+                            <validationRules/>
+                        </eventData>
+                        <interfaces/>
+                    </custom>
+                </event>
+            </events>
+            <subProcesses>
+                <subProcess id="Process0" isRefer="false" multiInstance="true" name="_proposal" instanceId="" template="">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="150" yLoc="1100"/>
+                            <colors bg="#cfe2f3" textStroke="#000000" stroke="#4da1e8"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>28</sequence>
+                        <costs>0</costs>
+                        <label>_proposal</label>
+                    </custom>
+                    <dcrgraph title="Chainlink Bridge Contract - COMPLEX - v2" dataTypesStatus="hide" filterLevel="-1" insightFilter="false" zoomLevel="-3" formGroupStyle="Normal" formLayoutStyle="Horizontal" formShowPendingCount="true" graphBG="#efefef" graphType="0" exercise="false">
+                        <meta>
+                            <graph id="1480441" hash="794722D63940AE28746F722FEC51EA91" guid="90D96DD2-2F7B-46C1-93AC-7EFECB10CD53" OwnerName="Mojtaba Eshghie" OwnerId="127017" categoryId="6830" categoryTitle="Default" Keywords=""/>
+                            <revision id="3050945" type="minor" date="2023-01-09T18:42:56.010"/>
+                            <organization id="1" name="Community"/>
+                        </meta>
+                        <specification>
+                            <resources>
+                                <events>
+                                    <event id="Activity28">
+                                        <precondition message=""/>
+                                        <custom>
+                                            <visualization>
+                                                <location xLoc="175" yLoc="1325"/>
+                                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                                            </visualization>
+                                            <roles>
+                                                <role>relayers</role>
+                                            </roles>
+                                            <readRoles>
+                                                <readRole/>
+                                            </readRoles>
+                                            <groups>
+                                                <group/>
+                                            </groups>
+                                            <phases>
+                                                <phase/>
+                                            </phases>
+                                            <eventType/>
+                                            <eventScope>private</eventScope>
+                                            <eventTypeData/>
+                                            <eventDescription>&lt;p&gt;We should model the failed executeProposal function as well!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;</eventDescription>
+                                            <purpose/>
+                                            <guide/>
+                                            <insight use="false"/>
+                                            <level>1</level>
+                                            <sequence>37</sequence>
+                                            <costs>0</costs>
+                                            <eventData/>
+                                            <interfaces/>
+                                        </custom>
+                                    </event>
+                                    <event id="cancelPoposal">
+                                        <precondition message=""/>
+                                        <custom>
+                                            <visualization>
+                                                <location xLoc="200" yLoc="1175"/>
+                                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                                            </visualization>
+                                            <roles>
+                                                <role>relayers</role>
+                                            </roles>
+                                            <readRoles>
+                                                <readRole/>
+                                            </readRoles>
+                                            <groups>
+                                                <group/>
+                                            </groups>
+                                            <phases>
+                                                <phase/>
+                                            </phases>
+                                            <eventType/>
+                                            <eventScope>private</eventScope>
+                                            <eventTypeData/>
+                                            <eventDescription/>
+                                            <purpose/>
+                                            <guide/>
+                                            <insight use="false"/>
+                                            <level>1</level>
+                                            <sequence>36</sequence>
+                                            <costs>0</costs>
+                                            <eventData/>
+                                            <interfaces/>
+                                        </custom>
+                                    </event>
+                                    <event id="proposedBlock">
+                                        <precondition message=""/>
+                                        <custom>
+                                            <visualization>
+                                                <location xLoc="525" yLoc="1150"/>
+                                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                                            </visualization>
+                                            <roles>
+                                                <role>relayers</role>
+                                            </roles>
+                                            <readRoles>
+                                                <readRole/>
+                                            </readRoles>
+                                            <groups>
+                                                <group/>
+                                            </groups>
+                                            <phases>
+                                                <phase/>
+                                            </phases>
+                                            <eventType/>
+                                            <eventScope>private</eventScope>
+                                            <eventTypeData/>
+                                            <eventDescription/>
+                                            <purpose/>
+                                            <guide/>
+                                            <insight use="false"/>
+                                            <level>1</level>
+                                            <sequence>31</sequence>
+                                            <costs>0</costs>
+                                            <eventData>
+                                                <dataType sequence="31" width="small" min="NaN" max="NaN" placeholder="" hinttext="">int</dataType>
+                                                <validationRules/>
+                                            </eventData>
+                                            <interfaces/>
+                                        </custom>
+                                    </event>
+                                    <event id="yes" computation="yes-computation">
+                                        <precondition message=""/>
+                                        <custom>
+                                            <visualization>
+                                                <location xLoc="525" yLoc="1350"/>
+                                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                                            </visualization>
+                                            <roles>
+                                                <role>relayers</role>
+                                            </roles>
+                                            <readRoles>
+                                                <readRole/>
+                                            </readRoles>
+                                            <groups>
+                                                <group/>
+                                            </groups>
+                                            <phases>
+                                                <phase/>
+                                            </phases>
+                                            <eventType/>
+                                            <eventScope>private</eventScope>
+                                            <eventTypeData/>
+                                            <eventDescription/>
+                                            <purpose/>
+                                            <guide/>
+                                            <insight use="false"/>
+                                            <level>1</level>
+                                            <sequence>35</sequence>
+                                            <costs>0</costs>
+                                            <eventData>
+                                                <dataType sequence="35" width="small" min="NaN" max="NaN" placeholder="" hinttext="">int</dataType>
+                                                <validationRules/>
+                                            </eventData>
+                                            <interfaces/>
+                                        </custom>
+                                    </event>
+                                </events>
+                                <subProcesses/>
+                                <distribution/>
+                                <labels>
+                                    <label id="executeProposal"/>
+                                    <label id="cancelPoposal"/>
+                                    <label id="proposedBlock"/>
+                                    <label id="yes"/>
+                                </labels>
+                                <labelMappings>
+                                    <labelMapping eventId="Activity28" labelId="executeProposal"/>
+                                    <labelMapping eventId="cancelPoposal" labelId="cancelPoposal"/>
+                                    <labelMapping eventId="proposedBlock" labelId="proposedBlock"/>
+                                    <labelMapping eventId="yes" labelId="yes"/>
+                                </labelMappings>
+                                <expressions>
+                                    <expression id="proposedBlock-path-yes--include" value="(blockNumber-proposedBlock &lt;= _expiry)  &amp;&amp; !_unpause"/>
+                                    <expression id="yes-path-cancelPoposal--include" value="yes &lt; relayerThreshold"/>
+                                    <expression id="yes-path-cancelPoposal--exclude" value="not(yes &lt; relayerThreshold)"/>
+                                    <expression id="yes-path-Activity28--include" value="(yes &gt;= relayerThreshold) &amp;&amp; !_unpause"/>
+                                    <expression id="yes-path-Activity28--exclude" value="not((yes &gt;= relayerThreshold) &amp;&amp; !_unpause)"/>
+                                    <expression id="proposedBlock-path-cancelPoposal--include" value="(blockNumber-proposedBlock) &gt; _expiry"/>
+                                    <expression id="proposedBlock-path-cancelPoposal--exclude" value="not((blockNumber-proposedBlock) &gt; _expiry)"/>
+                                    <expression id="cancelPoposal-path-cancelPoposal--exclude" value="(blockNumber-proposedBlock) &gt; _expiry"/>
+                                    <expression id="yes-computation" value="yes+1"/>
+                                </expressions>
+                                <variables/>
+                                <variableAccesses>
+                                    <writeAccesses/>
+                                </variableAccesses>
+                                <custom>
+                                    <keywords/>
+                                    <roles>
+                                        <role description="" specification="">admin</role>
+                                        <role description="" specification="">blockchain</role>
+                                        <role description="" specification="">default_admin_deployer</role>
+                                        <role description="" specification="">relayers</role>
+                                    </roles>
+                                    <groups/>
+                                    <phases/>
+                                    <eventTypes/>
+                                    <eventParameters/>
+                                    <graphDetails>DCR Process</graphDetails>
+                                    <graphDocumentation/>
+                                    <graphLanguage>en-US</graphLanguage>
+                                    <graphDomain>process</graphDomain>
+                                    <graphFilters>
+                                        <filteredGroups/>
+                                        <filteredRoles/>
+                                        <filteredPhases/>
+                                    </graphFilters>
+                                    <hightlighterMarkup id="HLM"/>
+                                    <highlighterMarkup>
+                                        <highlightLayers>
+                                            <highlightLayer default="true" name="description">DCR Process</highlightLayer>
+                                        </highlightLayers>
+                                        <highlights/>
+                                    </highlighterMarkup>
+                                </custom>
+                            </resources>
+                            <constraints>
+                                <conditions/>
+                                <responses>
+                                    <response sourceId="proposedBlock" targetId="yes" filterLevel="1" description="" time="" groups=""/>
+                                    <response sourceId="proposedBlock" targetId="cancelPoposal" filterLevel="1" description="" time="" groups=""/>
+                                </responses>
+                                <coresponses/>
+                                <excludes>
+                                    <exclude sourceId="yes" targetId="cancelPoposal" filterLevel="1" description="" time="" groups="" expressionId="yes-path-cancelPoposal--exclude" link="Process0.yes--include--Process0.cancelPoposal"/>
+                                    <exclude sourceId="yes" targetId="Activity28" filterLevel="1" description="" time="" groups="" expressionId="yes-path-Activity28--exclude" link="Process0.yes--include--Process0.Activity28"/>
+                                    <exclude sourceId="proposedBlock" targetId="cancelPoposal" filterLevel="1" description="" time="" groups="" expressionId="proposedBlock-path-cancelPoposal--exclude" link="Process0.proposedBlock--include--Process0.cancelPoposal"/>
+                                    <exclude sourceId="proposedBlock" targetId="proposedBlock" filterLevel="1" description="" time="" groups=""/>
+                                    <exclude sourceId="cancelPoposal" targetId="cancelPoposal" filterLevel="1" description="" time="" groups="" expressionId="cancelPoposal-path-cancelPoposal--exclude"/>
+                                    <exclude sourceId="yes" targetId="yes" filterLevel="1" description="" time="" groups=""/>
+                                    <exclude sourceId="Activity28" targetId="Activity28" filterLevel="1" description="" time="" groups=""/>
+                                </excludes>
+                                <includes>
+                                    <include sourceId="proposedBlock" targetId="yes" filterLevel="1" description="" time="" groups="" expressionId="proposedBlock-path-yes--include"/>
+                                    <include sourceId="yes" targetId="cancelPoposal" filterLevel="1" description="" time="" groups="" expressionId="yes-path-cancelPoposal--include" link="Process0.yes--include--Process0.cancelPoposal"/>
+                                    <include sourceId="yes" targetId="Activity28" filterLevel="1" description="" time="" groups="" expressionId="yes-path-Activity28--include" link="Process0.yes--include--Process0.Activity28"/>
+                                    <include sourceId="proposedBlock" targetId="cancelPoposal" filterLevel="1" description="" time="" groups="" expressionId="proposedBlock-path-cancelPoposal--include" link="Process0.proposedBlock--include--Process0.cancelPoposal"/>
+                                </includes>
+                                <milestones/>
+                                <updates/>
+                                <spawns/>
+                                <templateSpawns/>
+                            </constraints>
+                        </specification>
+                        <runtime>
+                            <custom>
+                                <globalMarking/>
+                            </custom>
+                            <marking>
+                                <globalStore/>
+                                <executed/>
+                                <included>
+                                    <event id="proposedBlock"/>
+                                </included>
+                                <pendingResponses/>
+                            </marking>
+                        </runtime>
+                    </dcrgraph>
+                </subProcess>
+            </subProcesses>
+            <distribution/>
+            <labels>
+                <label id="_hasVotedOnProposal"/>
+                <label id="isRelayer"/>
+                <label id="renounceAdmin"/>
+                <label id="adminAddRelayer"/>
+                <label id="_totalRelayers"/>
+                <label id="adminRemoveRelayer"/>
+                <label id="adminSetResource"/>
+                <label id="adminSetGenericResource"/>
+                <label id="adminSetBurnable"/>
+                <label id="adminSetDepositNonce"/>
+                <label id="adminSetForwarder"/>
+                <label id="getProposal"/>
+                <label id="adminChangeFee"/>
+                <label id="adminWithdraw"/>
+                <label id="deposit"/>
+                <label id="voteProposal "/>
+                <label id="transferFunds"/>
+                <label id="_pause"/>
+                <label id="_unpause"/>
+                <label id="relayerThreshold"/>
+                <label id="blockNumber"/>
+                <label id="_expiry"/>
+            </labels>
+            <labelMappings>
+                <labelMapping eventId="_hasVotedOnProposal" labelId="_hasVotedOnProposal"/>
+                <labelMapping eventId="Activity2" labelId="isRelayer"/>
+                <labelMapping eventId="renounceAdmin" labelId="renounceAdmin"/>
+                <labelMapping eventId="adminAddRelayer" labelId="adminAddRelayer"/>
+                <labelMapping eventId="_totalRelayers" labelId="_totalRelayers"/>
+                <labelMapping eventId="adminRemoveRelayer" labelId="adminRemoveRelayer"/>
+                <labelMapping eventId="adminSetResource" labelId="adminSetResource"/>
+                <labelMapping eventId="adminSetGenericResource" labelId="adminSetGenericResource"/>
+                <labelMapping eventId="adminSetBurnable" labelId="adminSetBurnable"/>
+                <labelMapping eventId="adminSetDepositNonce" labelId="adminSetDepositNonce"/>
+                <labelMapping eventId="adminSetForwarder" labelId="adminSetForwarder"/>
+                <labelMapping eventId="getProposal" labelId="getProposal"/>
+                <labelMapping eventId="adminChangeFee" labelId="adminChangeFee"/>
+                <labelMapping eventId="adminWithdraw" labelId="adminWithdraw"/>
+                <labelMapping eventId="deposit" labelId="deposit"/>
+                <labelMapping eventId="voteProposal" labelId="voteProposal "/>
+                <labelMapping eventId="transferFunds" labelId="transferFunds"/>
+                <labelMapping eventId="_pause" labelId="_pause"/>
+                <labelMapping eventId="_unpause" labelId="_unpause"/>
+                <labelMapping eventId="relayerThreshold" labelId="relayerThreshold"/>
+                <labelMapping eventId="blockNumber" labelId="blockNumber"/>
+                <labelMapping eventId="_expiry" labelId="_expiry"/>
+            </labelMappings>
+            <expressions>
+                <expression id="blockNumber-computation" value="blockNumber+1"/>
+            </expressions>
+            <variables/>
+            <variableAccesses>
+                <writeAccesses/>
+            </variableAccesses>
+            <custom>
+                <keywords/>
+                <roles>
+                    <role description="" specification="">admin</role>
+                    <role description="" specification="">blockchain</role>
+                    <role description="" specification="">default_admin_deployer</role>
+                    <role description="" specification="">relayers</role>
+                </roles>
+                <groups/>
+                <phases/>
+                <eventTypes/>
+                <eventParameters/>
+                <graphDetails>DCR Process</graphDetails>
+                <graphDocumentation/>
+                <graphLanguage>en-US</graphLanguage>
+                <graphDomain>process</graphDomain>
+                <graphFilters>
+                    <filteredGroups/>
+                    <filteredRoles/>
+                    <filteredPhases/>
+                </graphFilters>
+                <hightlighterMarkup id="HLM"/>
+                <highlighterMarkup>
+                    <highlightLayers>
+                        <highlightLayer default="true" name="description">DCR Process</highlightLayer>
+                    </highlightLayers>
+                    <highlights/>
+                </highlighterMarkup>
+            </custom>
+        </resources>
+        <constraints>
+            <conditions/>
+            <responses>
+                <response sourceId="blockNumber" targetId="blockNumber" filterLevel="1" description="" time="PT1S" groups=""/>
+            </responses>
+            <coresponses/>
+            <excludes>
+                <exclude sourceId="_pause" targetId="_pause" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="_unpause" targetId="_unpause" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="_pause" targetId="voteProposal" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="_pause" targetId="deposit" filterLevel="1" description="" time="" groups=""/>
+            </excludes>
+            <includes>
+                <include sourceId="_unpause" targetId="deposit" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="_unpause" targetId="voteProposal" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="_unpause" targetId="_pause" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="_pause" targetId="_unpause" filterLevel="1" description="" time="" groups=""/>
+            </includes>
+            <milestones/>
+            <updates/>
+            <spawns>
+                <spawn sourceId="voteProposal" targetId="Process0" filterLevel="1" description="" time="" groups="" spawnType="instance"/>
+            </spawns>
+            <templateSpawns/>
+        </constraints>
+    </specification>
+    <runtime>
+        <custom>
+            <globalMarking/>
+        </custom>
+        <marking>
+            <globalStore/>
+            <executed/>
+            <included>
+                <event id="_hasVotedOnProposal"/>
+                <event id="Activity2"/>
+                <event id="renounceAdmin"/>
+                <event id="adminAddRelayer"/>
+                <event id="_totalRelayers"/>
+                <event id="adminRemoveRelayer"/>
+                <event id="adminSetResource"/>
+                <event id="adminSetGenericResource"/>
+                <event id="adminSetBurnable"/>
+                <event id="adminSetDepositNonce"/>
+                <event id="adminSetForwarder"/>
+                <event id="getProposal"/>
+                <event id="adminChangeFee"/>
+                <event id="adminWithdraw"/>
+                <event id="deposit"/>
+                <event id="voteProposal"/>
+                <event id="transferFunds"/>
+                <event id="_pause"/>
+                <event id="relayerThreshold"/>
+                <event id="blockNumber"/>
+                <event id="_expiry"/>
+            </included>
+            <pendingResponses>
+                <event id="_totalRelayers"/>
+                <event id="blockNumber"/>
+            </pendingResponses>
+        </marking>
+    </runtime>
+</dcrgraph>

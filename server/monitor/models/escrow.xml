@@ -1,0 +1,263 @@
+<dcrgraph title="escrow- new - thomas" dataTypesStatus="hide" filterLevel="-1" insightFilter="false" zoomLevel="3" formGroupStyle="Normal" formLayoutStyle="Horizontal" formShowPendingCount="true" graphBG="#ffffff" graphType="0" exercise="false">
+    <meta>
+        <graph id="1327649" hash="173566C7A0D9F75716D9206A40BE9931" guid="8D199193-970D-4C10-920F-9E7CCA8C8B8A" OwnerName="Mojtaba Eshghie" OwnerId="127017" categoryId="6830" categoryTitle="Default" Keywords=""/>
+        <revision id="3050144" type="minor" date="2023-01-08T18:28:20.200"/>
+        <organization id="1" name="Community"/>
+    </meta>
+    <specification>
+        <resources>
+            <events>
+                <event id="placeInEscrow">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="175" yLoc="75"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role>sender</role>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>1</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="withdrawFromEscrow">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="200" yLoc="275"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>4</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                </event>
+                <event id="releaseEscrow" type="subprocess">
+                    <precondition message=""/>
+                    <custom>
+                        <visualization>
+                            <location xLoc="500" yLoc="50"/>
+                            <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                        </visualization>
+                        <roles>
+                            <role/>
+                        </roles>
+                        <readRoles>
+                            <readRole/>
+                        </readRoles>
+                        <groups>
+                            <group/>
+                        </groups>
+                        <phases>
+                            <phase/>
+                        </phases>
+                        <eventType/>
+                        <eventScope>private</eventScope>
+                        <eventTypeData/>
+                        <eventDescription/>
+                        <purpose/>
+                        <guide/>
+                        <insight use="false"/>
+                        <level>1</level>
+                        <sequence>5</sequence>
+                        <costs>0</costs>
+                        <eventData/>
+                        <interfaces/>
+                    </custom>
+                    <event id="releaseEscrowBySender">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="525" yLoc="100"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role/>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>3</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                    <event id="releaseEscrowByReceiver">
+                        <precondition message=""/>
+                        <custom>
+                            <visualization>
+                                <location xLoc="525" yLoc="275"/>
+                                <colors bg="#f9f7ed" textStroke="#000000" stroke="#cccccc"/>
+                            </visualization>
+                            <roles>
+                                <role/>
+                            </roles>
+                            <readRoles>
+                                <readRole/>
+                            </readRoles>
+                            <groups>
+                                <group/>
+                            </groups>
+                            <phases>
+                                <phase/>
+                            </phases>
+                            <eventType/>
+                            <eventScope>private</eventScope>
+                            <eventTypeData/>
+                            <eventDescription/>
+                            <purpose/>
+                            <guide/>
+                            <insight use="false"/>
+                            <level>1</level>
+                            <sequence>2</sequence>
+                            <costs>0</costs>
+                            <eventData/>
+                            <interfaces/>
+                        </custom>
+                    </event>
+                </event>
+            </events>
+            <subProcesses/>
+            <distribution/>
+            <labels>
+                <label id="placeInEscrow"/>
+                <label id="withdrawFromEscrow"/>
+                <label id="releaseEscrow"/>
+                <label id="releaseEscrowBySender"/>
+                <label id="releaseEscrowByReceiver"/>
+            </labels>
+            <labelMappings>
+                <labelMapping eventId="placeInEscrow" labelId="placeInEscrow"/>
+                <labelMapping eventId="withdrawFromEscrow" labelId="withdrawFromEscrow"/>
+                <labelMapping eventId="releaseEscrow" labelId="releaseEscrow"/>
+                <labelMapping eventId="releaseEscrowBySender" labelId="releaseEscrowBySender"/>
+                <labelMapping eventId="releaseEscrowByReceiver" labelId="releaseEscrowByReceiver"/>
+            </labelMappings>
+            <expressions/>
+            <variables/>
+            <variableAccesses>
+                <writeAccesses/>
+            </variableAccesses>
+            <custom>
+                <keywords/>
+                <roles>
+                    <role description="" specification="">monitor</role>
+                    <role description="" specification="">receiver</role>
+                    <role description="" specification="">sender</role>
+                </roles>
+                <groups/>
+                <phases/>
+                <eventTypes/>
+                <eventParameters/>
+                <graphDetails>DCR Process</graphDetails>
+                <graphDocumentation/>
+                <graphLanguage>en-US</graphLanguage>
+                <graphDomain>process</graphDomain>
+                <graphFilters>
+                    <filteredGroups/>
+                    <filteredRoles/>
+                    <filteredPhases/>
+                </graphFilters>
+                <hightlighterMarkup id="HLM"/>
+                <highlighterMarkup>
+                    <highlightLayers>
+                        <highlightLayer default="true" name="description">DCR Process</highlightLayer>
+                    </highlightLayers>
+                    <highlights/>
+                </highlighterMarkup>
+            </custom>
+        </resources>
+        <constraints>
+            <conditions/>
+            <responses/>
+            <coresponses/>
+            <excludes>
+                <exclude sourceId="placeInEscrow" targetId="placeInEscrow" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="releaseEscrow" targetId="releaseEscrow" filterLevel="1" description="" time="" groups=""/>
+                <exclude sourceId="withdrawFromEscrow" targetId="withdrawFromEscrow" filterLevel="1" description="" time="" groups=""/>
+            </excludes>
+            <includes>
+                <include sourceId="placeInEscrow" targetId="releaseEscrow" filterLevel="1" description="" time="" groups=""/>
+                <include sourceId="releaseEscrow" targetId="withdrawFromEscrow" filterLevel="1" description="" time="" groups=""/>
+            </includes>
+            <milestones/>
+            <updates/>
+            <spawns/>
+            <templateSpawns/>
+        </constraints>
+    </specification>
+    <runtime>
+        <custom>
+            <globalMarking/>
+        </custom>
+        <marking>
+            <globalStore/>
+            <executed/>
+            <included>
+                <event id="placeInEscrow"/>
+                <event id="releaseEscrowBySender"/>
+                <event id="releaseEscrowByReceiver"/>
+            </included>
+            <pendingResponses>
+                <event id="releaseEscrowBySender" deadline="P1W"/>
+                <event id="releaseEscrowByReceiver"/>
+            </pendingResponses>
+        </marking>
+    </runtime>
+</dcrgraph>
