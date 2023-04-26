@@ -1,7 +1,7 @@
 let prompt = require('prompt-sync')();
 let fs = require('fs');
 let connect = require('@databases/sqlite');
-//let {sql} = require('@databases/sqlite');
+let {sql} = require('@databases/sqlite');
 let sqlite3 = require('sqlite3');
 let path = require('path');
 
