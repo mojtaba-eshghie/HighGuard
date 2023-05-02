@@ -3,8 +3,8 @@ const Web3 = require("web3");
 let fs = require('fs');
 var path = require('path');
 
-ETHEREUM_NETWORK = "goerli"
-INFURA_API_KEY = "wss://goerli.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
+ETHEREUM_NETWORK = "sepolia"
+INFURA_API_KEY = "wss://sepolia.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
 SIGNER_PRIVATE_KEY = "507fa0895604a7826a816b4100da7d5c05a1d53b18c26a1db5eebac3357a4b05"
 
 
@@ -52,6 +52,7 @@ let listen = (address, contract_abi) => {
   let contract = new web3.eth.Contract(json_interface, address);
 
   contract.events.allEvents({}, (error, event) => {
+    console.log('We received an event: ' + event);
     contract_queue.push(event);
   })
   

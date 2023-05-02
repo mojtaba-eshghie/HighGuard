@@ -37,7 +37,8 @@ let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
      * Serves the newly arrived event in the queue
      */
     let serve = async (event, dcr_id, sim_id, monitor_results_queue) => {
-      let event_name = event.event;
+
+      let event_name = event.returnValues.functionName;
       //let result = await execute_event(dcr_id, sim_id, event_name);
       execute_event(dcr_id, sim_id, event_name, monitor_results_queue).then((result) => {
         //console.log('39: inside dcr_caller then: ', result);
@@ -51,10 +52,13 @@ let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
      */
     let listen = (contract_queue, dcr_id, sim_id, monitor_results_queue_) => {
       let monitor_results_queue = monitor_results_queue_;
+      console.log('We are in listen in dcr-caller.js');
 
 
       let run = () => {
+        console.log('The run is running, ... ');
         contract_queue.shift().then( (event) => {
+          console.log("this is the event in dcr-caller: " + event);
           serve(event, dcr_id, sim_id, monitor_results_queue);
           setImmediate(run); 
         });
