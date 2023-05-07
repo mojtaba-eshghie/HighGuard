@@ -15,7 +15,7 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-scripts": "5.0.1",
+    "react-scripts": "4.0.3",
     "react-use-websocket": "^4.2.0",
     "web-vitals": "^2.1.4",
     "ws": "^8.10.0"
@@ -30,6 +30,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "devServer": {
+    "allowedHosts": [
+      "localhost"
     ]
   },
   "browserslist": {
