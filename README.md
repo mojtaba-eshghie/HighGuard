@@ -20,7 +20,7 @@ In `server`:
 ```npm start```
 The server will ask for your DCRGraphs credentials the first time you run it. The credentials will be stored under `server/monitor/datastore/` directory as a sqlite database.
 
-In `client
+In `client`:
 
 ```npm start```
 
