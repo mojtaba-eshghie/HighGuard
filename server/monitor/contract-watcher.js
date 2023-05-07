@@ -1,7 +1,8 @@
 let WaitQueue = require('wait-queue');
-const Web3 = require("web3");
+let Web3 = require("web3");
 let fs = require('fs');
-var path = require('path');
+let path = require('path');
+let scutil = require('./utils/scutil');
 
 ETHEREUM_NETWORK = "sepolia"
 INFURA_API_KEY = "wss://sepolia.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
@@ -44,8 +45,6 @@ let listen = (address, contract_abi) => {
   let contract_queue = new WaitQueue();
   
   web3 = connect();
-  //json_interface = get_contract_abi('sample');
-  //json_interface = get_contract_abi(contract_abi_name);
   json_interface = JSON.parse(contract_abi);
   console.log(json_interface);
   
@@ -53,6 +52,7 @@ let listen = (address, contract_abi) => {
 
   contract.events.allEvents({}, (error, event) => {
     console.log('We received an event: ' + event);
+    event.contract_abi = contract_abi;
     contract_queue.push(event);
   })
   
@@ -62,4 +62,71 @@ let listen = (address, contract_abi) => {
 
 
 
-module.exports = listen;
+
+
+
+let get_contract_transactions = (address, contract_abi) => {
+  let contract_queue = new WaitQueue();
+
+  let web3 = connect();
+  web3.eth.subscribe('newBlockHeaders', (error, header) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    // Get the block object for the current header
+    web3.eth.getBlock(header.number, true, (error, block) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      // Iterate over all transactions in the block
+      block.transactions.forEach((tx) => {
+        // Check if the transaction involves the specified contract address
+        if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
+          console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
+          console.log(`Transaction object: ${JSON.stringify(tx)}`);
+          console.log(`Transaction hash: ${tx.hash}`);
+
+          // Get the function signature from the transaction data
+          const signature = tx.input.slice(0, 10);
+
+          // Find the function ABI that matches the signature
+          const method = JSON.parse(contract_abi).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
+        
+          // Decode the function parameters
+          if (method) {
+            const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
+            
+            let tx_ = {
+              'tx_hash': tx.hash,
+              'function_name': method ? method.name : 'Unknown',
+              'params': decodedParams, 
+              'contract_abi': contract_abi
+            };
+
+            contract_queue.push(tx_);
+
+            console.log(`Function name: ${method.name}`);
+            console.log(`Function parameters: ${JSON.stringify(decodedParams)}`);
+          } else {
+            console.log("Function name: Unknown");
+            console.log(`Function parameters: ${JSON.stringify(tx.input.slice(10))}`);
+          }
+          
+
+          console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
+        }
+      });
+    });
+  });
+
+  return contract_queue;
+}
+
+
+
+//module.exports = listen;
+module.exports = get_contract_transactions;

@@ -1,6 +1,6 @@
 const axios = require('axios');
 let get_basic_auth = require('./utils/get-basic-auth');
-
+let scutil = require('./utils/scutil');
 
 let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
 
@@ -37,14 +37,10 @@ let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
      * Serves the newly arrived event in the queue
      */
     let serve = async (event, dcr_id, sim_id, monitor_results_queue) => {
-
-      let event_name = event.returnValues.functionName;
-      //let result = await execute_event(dcr_id, sim_id, event_name);
+      let event_name = event.function_name;
+      
       execute_event(dcr_id, sim_id, event_name, monitor_results_queue).then((result) => {
-        //console.log('39: inside dcr_caller then: ', result);
-        //monitor_results_queue.push(result);
       })
-      //monitor_results_queue.push(result);
     }
 
     /**
@@ -57,6 +53,7 @@ let dcr_caller = (contract_queue, dcr_id, sim_id, monitor_results_queue) => {
 
       let run = () => {
         console.log('The run is running, ... ');
+
         contract_queue.shift().then( (event) => {
           console.log("this is the event in dcr-caller: " + event);
           serve(event, dcr_id, sim_id, monitor_results_queue);

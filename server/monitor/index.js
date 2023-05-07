@@ -12,7 +12,7 @@ let monitor = (address, dcr_id, sim_id, contract_abi) => {
   // dcr_caller (producer) => monitor top-level (this index.js file) (consumer for dcr_caller, producer for other server parts) => websocket server (consumer)
   let monitor_results_queue = new WaitQueue();
 
-  // Initiate the contract_caller...
+  // Initiate the dcr_caller...
   dcr_caller(contract_queue=contract_queue, dcr_id=dcr_id, sim_id=sim_id, monitor_results_queue=monitor_results_queue);
 
   return monitor_results_queue;
