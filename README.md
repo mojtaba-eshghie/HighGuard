@@ -1,4 +1,4 @@
-### CLawK: Runtime Monitoring of Smart Contracts Using to Dynamic Condition Response Specifications
+### CLawK: Monitoring Business Processes in Smart Contracts
 
 The is still a work in progress. If you are interested in this project, contact me by email: eshghie@kth.se
 
