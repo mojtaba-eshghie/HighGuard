@@ -1,10 +1,12 @@
 pragma solidity >=0.5.5;
 
-/* Simple one shot, time locked and conditional on two-party release escrow smart contract */
+/* Simple time locked and conditional on two-party release escrow smart contract */
 
-contract Escrow2 {
-
-    enum State {AwaitingDeposit, DepositPlaced, Withdrawn}
+contract Escrow {
+    enum State {
+        AwaitingDeposit,
+        DepositPlaced
+    }
 
     address public sender;
     address payable public receiver;
@@ -28,7 +30,11 @@ contract Escrow2 {
         _;
     }
 
-    constructor (address _sender, address payable _receiver, uint _delayUntilRelease) public {
+    constructor(
+        address _sender,
+        address payable _receiver,
+        uint _delayUntilRelease
+    ) public {
         // Set parameters of escrow contract
         sender = _sender;
         receiver = _receiver;
@@ -41,8 +47,13 @@ contract Escrow2 {
         state = State.AwaitingDeposit;
     }
 
-    function placeInEscrow() public by(sender) stateIs(State.AwaitingDeposit) payable {
-        require (msg.value > 0);
+    function placeInEscrow()
+        public
+        payable
+        by(sender)
+        stateIs(State.AwaitingDeposit)
+    {
+        require(msg.value > 0);
 
         // Update parameters of escrow contract
         amountInEscrow = msg.value;
@@ -52,20 +63,31 @@ contract Escrow2 {
         state = State.DepositPlaced;
     }
 
-    function releaseEscrow() public stateIs(State.DepositPlaced) {
-        if (msg.sender == sender)   { releasedBySender   = true; }
-        if (msg.sender == receiver) { releasedByReceiver = true; }
+    function releaseBySender() public stateIs(State.DepositPlaced) {
+        if (msg.sender == sender) {
+            releasedBySender = true;
+        }
     }
 
-    function withdrawFromEscrow() public by(receiver) stateIs(State.DepositPlaced) {
-        require (now >= releaseTime);
-        require (releasedByReceiver && releasedBySender);
+    function releaseByReceiver() public stateIs(State.DepositPlaced) {
+        if (msg.sender == receiver) {
+            releasedByReceiver = true;
+        }
+    }
+
+    function withdrawFromEscrow()
+        public
+        by(receiver)
+        stateIs(State.DepositPlaced)
+    {
+        require(now >= releaseTime);
+	require(releasedByReceiver && releasedBySender);
 
         uint tmp;
         tmp = amountInEscrow;
-	
+
         // Set contract state
-        state = State.Withdrawn;
+        state = State.AwaitingDeposit;
 
         // Set internal parameters of smart contract
         amountInEscrow = 0;
