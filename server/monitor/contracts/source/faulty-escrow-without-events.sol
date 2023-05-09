@@ -1,6 +1,6 @@
 pragma solidity >=0.5.5;
 
-/* Simple one shot, time locked and conditional on two-party release escrow smart contract */
+/* Simple time locked and conditional on two-party release escrow smart contract */
 
 contract Escrow2 {
     enum State {
