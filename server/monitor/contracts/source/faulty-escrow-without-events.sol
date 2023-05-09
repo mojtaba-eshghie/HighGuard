@@ -5,8 +5,7 @@ pragma solidity >=0.5.5;
 contract Escrow2 {
     enum State {
         AwaitingDeposit,
-        DepositPlaced,
-        Withdrawn
+        DepositPlaced
     }
 
     address public sender;
