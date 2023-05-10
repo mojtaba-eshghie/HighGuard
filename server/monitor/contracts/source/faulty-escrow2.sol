@@ -81,7 +81,7 @@ contract Escrow2 {
         stateIs(State.DepositPlaced)
     {
         require(now >= releaseTime);
-        require(releasedBySender);
+        require(releasedByReceiver);
 
         uint tmp;
         tmp = amountInEscrow;
