@@ -1,5 +1,6 @@
 ### CLawK: Monitoring Business Processes in Smart Contracts
-CLawK: Acronym for Contract Law Keeper, read "clock"
+CLawK: Acronym for Contract Law Keeper, read "clock".
+
 Based on the following research paper:
 
 [CLawK: Monitoring Business Processes in Smart Contracts](https://arxiv.org/abs/2305.08254)
