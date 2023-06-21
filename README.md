@@ -5,7 +5,8 @@ Based on the following research paper:
 
 [CLawK: Monitoring Business Processes in Smart Contracts](https://arxiv.org/abs/2305.08254)
 
-
+### Screenshot of the tool web interface
+![CLawK Screenshot](https://raw.githubusercontent.com/mojtaba-eshghie/CLawK/main/client/public/Screenshot%202023-06-21%20at%2016.32.03.png)
 
 ### Installation
 
