@@ -2,7 +2,6 @@ let WaitQueue = require('wait-queue');
 let Web3 = require("web3");
 let fs = require('fs');
 let path = require('path');
-let scutil = require('./utils/scutil');
 
 ETHEREUM_NETWORK = "sepolia"
 INFURA_API_KEY = "wss://sepolia.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
@@ -40,19 +39,19 @@ let get_contract_abi = (contract_name) => {
 /**
  * Listens to all blockchain events on a particular smart contract
  */
-let listen = (address, contract_abi) => {
+let listen = (address, contractABI) => {
   
   let contract_queue = new WaitQueue();
   
   web3 = connect();
-  json_interface = JSON.parse(contract_abi);
+  json_interface = JSON.parse(contractABI);
   console.log(json_interface);
   
   let contract = new web3.eth.Contract(json_interface, address);
 
   contract.events.allEvents({}, (error, event) => {
     console.log('We received an event: ' + event);
-    event.contract_abi = contract_abi;
+    event.contractABI = contractABI;
     contract_queue.push(event);
   })
   
@@ -65,7 +64,7 @@ let listen = (address, contract_abi) => {
 
 
 
-let get_contract_transactions = (address, contract_abi) => {
+let getContractTransactions = (address, contractABI, activities) => {
   let contract_queue = new WaitQueue();
 
   let web3 = connect();
@@ -86,38 +85,38 @@ let get_contract_transactions = (address, contract_abi) => {
       block.transactions.forEach((tx) => {
         // Check if the transaction involves the specified contract address
         if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
-          console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
-          console.log(`Transaction object: ${JSON.stringify(tx)}`);
-          console.log(`Transaction hash: ${tx.hash}`);
+          //console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
+          //console.log(`Transaction object: ${JSON.stringify(tx)}`);
 
           // Get the function signature from the transaction data
           const signature = tx.input.slice(0, 10);
-
           // Find the function ABI that matches the signature
-          const method = JSON.parse(contract_abi).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
-        
-          // Decode the function parameters
-          if (method) {
-            const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
-            
-            let tx_ = {
-              'tx_hash': tx.hash,
-              'function_name': method ? method.name : 'Unknown',
-              'params': decodedParams, 
-              'contract_abi': contract_abi
-            };
-
-            contract_queue.push(tx_);
-
-            console.log(`Function name: ${method.name}`);
-            console.log(`Function parameters: ${JSON.stringify(decodedParams)}`);
-          } else {
-            console.log("Function name: Unknown");
-            console.log(`Function parameters: ${JSON.stringify(tx.input.slice(10))}`);
-          }
+          const method = JSON.parse(contractABI).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
           
+          // Assumption:
+          // If the event does not exist in the DCR model, just skip it
+          if (activities.includes(method.name)) { 
 
-          console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
+            // Decode the function parameters
+            if (method) {
+              
+              const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
+              //console.log(`# Transaction ${tx.hash} is executing ${method} with parameters ${decodedParams}`);
+
+              let tx_ = {
+                'tx_hash': tx.hash,
+                'function_name': method ? method.name : 'Unknown',
+                'params': decodedParams, 
+                'contractABI': contractABI
+              };
+
+              contract_queue.push(tx_);
+            } else {
+              console.log("Function name: Unknown");
+              console.log(`Function parameters: ${JSON.stringify(tx.input.slice(10))}`);
+            }
+
+          }
         }
       });
     });
@@ -129,4 +128,4 @@ let get_contract_transactions = (address, contract_abi) => {
 
 
 //module.exports = listen;
-module.exports = get_contract_transactions;
+module.exports = getContractTransactions;

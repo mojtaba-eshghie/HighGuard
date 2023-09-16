@@ -1,7 +1,42 @@
 // Basic smart contract utilities
 
-const Web3 = require('web3');
-const web3 = new Web3('https://mainnet.infura.io/v3/your-project-id');
+let Web3 = require("web3");
+let fs = require('fs');
+let path = require('path');
+
+
+
+ETHEREUM_NETWORK = "sepolia"
+INFURA_API_KEY = "wss://sepolia.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
+SIGNER_PRIVATE_KEY = "507fa0895604a7826a816b4100da7d5c05a1d53b18c26a1db5eebac3357a4b05"
+
+
+
+let getContractABI = (contract_name) => {  
+  //let contract_interface = JSON.parse(fs.readFileSync('./../contracts/json-interface/' + contract_name + '.json'));
+  let contract_interface = JSON.parse(fs.readFileSync(path.join(__dirname,'/contracts/json-interface/') + contract_name + '.json'));
+
+  return contract_interface; 
+}
+
+let connectWeb3 = () => {
+
+  const Web3 = require("web3");
+
+  // Configuring the connection to an Ethereum node
+  const network = ETHEREUM_NETWORK;
+  const web3 = new Web3(
+    new Web3.providers.WebsocketProvider(
+      INFURA_API_KEY
+    )
+  );
+  // Creating a signing account from a private key
+  const signer = web3.eth.accounts.privateKeyToAccount(
+    SIGNER_PRIVATE_KEY
+  );
+  web3.eth.accounts.wallet.add(signer);
+  return web3;
+}
 
 
 let getFunctionNameParams = (event, jsonInterface) => {
@@ -30,5 +65,31 @@ let getFunctionNameParams = (event, jsonInterface) => {
   });
 }
 
+let getContractStorageVariableValue = async (contract, contractAddress, variableIdentifier) => {
+  let storageLayout = JSON.parse(fs.readFileSync(path.join(__dirname,'../contracts/storageLayouts/') + contract + '.json'));
+  const variableDetails = storageLayout.storage.find(v => v.label === variableIdentifier);
+  if (!variableDetails) {
+    console.error('Variable not found in the storage layout');
+    return;
+  }
+  const storageSlotIndex = variableDetails.slot;
+  let web3 = connectWeb3();
+  // Get the variable value
+  return await web3.eth.getStorageAt(contractAddress, storageSlotIndex)
+    .then((result) => {
+      result = result.replace(/^0x0*/, '0x');
+      return result;
+    })
+    .catch((error) => {
+      console.error('Error fetching variable value:', error);
+      return -1;
+    });
+}
 
-//module.exports = getFunctionNameParams;
+
+
+
+module.exports = {
+  getFunctionNameParams,
+  getContractStorageVariableValue,
+};

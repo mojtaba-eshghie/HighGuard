@@ -1,9 +1,16 @@
-let contract_watcher = require('./contract-watcher');
-let dcr_caller = require('./dcr-caller');
+let contract_watcher = require('./contractWatcher');
+let dcr_caller = require('./dcrCaller');
 let WaitQueue = require('wait-queue');
+let { setupRBAC, setupMonitorSession} = require('./setup');
 
-
-let monitor = (address, dcr_id, sim_id, contract_abi) => {
+let monitor = (address, dcrID, simID, contract_abi, contract) => {
+  let monitorConfigs = {
+    'contract': contract,
+    'address': address,
+    'dcrID': dcrID,
+    'simID': simID, 
+  }
+  let {monitorSessionID, monitorActivities} = setupMonitorSession(monitorConfigs);
   // Let contract_watcher to watch the contract
   // Returns a queue of events emitted from the contract; this queue is shared between subsystems of the monitor
   let contract_queue = contract_watcher(address, contract_abi);
@@ -17,7 +24,6 @@ let monitor = (address, dcr_id, sim_id, contract_abi) => {
 
   return monitor_results_queue;
 }
-
 
 
 module.exports = monitor;

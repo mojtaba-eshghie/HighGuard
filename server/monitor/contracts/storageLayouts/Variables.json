@@ -1,0 +1,45 @@
+{
+	"storage": [
+		{
+			"astId": 4,
+			"contract": "contracts/vars.sol:Variables",
+			"label": "text",
+			"offset": 0,
+			"slot": "0",
+			"type": "t_string_storage"
+		},
+		{
+			"astId": 7,
+			"contract": "contracts/vars.sol:Variables",
+			"label": "num",
+			"offset": 0,
+			"slot": "1",
+			"type": "t_uint256"
+		},
+		{
+			"astId": 13,
+			"contract": "contracts/vars.sol:Variables",
+			"label": "owner",
+			"offset": 0,
+			"slot": "2",
+			"type": "t_address"
+		}
+	],
+	"types": {
+		"t_address": {
+			"encoding": "inplace",
+			"label": "address",
+			"numberOfBytes": "20"
+		},
+		"t_string_storage": {
+			"encoding": "bytes",
+			"label": "string",
+			"numberOfBytes": "32"
+		},
+		"t_uint256": {
+			"encoding": "inplace",
+			"label": "uint256",
+			"numberOfBytes": "32"
+		}
+	}
+}
