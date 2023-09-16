@@ -45,29 +45,47 @@ node server/monitor/monitorCLI.js
 ```
 Use the following options with the Clawk Standalone CLI Monitor:
 
-| Option        | Description   | Type    | Required |
-|---------------|---------------|---------|----------|
-| `--help`      | Show help     | boolean | No       |
-| `--version`   | Show version number | boolean | No       |
-| `--address`   | The address of the deployed contract | string  | Yes      |
-| `--dcrID`     | The DCR model identifier from DCRGraphs.net website | string  | Yes      |
-| `--simID`     | The identifier of the specific simulation you want to model this contract against. This identifier is retrievable by going to address [https://repository.dcrgraphs.net/api/graphs/${dcrID}/sims/](https://repository.dcrgraphs.net/api/graphs/${dcrID}/sims/) replacing ${dcrID} with the ID of the model you are trying to monitor against | string  | Yes      |
-| `--ABIFileName` | The name of the contract ABI file (for example: PiggyBank.json) | string  | Yes      |
-| `--contract`  | The contract parameter | string  | Yes      |
 
+| Option        | Description   | Required |
+|---------------|---------------|----------|
+| `--help`      | Show help     | No       |
+| `--version`   | Show version number | No       |
+| `--address`   | The address of the deployed contract | Yes      |
+| `--dcrID`     | The DCR model identifier from DCRGraphs.net website | Yes      |
+| `--simID`     | The identifier of the specific simulation you want to model this contract against. This identifier is retrievable by going to address [https://repository.dcrgraphs.net/api/graphs/${dcrID}/sims/](https://repository.dcrgraphs.net/api/graphs/${dcrID}/sims/) replacing ${dcrID} with the ID of the model you are trying to monitor against | Yes      |
+| `--ABIFileName` | The name of the contract ABI file (for example: PiggyBank.json). You should first put this file in the path `server/monitor/contracts/json-interface`  | Yes      |
+| `--contract`  | The contract parameter | Yes      |
+
+#### Example command usage:
+```sh
+node monitorCLI.js --address 0xB343f140a4426dc4eb40C2aFCe777D0509e4dCC0 --dcrID 1700559 --simID 1925367 \
+--ABIFileName PiggyBank.json --contract PiggyBank
+```
 
 ## Cite Us
 ```
 @misc{Clawk,
-  title = {Mojtaba-Eshghie/{{CLawK}}},
-  author = {Eshghie, Mojtaba},
-  year = {2023},
-  month = sep,
-  urldate = {2023-09-16},
-  abstract = {CLawK is a Runtime Monitoring Tool for Business Process-Level Smart Contract Properties},
-  copyright = {MIT},
-  keywords = {dcr-graphs,dynamic-condition-response,runtime-monitoring,runtime-verification,smart-contract-specifications,smart-contracts-security}
+  author       = {Mojtaba Eshghie and Wolfgang Ahrendt and 
+                  Cyrille Artho and Thomas Troels Hildebrandt and 
+                  Gerardo Schneider},
+  title        = {CLawK: Monitoring Business Processes in 
+                  Smart Contracts},
+  year         = {2023},
+  month        = {May},
+  url          = {https://arxiv.org/abs/2305.08254},
+  doi          = {10.48550/arXiv.2305.08254},
+  abstract     = {Smart contracts embody complex business processes that can be difficult to analyze statically.
+                  In this paper, we present CLawK, a runtime monitoring tool that leverages business process
+                  specifications written in DCR graphs to provide runtime verification of smart contract execution.
+                  We demonstrate how CLawK can detect and flag deviations from specified behaviors in smart 
+                  contracts deployed in the Ethereum network without code instrumentation or additional gas costs.},
+  note         = {arXiv:2305.08254v1 [cs.CR]},
+  keywords     = {dcr-graphs, dynamic-condition-response, 
+                  runtime-monitoring, runtime-verification, 
+                  smart-contract-specifications, 
+                  smart-contracts-security}
 }
+
 ```
 
 ## Screenshot of the tool web interface (client)
