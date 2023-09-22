@@ -97,6 +97,8 @@ get_basic_auth().then(basic_authorization => {
     ws.on('message', (message) => {
       //console.log(message.split('@')[3]);
       
+      // TODO: monitor now receives a 5th argument: contract name; facilities for receiving the contract name manually (from json interface list contracts and
+      // make the user chose one); 
       let monitor_results_queue = monitor(message.split('@')[2], parseInt(message.split('@')[0]), parseInt(message.split('@')[1]), message.split('@')[3]);
 
       let run = () => {

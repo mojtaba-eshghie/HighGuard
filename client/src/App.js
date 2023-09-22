@@ -2,6 +2,7 @@
 import logo from './img/claw.png';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 
 
 // react imports
