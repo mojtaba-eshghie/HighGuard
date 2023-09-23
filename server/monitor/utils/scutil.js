@@ -69,7 +69,7 @@ let getContractStorageVariableValue = async (contract, contractAddress, variable
   let storageLayout = JSON.parse(fs.readFileSync(path.join(__dirname,'../contracts/storageLayouts/') + contract + '.json'));
   const variableDetails = storageLayout.storage.find(v => v.label === variableIdentifier);
   if (!variableDetails) {
-    console.error('Variable not found in the storage layout');
+    console.error(`Variable "${variableIdentifier}" not found in the storage layout`);
     return;
   }
   const storageSlotIndex = variableDetails.slot;

@@ -11,10 +11,17 @@ let dcrCaller = (contractQueue, dcrID, simID, monitorResultsQueue) => {
       }
     })
 
-    async function executeEvent(dcrID, simID, eventName, monitorResultsQueue) {    
+    async function executeEvent(dcrID, simID, eventName, dcrValue, dcrType, monitorResultsQueue) {    
       let nextEventAddress = `https://repository.dcrgraphs.net/api/graphs/${dcrID}/sims/${simID}/events/${eventName}`
+      let requestBody = {};
+      if (dcrValue) {
+        requestBody = {
+          DataXML: `<globalStore><variable value="${dcrValue}" isNull="false" type="${dcrType}" /></globalStore>`
+        };  
+      }
+
       //console.log(nextEventAddress)
-      req_instance.post(nextEventAddress)
+      req_instance.post(nextEventAddress, requestBody)
         .then(response => {
           let resultingEventObject = {
             'name': eventName,
@@ -28,7 +35,7 @@ let dcrCaller = (contractQueue, dcrID, simID, monitorResultsQueue) => {
         })
         .catch(error => {
           if (error.response.status == 400) {
-
+            console.log(error)
             //console.log(error.response);
             let resultingEventObject = {
               'name': eventName,
@@ -47,9 +54,11 @@ let dcrCaller = (contractQueue, dcrID, simID, monitorResultsQueue) => {
      * Serves the newly arrived event in the queue
      */
     let serve = async (event, dcrID, simID, monitorResultsQueue) => {
-      let eventName = event.function_name;
+      let eventName = event.dcrID;
+      let dcrValue = event.dcrValue;
+      let dcrType = event.dcrType;
       
-      executeEvent(dcrID, simID, eventName, monitorResultsQueue).then((result) => {
+      executeEvent(dcrID, simID, eventName, dcrValue, dcrType, monitorResultsQueue).then((result) => {
       })
     }
 

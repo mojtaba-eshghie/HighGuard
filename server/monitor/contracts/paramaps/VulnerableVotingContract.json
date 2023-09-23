@@ -1,0 +1,10 @@
+{ 
+   "_hoursFromNow": {
+       "startVoting": {
+            "EVMType": "uint256",
+            "EVMUnit": "hours",
+            "DCRType": "duration",
+            "DCRNodeID": "_hoursFromNow"
+        }
+   } 
+} 

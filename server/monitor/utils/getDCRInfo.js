@@ -29,7 +29,8 @@ let getDCRRoles = (dcrID) => {
             resolve(roleValues);
           } catch (error) {
             console.error('Failed to extract roles', error);
-            reject(error);
+            //reject(error);
+            resolve([]);
           }
         });
       });
