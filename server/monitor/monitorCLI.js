@@ -34,26 +34,38 @@ const argv = yargs(hideBin(process.argv))
         demandOption: true,
         describe: 'The contract parameter',
     })
+    .option('paramap', {
+        type: 'boolean',
+        default: false,
+        describe: 'Supply parameter mapping for function calls to DCR graphs semantics for any transaction. The same file name as ABIFileName will be looked up in server/monitor/contracts/paramaps/ directory. Format of the required json file: \n' +
+                  '{ \n' +
+                  '   "functionName": { \n' +
+                  '       "paramName": { \n' +
+                  '              EVMType: "...", \n' +
+                  '              DCRType: "...", \n' +
+                  '              DCRNodeID: "..." \n' +
+                  '       } \n' +
+                  '   } \n' +
+                  '}',
+    })
     .argv;
 
 try {   
-    //let contractABI = JSON.parse(fs.readFileSync(`./contracts/json-interface/${argv.ABIFileName}`, 'utf8'));
     let contractABI = fs.readFileSync(`./contracts/json-interface/${argv.ABIFileName}`, 'utf8');
+    let paramaps = JSON.parse(fs.readFileSync(`./contracts/paramaps/${argv.ABIFileName}`, 'utf8'));
 
-    //const monitorResultsQueue = monitor(argv.address, argv.dcrID, argv.simID, contract_abi, argv.contract);
-       
     let monitorConfigs = {
         'contract': argv.contract,
         'address': argv.address,
         'dcrID': argv.dcrID,
-        'simID': argv.simID,
+        'simID': argv.simID
     }
 
-    //let monitorSessionID = setupMonitorSession(monitorConfigs);
     setupMonitorSession(monitorConfigs).then((monitorInfo) => {
         // Let contract_watcher to watch the contract
         // Returns a queue of events emitted from the contract; this queue is shared between subsystems of the monitor
-        let contractQueue = contractWatcher(argv.address, contractABI, monitorInfo["activities"]);
+        let contractQueue = contractWatcher(argv.address, contractABI, monitorInfo["activities"], paramaps);
+
         
         // Create a shared queue between dcr_caller, the top-level of the monitor, and other parts of the server-side (e.g. websocket server)
         // dcr_caller (producer) => monitor top-level (this index.js file) (consumer for dcr_caller, producer for other server parts) => websocket server (consumer)
