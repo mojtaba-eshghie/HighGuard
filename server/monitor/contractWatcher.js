@@ -16,7 +16,13 @@ let connect = () => {
   const network = ETHEREUM_NETWORK;
   const web3 = new Web3(
     new Web3.providers.WebsocketProvider(
-      INFURA_API_KEY
+      INFURA_API_KEY,
+      {
+        clientConfig:{
+        maxReceivedFrameSize: 10000000000,
+        maxReceivedMessageSize: 10000000000,
+        } 
+      }
     )
   );
   // Creating a signing account from a private key
@@ -94,12 +100,9 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
           const method = JSON.parse(contractABI).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
           const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
           
-          /*
-          const checkParametersAreInParamaps = () => {
-            const relevantKeys = Object.keys(decodedParams).filter(key => !key.match(/^(\d+|__length__)$/));
-            return relevantKeys.every(key => Object.hasOwnProperty.call(paramaps, key));
-          };
-          */
+          console.log(`Method is: ${method.name}`)
+          console.log(`Activities are: ${activities}`);
+          
           const checkParametersAreInParamaps = () => {
             const relevantKeys = Object.keys(decodedParams).filter(key => !key.match(/^(\d+|__length__)$/));
             return relevantKeys.filter(key => Object.hasOwnProperty.call(paramaps, key));
@@ -143,7 +146,11 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
                 
               });
             } catch {
+              
+            }
+            console.log("I am here at 149")
               if (activities.includes(method.name)) {
+                console.log("I am here 151.")
                 let tx_ = {
                   'dcrID': method.name,
                   'contractABI': contractABI, 
@@ -152,7 +159,8 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
                 };
                 contract_queue.push(tx_);
               }
-            }
+              console.log(`method is: ${method.name}`);
+            
 
 
           }
