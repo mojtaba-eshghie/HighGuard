@@ -43,8 +43,8 @@ let get_contract_abi = (contract_name) => {
 
 
 /**
- * Listens to all blockchain events on a particular smart contract
- */
+* Listens to all blockchain events on a particular smart contract
+*/
 let listen = (address, contractABI) => {
   
   let contract_queue = new WaitQueue();
