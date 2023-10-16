@@ -4,7 +4,7 @@ let fs = require('fs');
 let path = require('path');
 
 
-let getDCRMethodsToExecute = () => {
+let getDCRFromTX = (tx) => {
     //console.log(`Transaction object: ${JSON.stringify(tx)}`);
 
     // Get the function signature from the transaction data
@@ -57,7 +57,6 @@ let getDCRMethodsToExecute = () => {
             contract_queue.push(tx_);
             }
 
-            
         });
         } catch {
         console.log("TX conversion failed");
@@ -72,11 +71,12 @@ let getDCRMethodsToExecute = () => {
         contract_queue.push(tx_);
         }
 
-
         console.log(`method is: ${method.name}`);
 
     }
 }
 
 
-module.exports = getDCRMethodsToExecute;
+module.exports = {
+    getDCRFromTX
+};
