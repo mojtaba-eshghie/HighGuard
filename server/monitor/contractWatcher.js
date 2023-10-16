@@ -2,6 +2,7 @@ let WaitQueue = require('wait-queue');
 let Web3 = require("web3");
 let fs = require('fs');
 let path = require('path');
+let { getDCRFromTX } = require('./evm-to-dcr');
 
 ETHEREUM_NETWORK = "sepolia"
 INFURA_API_KEY = "wss://sepolia.infura.io/ws/v3/c05b5a2a17704036b3f7f34eb166eddd"
@@ -9,11 +10,11 @@ SIGNER_PRIVATE_KEY = "507fa0895604a7826a816b4100da7d5c05a1d53b18c26a1db5eebac335
 
 
 let connect = () => {
-
   const Web3 = require("web3");
 
   // Configuring the connection to an Ethereum node
   const network = ETHEREUM_NETWORK;
+
   const web3 = new Web3(
     new Web3.providers.WebsocketProvider(
       INFURA_API_KEY,
@@ -25,10 +26,12 @@ let connect = () => {
       }
     )
   );
+
   // Creating a signing account from a private key
   const signer = web3.eth.accounts.privateKeyToAccount(
     SIGNER_PRIVATE_KEY
   );
+
   web3.eth.accounts.wallet.add(signer);
 
   return web3;
@@ -91,79 +94,7 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
       block.transactions.forEach((tx) => {
         // Check if the transaction involves the specified contract address
         if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
-          //console.log("^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^ ^^^^^^^^^^^");
-          //console.log(`Transaction object: ${JSON.stringify(tx)}`);
-
-          // Get the function signature from the transaction data
-          const signature = tx.input.slice(0, 10);
-          // Find the function ABI that matches the signature
-          const method = JSON.parse(contractABI).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
-          const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
           
-          console.log(`Method is: ${method.name}`)
-          console.log(`Activities are: ${activities}`);
-          
-          const checkParametersAreInParamaps = () => {
-            const relevantKeys = Object.keys(decodedParams).filter(key => !key.match(/^(\d+|__length__)$/));
-            return relevantKeys.filter(key => Object.hasOwnProperty.call(paramaps, key));
-          };
-          
-          // Assumption:
-          // If the event does not exist in the DCR model, just skip it
-          if (activities.includes(method.name) || checkParametersAreInParamaps()) { 
-            try {
-              checkParametersAreInParamaps().forEach(parameter => {
-                // convert tx parameter to value suitable for DCR
-                if ((paramaps[parameter][method.name]["EVMType"] === "uint256") && (paramaps[parameter][method.name]["DCRType"] === "duration")) {
-                  // Conversion between time parameters in SC to time in DCR
-                  let unit = paramaps[parameter][method.name]["EVMUnit"];
-                  let value = decodedParams[parameter];
-                  
-                  const convertToISO8601 = (value, unit) => {
-                    switch (unit) {
-                        case "hours":
-                            return 'PT' + value + 'H';
-                        case "minutes":
-                            return 'PT' + value + 'M';
-                        case "seconds":
-                            return 'PT' + value + 'S';
-                        default:
-                            return "Invalid unit";
-                    }
-                  };
-                  
-                  // DCR event types for REST API are: int, duration, ...
-                  let iso8601Duration = convertToISO8601(value, unit);
-                  let tx_ = {
-                    'dcrID': parameter,
-                    'contractABI': contractABI, 
-                    'dcrValue': iso8601Duration,
-                    'dcrType': paramaps[parameter][method.name]["DCRType"]
-                  };
-                  contract_queue.push(tx_);
-                }
-
-                
-              });
-            } catch {
-              
-            }
-            console.log("I am here at 149")
-              if (activities.includes(method.name)) {
-                console.log("I am here 151.")
-                let tx_ = {
-                  'dcrID': method.name,
-                  'contractABI': contractABI, 
-                  'dcrValue': null,
-                  'dcrType': null
-                };
-                contract_queue.push(tx_);
-              }
-              console.log(`method is: ${method.name}`);
-            
-
-
-          }
         }
       });
     });
@@ -174,5 +105,4 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
 
 
 
-//module.exports = listen;
 module.exports = getContractTransactions;

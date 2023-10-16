@@ -5,6 +5,8 @@
             "EVMUnit": "hours",
             "DCRType": "duration",
             "DCRNodeID": "_hoursFromNow"
-        }
+        },
+        "roleSetter":true,
+        "roleVariableIdentifier": "owner"
    } 
 } 
