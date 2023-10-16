@@ -44,7 +44,9 @@ const argv = yargs(hideBin(process.argv))
                   '              EVMType: "...", \n' +
                   '              DCRType: "...", \n' +
                   '              DCRNodeID: "..." \n' +
-                  '       } \n' +
+                  '       }, \n' +
+                  '       "roleSetter":true \n' +
+                  '       "roleVariableIdentifier":"owner" \n' +
                   '   } \n' +
                   '}',
     })
