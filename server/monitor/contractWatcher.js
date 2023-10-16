@@ -96,6 +96,8 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
 
           // Get the function signature from the transaction data
           const signature = tx.input.slice(0, 10);
+
+
           // Find the function ABI that matches the signature
           const method = JSON.parse(contractABI).find((m) => m.type === 'function' && `0x${web3.utils.keccak256(m.name + '(' + m.inputs.map((i) => i.type).join(',') + ')').slice(2, 10)}` === signature);
           const decodedParams = web3.eth.abi.decodeParameters(method.inputs, tx.input.slice(10));
@@ -146,21 +148,21 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
                 
               });
             } catch {
-              
+              console.log("TX conversion failed");
             }
-            console.log("I am here at 149")
-              if (activities.includes(method.name)) {
-                console.log("I am here 151.")
-                let tx_ = {
-                  'dcrID': method.name,
-                  'contractABI': contractABI, 
-                  'dcrValue': null,
-                  'dcrType': null
-                };
-                contract_queue.push(tx_);
-              }
-              console.log(`method is: ${method.name}`);
-            
+            if (activities.includes(method.name)) {
+              let tx_ = {
+                'dcrID': method.name,
+                'contractABI': contractABI, 
+                'dcrValue': null,
+                'dcrType': null
+              };
+              contract_queue.push(tx_);
+            }
+
+
+            console.log(`method is: ${method.name}`);
+              
 
 
           }
@@ -174,5 +176,4 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
 
 
 
-//module.exports = listen;
 module.exports = getContractTransactions;
