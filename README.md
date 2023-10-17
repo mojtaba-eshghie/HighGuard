@@ -94,6 +94,10 @@ node monitorCLI.js --address 0xB343f140a4426dc4eb40C2aFCe777D0509e4dCC0 --dcrID 
 
 ```
 
+## Dependencies
+
+- `Foundry` and `Anvil` should have been installed for running the exploits locally. This is required both when you expand and setup the monitor check its capabilities as well as checking the smart contracts themselves.
+
 ## Screenshot of the tool web interface (client)
 
 ![CLawK Screenshot](https://raw.githubusercontent.com/mojtaba-eshghie/CLawK/main/client/public/Screenshot%202023-06-21%20at%2016.32.03.png)
