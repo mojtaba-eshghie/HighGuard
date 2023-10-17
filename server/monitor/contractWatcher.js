@@ -94,9 +94,13 @@ let getContractTransactions = (address, contractABI, activities, paramaps) => {
       block.transactions.forEach((tx) => {
         // Check if the transaction involves the specified contract address
         if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
-          
+          let dcrEvents = getDCREvents(tx);
+          if (dcrEvents) {
+            contract_queue.push(dcrEvents);
+          }
         }
       });
+
     });
   });
 
