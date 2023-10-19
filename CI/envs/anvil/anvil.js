@@ -9,7 +9,7 @@ const { spawn } = require('child_process');
  * @returns {Promise<Object>} A promise that resolves with an object containing the accounts, private keys, and RPC address.
  * @throws {Error} If there's an error while executing the Anvil command or processing its output.
  */
-function extractAnvilInfo() {
+let extractAnvilInfo = () => {
     return new Promise((resolve, reject) => {
         // Spawn the anvil command as a child process
         const anvilProcess = spawn('anvil');
@@ -51,6 +51,9 @@ function extractAnvilInfo() {
     });
 }
 
-module.exports = {
-    extractAnvilInfo
-};
+let setupEnv = () => {
+    extractAnvilInfo();
+}
+
+
+module.exports = setupEnv;
