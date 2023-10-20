@@ -28,13 +28,10 @@ async function setupAndRunTests() {
 
         console.log(chalk.blue(`> Setting up environment: [${environment}]`));
         let envInfo = null;
-        let web3 = null; 
-
         if (environment === 'anvil') {
-            let env = await setupEnv();
-            envInfo = env['envInfo'];
-            web3 = env['web3']
+            envInfo = await setupEnv();
         }
+        // Add more environments as needed
 
         console.log(chalk.green(`> Running tests for environment: [${environment}]`));
         for (const testFile of testFiles) {
@@ -42,15 +39,12 @@ async function setupAndRunTests() {
             console.log(chalk.cyan(`${'- '.repeat(50)+'\n'}Executing tests from: [${testFile}]`));
             const testModule = require(testFilePath);
             if (typeof testModule === 'function') {
-                testModule(web3, envInfo);  
+                testModule(envInfo);  // Pass the environment information to the test
             }
         }
     }
 }
 
-/*
 setupAndRunTests().catch(error => {
     console.error(chalk.red(`Error during setup or test execution: ${error}`));
 });
-*/
-setupAndRunTests()

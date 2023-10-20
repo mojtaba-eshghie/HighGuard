@@ -29,8 +29,9 @@
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.22",
     "prompt-sync": "^4.2.0",
+    "solc": "^0.8.21",
     "wait-queue": "^1.1.4",
-    "web3": "^1.8.0",
+    "web3": "^1.10.3",
     "xml-js": "^1.6.11",
     "xml-parse-from-string": "^1.0.1",
     "xml2json": "^0.12.0"
