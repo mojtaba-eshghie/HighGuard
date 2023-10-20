@@ -1,10 +1,8 @@
-const { spawn } = require('child_process');
+let { spawn } = require('child_process');
+let Web3 = require("web3");
 
 /**
  * Extracts information from the Anvil command.
- * 
- * This function spawns the Anvil command as a child process and captures its output.
- * It then extracts the Ethereum accounts, private keys, and the RPC address from the output.
  * 
  * @returns {Promise<Object>} A promise that resolves with an object containing the accounts, private keys, and RPC address.
  * @throws {Error} If there's an error while executing the Anvil command or processing its output.
@@ -12,7 +10,7 @@ const { spawn } = require('child_process');
 let extractAnvilInfo = () => {
     return new Promise((resolve, reject) => {
         // Spawn the anvil command as a child process
-        const anvilProcess = spawn('anvil');
+        let anvilProcess = spawn('anvil');
 
         let output = '';
 
@@ -24,17 +22,11 @@ let extractAnvilInfo = () => {
             if (output.includes('Listening on')) {
                 anvilProcess.stdout.removeAllListeners('data'); // Stop listening to further output
 
-                const accounts = [...output.matchAll(/"0x[a-fA-F0-9]{40}"/g)].map(match => match[0].replace(/"/g, ''));
-                const privateKeys = [...output.matchAll(/0x[a-fA-F0-9]{64}/g)].map(match => match[0]);
+                let accounts = [...output.matchAll(/"0x[a-fA-F0-9]{40}"/g)].map(match => match[0].replace(/"/g, ''));
+                let privateKeys = [...output.matchAll(/0x[a-fA-F0-9]{64}/g)].map(match => match[0]);
 
-                // Utility function to strip ANSI escape codes from a string
-                let stripAnsiCodes = (str) => {
-                    return str.replace(/\x1B[[(?);]{0,2}(;?\d)*./g, '');
-                }
-                const strippedOutput = stripAnsiCodes(output);
-
-                const rpcAddressMatch = output.match(/Listening on (\d+\.\d+\.\d+\.\d+:\d+)/);
-                const rpcAddress = rpcAddressMatch ? rpcAddressMatch[1] : null;
+                let rpcAddressMatch = output.match(/Listening on (\d+\.\d+\.\d+\.\d+:\d+)/);
+                let rpcAddress = rpcAddressMatch ? rpcAddressMatch[1] : null;
 
                 resolve({
                     accounts,
@@ -51,9 +43,19 @@ let extractAnvilInfo = () => {
     });
 }
 
-let setupEnv = () => {
-    extractAnvilInfo();
-}
+let setupEnv = async () => {
+    let envInfo = await extractAnvilInfo();
 
+    let web3 = new Web3('http://'+envInfo.rpcAddress);
+
+    // Assuming the first account and private key are the signer's
+    let signer = web3.eth.accounts.privateKeyToAccount(envInfo.privateKeys[0]);
+    web3.eth.accounts.wallet.add(signer);
+
+    return {
+        web3,
+        envInfo
+    };
+}
 
 module.exports = setupEnv;
