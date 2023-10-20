@@ -1,14 +1,6 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 tests:
-  #  - name: "Unit tests"
-  #    directory: "/CI/tests/unit-tests/"
-  #    files:
-  #      - "test1.js"
-  #      - "test2.js"
-  #      - "test3.js"
-  #    environment: "nodejs"
-
   - name: "Exploit monitoring integration tests"
     directory: "/tests/exploits/"
     files:
@@ -16,8 +8,5 @@ tests:
     environment: "anvil"
 
 environments:
-  #  - name: "nodejs"
-  #    version: "16"
-
   - name: "anvil"
     version: "0.2.0"

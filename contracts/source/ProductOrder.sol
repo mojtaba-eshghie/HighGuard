@@ -17,16 +17,16 @@ contract ProductOrder {
         customer = msg.sender;
         status = OrderStatus.Created;
         price = _price;
-        discountEndTime = block.timestamp + 60 seconds;
+        discountEndTime = block.timestamp + 5 seconds;
     }
 
-    function applyDiscount(uint256 _discountAmount) public {
+    function applyDiscount() public {
         require(
             block.timestamp <= discountEndTime,
             "Discount period has ended."
         );
         require(!discountApplied, "Discount already applied.");
-        price -= _discountAmount;
+        price -= 1;
         discountApplied = true;
     }
 
