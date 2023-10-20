@@ -32,8 +32,10 @@
     "solc": "^0.8.21",
     "wait-queue": "^1.1.4",
     "web3": "^1.10.3",
+    "winston": "^3.11.0",
     "xml-js": "^1.6.11",
     "xml-parse-from-string": "^1.0.1",
-    "xml2json": "^0.12.0"
+    "xml2json": "^0.12.0",
+    "yargs": "^17.7.2"
   }
 }
