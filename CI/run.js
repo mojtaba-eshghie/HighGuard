@@ -58,7 +58,7 @@ async function setupAndRunTests() {
             web3 = env['web3']
         }
 
-        logger.info(chalk.green(`> Running tests for environment: [${environment}]`));
+        logger.info(chalk.green(`> Running exploits for environment: [${environment}]`));
         for (let testFile of testFiles) {
             let testFilePath = path.join(__dirname, test.directory, testFile);
             logger.info(chalk.cyan(`${'- '.repeat(50)+'\n\n'}Executing tests from: [${testFile}]`));
