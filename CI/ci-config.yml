@@ -1,7 +1,29 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
+contracts:
+  - name: "SampleContract1"
+    models:
+      - name: "Model1"
+        id: "123456789"
+      - name: "Model2"
+        id: "123456789"
+    tests:
+      - "Contract1Exploits_1"
+      - "Contract1Exploits_2"
+
+  - name: "SampleContract2"
+    models:
+      - name: "Model3"
+        id: "123456789"
+      - name: "Model4"
+        id: "123456789"
+    tests:
+      - "Contract1Exploits_1"
+      - "Contract1Exploits_2"
+
 tests:
-  - name: "Exploit monitoring integration tests"
+  - name: "Contract1Temporal"
+    description: "Exploits for temporal properties of contract 1"
     directory: "/tests/exploits/"
     files:
       - "exp1.js"

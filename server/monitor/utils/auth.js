@@ -42,7 +42,7 @@ let insert = (db, {username, pass}) => {
     });
 }
 
-let get_user = async () => {
+let getUser = async () => {
     let db = connect(DB_PATH);
     return await db.query(sql`SELECT * FROM users`).then((r) => {
         return r;
@@ -52,7 +52,7 @@ let get_user = async () => {
 let authenticate = async () => {
     if (fs.existsSync(DB_PATH)) {
         
-        return get_user().then((res) => {
+        return getUser().then((res) => {
             return {
                 username:res[0].username, 
                 pass:res[0].pass
