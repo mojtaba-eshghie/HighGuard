@@ -1,6 +1,7 @@
 ## Clawk: Monitoring Business Processes in Smart Contracts
+Smart contracts embody complex business processes that can be difficult to analyze statically. In this paper, we present CLawK, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how CLawK can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs. 
 
-Clawk is Acronym for Contract Law Keeper, read "clock".
+<sub>* Clawk is Acronym for Contract Law Keeper.</sub>
 
 ## Installation
 
