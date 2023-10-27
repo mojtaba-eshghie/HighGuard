@@ -4,7 +4,7 @@ contracts:
   - name: "SampleContract1"
     models:
       - name: "Model1"
-        id: "123456789"
+        id: "123456789" # The id of the model in DCRGraphs.net website
       - name: "Model2"
         id: "123456789"
     tests:
@@ -14,7 +14,7 @@ contracts:
   - name: "SampleContract2"
     models:
       - name: "Model3"
-        id: "123456789"
+        id: "123456789" # The id of the model in DCRGraphs.net website
       - name: "Model4"
         id: "123456789"
     tests:
