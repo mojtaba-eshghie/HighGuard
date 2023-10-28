@@ -43,10 +43,15 @@ async function setupAndRunTests() {
             for (let model of contract.models) {
                 await makeSimulation(model.id);
                 let simId = await getLastSimulationId(model.id);
-                // execute general conventions
                 
+                // TODO
+                // execute general conventions
 
+                // TODO
                 // execute model-based conventions
+
+                // TODO
+                // start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
             }
 
 
@@ -80,7 +85,7 @@ async function setupAndRunTests() {
                         failedExploits++;
                     }
                 } else {
-                    logger.debug(chalk.blue(`Failed to fetch the correct function to run.`))
+                    logger.error(chalk.red(`Failed to fetch the correct function to run.`))
                 }
             }
 

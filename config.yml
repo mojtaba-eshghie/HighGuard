@@ -15,6 +15,9 @@ contracts:
     models:
       - name: "Model3"
         id: "1701159" # The id of the model in DCRGraphs.net website
+        # Plugin conventions if any, to execute (in order)
+        # conventions:
+        #  - name: ""
       - name: "Model4"
         id: "1701159"
     tests:
