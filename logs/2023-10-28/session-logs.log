@@ -105,3 +105,108 @@ Executing tests from: [exp1.js]
 2023-10-28 12:22:54 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
 2023-10-28 12:23:01 [debug]: Step 2 transaction was successful!
 2023-10-28 12:23:01 [debug]: Step 3 transaction was successful!
+2023-10-28 14:40:09 [info]: Setting up environment: [undefined]
+2023-10-28 14:40:09 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:40:35 [info]: Setting up environment: [undefined]
+2023-10-28 14:40:35 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:41:32 [info]: Setting up environment: [undefined]
+2023-10-28 14:41:32 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:41:40 [info]: Setting up environment: [undefined]
+2023-10-28 14:41:40 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:42:20 [info]: Setting up environment: [undefined]
+2023-10-28 14:42:20 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:43:04 [info]: Setting up environment: [undefined]
+2023-10-28 14:43:04 [info]: Running exploits for environment: [undefined] 
+
+2023-10-28 14:46:11 [info]: Setting up environment: [anvil]
+2023-10-28 14:46:11 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:46:11 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:46:11 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:46:15 [debug]: Step 1 transaction was successful!
+2023-10-28 14:46:15 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:46:22 [debug]: Step 2 transaction was successful!
+2023-10-28 14:46:22 [debug]: Step 3 transaction was successful!
+2023-10-28 14:46:22 [info]: Exploit successful!
+2023-10-28 14:46:22 [info]: Setting up environment: [anvil]
+2023-10-28 14:46:22 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:46:22 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:46:22 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:46:23 [debug]: Step 1 transaction was successful!
+2023-10-28 14:46:23 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:46:30 [debug]: Step 2 transaction was successful!
+2023-10-28 14:46:30 [debug]: Step 3 transaction was successful!
+2023-10-28 14:47:05 [info]: Setting up environment: [anvil]
+2023-10-28 14:47:05 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:47:05 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:47:05 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:47:08 [debug]: Step 1 transaction was successful!
+2023-10-28 14:47:08 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:47:15 [debug]: Step 2 transaction was successful!
+2023-10-28 14:47:15 [debug]: Step 3 transaction was successful!
+2023-10-28 14:47:15 [info]: Exploit successful!
+2023-10-28 14:47:15 [info]: Setting up environment: [anvil]
+2023-10-28 14:47:15 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:47:15 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:47:15 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:47:16 [debug]: Step 1 transaction was successful!
+2023-10-28 14:47:16 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:47:23 [debug]: Step 2 transaction was successful!
+2023-10-28 14:47:23 [debug]: Step 3 transaction was successful!
+2023-10-28 14:47:23 [info]: Exploit successful!
+2023-10-28 14:47:23 [info]: Setting up environment: [anvil]
+2023-10-28 14:47:48 [info]: Setting up environment: [anvil]
+2023-10-28 14:47:48 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:47:48 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:47:48 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:47:51 [debug]: Step 1 transaction was successful!
+2023-10-28 14:47:51 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:47:58 [debug]: Step 2 transaction was successful!
+2023-10-28 14:47:58 [debug]: Step 3 transaction was successful!
+2023-10-28 14:47:58 [info]: Exploit successful!
+2023-10-28 14:47:58 [info]: Setting up environment: [anvil]
+2023-10-28 14:47:58 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:47:58 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:47:58 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:47:59 [debug]: Step 1 transaction was successful!
+2023-10-28 14:47:59 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:48:06 [debug]: Step 2 transaction was successful!
+2023-10-28 14:48:06 [debug]: Step 3 transaction was successful!
+2023-10-28 14:48:06 [info]: Exploit successful!
+2023-10-28 14:48:06 [info]: Setting up environment: [anvil]
+2023-10-28 14:48:07 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:48:07 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:48:07 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:48:07 [debug]: Step 1 transaction was successful!
+2023-10-28 14:48:07 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:48:14 [debug]: Step 2 transaction was successful!
+2023-10-28 14:48:14 [debug]: Step 3 transaction was successful!
+2023-10-28 14:48:14 [info]: Exploit successful!
+2023-10-28 14:48:14 [info]: Setting up environment: [anvil]
+2023-10-28 14:48:15 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 14:48:15 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 14:48:15 [info]: Executing tests from: [exp1.js]
+2023-10-28 14:48:15 [debug]: Step 1 transaction was successful!
+2023-10-28 14:48:15 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 14:48:22 [debug]: Step 2 transaction was successful!
+2023-10-28 14:48:22 [debug]: Step 3 transaction was successful!
