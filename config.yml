@@ -4,17 +4,17 @@ contracts:
   - name: "SampleContract1"
     models:
       - name: "Model1"
-        id: "123456789"
+        id: "123456789" # The id of the model in DCRGraphs.net website
       - name: "Model2"
         id: "123456789"
-    tests:
+    tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
       - "Contract1Exploits_1"
       - "Contract1Exploits_2"
 
   - name: "SampleContract2"
     models:
       - name: "Model3"
-        id: "123456789"
+        id: "123456789" # The id of the model in DCRGraphs.net website
       - name: "Model4"
         id: "123456789"
     tests:

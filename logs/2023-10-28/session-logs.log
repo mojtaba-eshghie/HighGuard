@@ -1,0 +1,107 @@
+2023-10-28 10:40:32 [info]: > Setting up environment: [anvil]
+2023-10-28 10:40:32 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:40:32 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Executing tests from: [exp1.js]
+2023-10-28 10:40:43 [debug]: All reporting operations should finish before freeing environment resources.
+2023-10-28 10:42:50 [info]: > Setting up environment: [anvil]
+2023-10-28 10:42:50 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:42:50 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Executing tests from: [exp1.js]
+2023-10-28 10:42:54 [debug]: Step 1 transaction was successful!
+2023-10-28 10:43:01 [debug]: All reporting operations should finish before freeing environment resources.
+2023-10-28 10:43:28 [info]: > Setting up environment: [anvil]
+2023-10-28 10:43:28 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:43:28 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Executing tests from: [exp1.js]
+2023-10-28 10:43:33 [debug]: Step 1 transaction was successful!
+2023-10-28 10:43:33 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:43:40 [debug]: All reporting operations should finish before freeing environment resources.
+2023-10-28 10:45:26 [info]: > Setting up environment: [anvil]
+2023-10-28 10:45:26 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:45:26 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Executing tests from: [exp1.js]
+2023-10-28 10:45:30 [debug]: Step 1 transaction was successful!
+2023-10-28 10:45:30 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:45:38 [debug]: Step 2 transaction was successful!
+2023-10-28 10:45:38 [debug]: Step 3 transaction was successful!
+2023-10-28 10:46:08 [info]: Setting up environment: [anvil]
+2023-10-28 10:46:08 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:46:08 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Executing tests from: [exp1.js]
+2023-10-28 10:46:13 [debug]: Step 1 transaction was successful!
+2023-10-28 10:46:13 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:46:20 [debug]: Step 2 transaction was successful!
+2023-10-28 10:46:20 [debug]: Step 3 transaction was successful!
+2023-10-28 10:47:39 [info]: Setting up environment: [anvil]
+2023-10-28 10:47:39 [info]: Running exploits for environment: [anvil]
+2023-10-28 10:47:39 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+2023-10-28 10:47:39 [info]: Executing tests from: [exp1.js]
+2023-10-28 10:47:44 [debug]: Step 1 transaction was successful!
+2023-10-28 10:47:44 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:47:51 [debug]: Step 2 transaction was successful!
+2023-10-28 10:47:51 [debug]: Step 3 transaction was successful!
+2023-10-28 10:47:59 [info]: Setting up environment: [anvil]
+2023-10-28 10:47:59 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 10:47:59 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 10:47:59 [info]: Executing tests from: [exp1.js]
+2023-10-28 10:48:03 [debug]: Step 1 transaction was successful!
+2023-10-28 10:48:03 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:48:10 [debug]: Step 2 transaction was successful!
+2023-10-28 10:48:10 [debug]: Step 3 transaction was successful!
+2023-10-28 10:50:52 [info]: Setting up environment: [anvil]
+2023-10-28 10:50:52 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 10:50:52 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 10:50:52 [info]: Executing tests from: [exp1.js]
+2023-10-28 10:50:59 [debug]: Step 1 transaction was successful!
+2023-10-28 10:50:59 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 10:51:06 [debug]: Step 2 transaction was successful!
+2023-10-28 10:51:06 [debug]: Step 3 transaction was successful!
+2023-10-28 11:29:06 [info]: Setting up environment: [anvil]
+2023-10-28 11:29:07 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 11:29:07 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 11:29:07 [info]: Executing tests from: [exp1.js]
+2023-10-28 11:29:11 [debug]: Step 1 transaction was successful!
+2023-10-28 11:29:11 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 11:29:15 [info]: Setting up environment: [anvil]
+2023-10-28 11:29:16 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 11:29:16 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 11:29:16 [info]: Executing tests from: [exp1.js]
+2023-10-28 11:29:20 [debug]: Step 1 transaction was successful!
+2023-10-28 11:29:20 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 11:29:27 [debug]: Step 2 transaction was successful!
+2023-10-28 11:29:27 [debug]: Step 3 transaction was successful!
+2023-10-28 12:22:00 [info]: Setting up environment: [anvil]
+2023-10-28 12:22:00 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 12:22:00 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 12:22:00 [info]: Executing tests from: [exp1.js]
+2023-10-28 12:22:08 [debug]: Step 1 transaction was successful!
+2023-10-28 12:22:08 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 12:22:15 [debug]: Step 2 transaction was successful!
+2023-10-28 12:22:15 [debug]: Step 3 transaction was successful!
+2023-10-28 12:22:49 [info]: Setting up environment: [anvil]
+2023-10-28 12:22:49 [info]: Running exploits for environment: [anvil] 
+
+2023-10-28 12:22:49 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2023-10-28 12:22:49 [info]: Executing tests from: [exp1.js]
+2023-10-28 12:22:54 [debug]: Step 1 transaction was successful!
+2023-10-28 12:22:54 [debug]: Waiting for 7 seconds to bypass the deadline for product discount...
+2023-10-28 12:23:01 [debug]: Step 2 transaction was successful!
+2023-10-28 12:23:01 [debug]: Step 3 transaction was successful!
