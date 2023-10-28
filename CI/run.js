@@ -1,13 +1,14 @@
 require('module-alias/register');
-let fs = require('fs');
-let path = require('path');
-let setupEnv = require('@envs/anvil');
-let chalk = require('chalk');
-let { terminateProcessByPid } = require('@lib/os/process');
-let yargs = require('yargs/yargs');
-let { hideBin } = require('yargs/helpers');
-let logger = require('@lib/logging/logger');
-let { readCIConfig } = require('@lib/config');
+const path = require('path');
+const setupEnv = require('@envs/anvil');
+const chalk = require('chalk');
+const { terminateProcessByPid } = require('@lib/os/process');
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
+const logger = require('@lib/logging/logger');
+const { readCIConfig } = require('@lib/config');
+const { makeSimulation } = require('@lib/dcr/exec');
+const { getLastSimulationId } = require('@lib/dcr/info');
 
 let argv = yargs(hideBin(process.argv))
     .option('v', {
@@ -40,8 +41,11 @@ async function setupAndRunTests() {
 
             // 1. For each model
             for (let model of contract.models) {
-                // ... [rest of the model processing]
+                await makeSimulation(model.id);
+                let simId = await getLastSimulationId(model.id);
+                
             }
+
 
             // 2. Execute the whole test using runner
             let environment = test.environment;
