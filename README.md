@@ -1,11 +1,10 @@
-## Clawk: Monitoring High-Level Properties in Smart Contracts
+## HighGuard: Monitoring High-Level Properties in Smart Contracts
 <p align="center">
-  <img src="https://github.com/mojtaba-eshghie/Clawk/assets/37236297/4ea40602-3791-478b-b121-28f4cd9555a5" width="200" alt="Clawk Logo">
+  <img src="https://github.com/mojtaba-eshghie/Clawk/assets/37236297/4ea40602-3791-478b-b121-28f4cd9555a5" width="200" alt="HighGuard Logo">
 </p>
 
-Smart contracts embody complex business processes that can be difficult to analyze statically. In this paper, we present CLawK, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how CLawK can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs. 
+Smart contracts embody complex business processes that can be difficult to analyze statically. Therefore, we present HighGuard, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs. 
 
-<sub>* Clawk is Acronym for Contract Law Keeper.</sub>
 
 ## Installation
 
@@ -24,7 +23,7 @@ Run the `npm install` in the main repository directory and the following directo
 
 ## Usage
 
-### Using Clawk in Client-Server Mode
+### Using HighGuard in Client-Server Mode
 
 Run the following commands (in order):
 
@@ -75,20 +74,20 @@ node monitorCLI.js --address 0xB343f140a4426dc4eb40C2aFCe777D0509e4dCC0 --dcrID 
 ## Cite Us
 
 ```
-@misc{Clawk,
+@misc{HighGuard,
   author       = {Mojtaba Eshghie and Wolfgang Ahrendt and
                   Cyrille Artho and Thomas Troels Hildebrandt and
                   Gerardo Schneider},
-  title        = {CLawK: Monitoring Business Processes in
+  title        = {HighGuard: Monitoring Business Processes in
                   Smart Contracts},
   year         = {2023},
   month        = {May},
   url          = {https://arxiv.org/abs/2305.08254},
   doi          = {10.48550/arXiv.2305.08254},
   abstract     = {Smart contracts embody complex business processes that can be difficult to analyze statically.
-                  In this paper, we present CLawK, a runtime monitoring tool that leverages business process
+                  In this paper, we present HighGuard, a runtime monitoring tool that leverages business process
                   specifications written in DCR graphs to provide runtime verification of smart contract execution.
-                  We demonstrate how CLawK can detect and flag deviations from specified behaviors in smart
+                  We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart
                   contracts deployed in the Ethereum network without code instrumentation or additional gas costs.},
   note         = {arXiv:2305.08254v1 [cs.CR]},
   keywords     = {dcr-graphs, dynamic-condition-response,
@@ -105,4 +104,4 @@ node monitorCLI.js --address 0xB343f140a4426dc4eb40C2aFCe777D0509e4dCC0 --dcrID 
 
 ## Screenshot of the tool web interface (client)
 
-![CLawK Screenshot](https://raw.githubusercontent.com/mojtaba-eshghie/CLawK/main/client/public/Screenshot%202023-06-21%20at%2016.32.03.png)
+![HighGuard Screenshot](https://raw.githubusercontent.com/mojtaba-eshghie/CLawK/main/client/public/Screenshot%202023-06-21%20at%2016.32.03.png)
