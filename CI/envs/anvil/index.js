@@ -1,5 +1,8 @@
-let { spawn } = require('child_process');
-let Web3 = require("web3");
+require('module-alias/register');
+const { spawn } = require('child_process');
+const Web3 = require("web3");
+const { findFreePorts } = require('@lib/os/network');
+
 
 /**
  * Extracts information from the Anvil command.
@@ -7,20 +10,17 @@ let Web3 = require("web3");
  * @returns {Promise<Object>} A promise that resolves with an object containing the accounts, private keys, and RPC address.
  * @throws {Error} If there's an error while executing the Anvil command or processing its output.
  */
-let extractAnvilInfo = () => {
+let extractAnvilInfo = (port) => {
     return new Promise((resolve, reject) => {
-        // Spawn the anvil command as a child process
-        let anvilProcess = spawn('anvil');
+        let anvilProcess = spawn('anvil', ['--port', port]);
 
         let output = '';
 
-        // Capture the output
         anvilProcess.stdout.on('data', (data) => {
             output += data.toString();
 
-            // Check if we've captured the expected output (e.g., "Listening on 127.0.0.1:8545")
             if (output.includes('Listening on')) {
-                anvilProcess.stdout.removeAllListeners('data'); // Stop listening to further output
+                anvilProcess.stdout.removeAllListeners('data'); 
 
                 let accounts = [...output.matchAll(/"0x[a-fA-F0-9]{40}"/g)].map(match => match[0].replace(/"/g, ''));
                 let privateKeys = [...output.matchAll(/0x[a-fA-F0-9]{64}/g)].map(match => match[0]);
@@ -31,7 +31,8 @@ let extractAnvilInfo = () => {
                 resolve({
                     accounts,
                     privateKeys,
-                    rpcAddress
+                    rpcAddress,
+                    pid: anvilProcess.pid
                 });
             }
         });
@@ -43,10 +44,16 @@ let extractAnvilInfo = () => {
     });
 }
 
-let setupEnv = async () => {
-    let envInfo = await extractAnvilInfo();
 
-    let web3 = new Web3('http://'+envInfo.rpcAddress);
+let setupEnv = async () => {
+    let freePorts = await new Promise(resolve => findFreePorts(3000, 100, resolve));
+    if (!freePorts.length) {
+        throw new Error("No free ports found!");
+    }
+    let port = freePorts[Math.floor(Math.random() * freePorts.length)];
+
+    let envInfo = await extractAnvilInfo(port);
+    let web3 = new Web3('http://127.0.0.1:' + port);
 
     // Assuming the first account and private key are the signer's
     let signer = web3.eth.accounts.privateKeyToAccount(envInfo.privateKeys[0]);

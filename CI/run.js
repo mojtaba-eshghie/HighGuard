@@ -1,12 +1,13 @@
+require('module-alias/register');
 let fs = require('fs');
 let path = require('path');
 let yaml = require('js-yaml'); 
-let setupEnv = require('./envs/anvil/anvil.js');
+let setupEnv = require('@envs/anvil');
 let chalk = require('chalk');
-let { terminateProcessesByName } = require('./../lib/os/process');
+let { terminateProcessByPid } = require('@lib/os/process');
 let yargs = require('yargs/yargs');
 let { hideBin } = require('yargs/helpers');
-let logger = require('./../lib/logging/logger');
+let logger = require('@lib/logging/logger');
 
 
 let argv = yargs(hideBin(process.argv))
@@ -58,7 +59,7 @@ async function setupAndRunTests() {
             web3 = env['web3']
         }
 
-        logger.info(chalk.green(`> Running tests for environment: [${environment}]`));
+        logger.info(chalk.green(`> Running exploits for environment: [${environment}]`));
         for (let testFile of testFiles) {
             let testFilePath = path.join(__dirname, test.directory, testFile);
             logger.info(chalk.cyan(`${'- '.repeat(50)+'\n\n'}Executing tests from: [${testFile}]`));
@@ -73,10 +74,12 @@ async function setupAndRunTests() {
             }
         }
 
-        
-        // Close environment
+        logger.debug(chalk.blue("+ All reporting operations should finish before freeing environment resources."))
+
+
+        // Close environment. Without closing the environment properly, resources will be wasted.
         web3.currentProvider.disconnect();
-        terminateProcessesByName("anvil");
+        terminateProcessByPid(envInfo.pid);
         logger.debug(chalk.blue("+ Terminated any running anvil instance."))
     }
 
