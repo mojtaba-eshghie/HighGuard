@@ -43,7 +43,10 @@ async function setupAndRunTests() {
             for (let model of contract.models) {
                 await makeSimulation(model.id);
                 let simId = await getLastSimulationId(model.id);
+                // execute general conventions
                 
+
+                // execute model-based conventions
             }
 
 
