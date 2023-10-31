@@ -5,6 +5,23 @@ contracts:
     models:
       - name: "Model1"
         id: "1701159" # The id of the model in DCRGraphs.net website
+        functions:
+          functionIdentifier1:
+            paramIdentifier1:
+              EVMType: "..."
+              DCRType: "..."
+              DCRNodeID: "..."
+            roleSetter: true
+            roleVariableIdentifier: "owner"
+
+          functionIdentifier2:
+            paramIdentifier2:
+              EVMType: "..."
+              DCRType: "..."
+              DCRNodeID: "..."
+            roleSetter: true
+            roleVariableIdentifier: "owner"
+
       - name: "Model2"
         id: "1701159"
     tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
