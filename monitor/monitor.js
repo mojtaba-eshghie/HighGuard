@@ -1,29 +1,47 @@
 require('module-alias/register');
 const { makeSimulation } = require('@lib/dcr/exec');
 const { getLastSimulationId } = require('@lib/dcr/info');
+const setupEnv = require('@envs/anvil');
+const { watchTransactions } = require('@lib/monitor/watchpost')
+const EventEmitter = require('events');
 
+class Monitor extends EventEmitter {
+  constructor(configs) {
+    super();
+    this.configs = configs;
+    // Initialize the contract watcher for this instance
+    this.contractWatcher = new ContractWatcher(this.configs.address, this.configs.contractABI);
+    
+  }
 
-/**
- * Monitor does three things:
- * 1. Makes the simulation;
- * 2. Execute both the generic and plugin conventions
- * 3. Watches over the contract transactions
- * 4. Translates the transaction to DCR activities and executes DCR activities at each transaction
- */
+  start() {
+    // Bind the event handlers to this instance to ensure they have the correct `this` context
+    this.contractWatcher.on('newTransaction', this.handleContractEvent.bind(this));
 
-// Three parameters: 1. Model id, 2. Smart contract address, 3. Smart contract file name
+    // Start watching for contract events
+    this.contractWatcher.startWatching();
+    // ... other setup as needed ...
+  }
 
-await makeSimulation(model.id);
-let simId = await getLastSimulationId(model.id);
+  handleContractEvent(tx) {
+    // Process the transaction and translate it into a DCR activity
+    const dcrActivity = this.translateToDCR(tx);
+    if (dcrActivity) {
+      // Execute the DCR activity
+      this.executeDCRActivity(dcrActivity);
+    }
+  }
 
-// TODO
-// execute general conventions
+  translateToDCR(tx) {
+    // Logic to translate the transaction to DCR goes here
+    // ...
+    return dcrActivity;
+  }
 
-// TODO
-// execute model-based conventions
+  executeDCRActivity(dcrActivity) {
+    // Logic to execute the DCR activity goes here
+    // ...
+  }
+}
 
-// TODO
-// start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
-
-
-
+module.exports = Monitor;
