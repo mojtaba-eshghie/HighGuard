@@ -53,7 +53,11 @@ let setupEnv = async () => {
     let port = freePorts[Math.floor(Math.random() * freePorts.length)];
 
     let envInfo = await extractAnvilInfo(port);
-    let web3 = new Web3('http://127.0.0.1:' + port);
+
+    const wsPort = `ws://127.0.0.1:${port}`;
+    const web3 = new Web3(new Web3.providers.WebsocketProvider(wsPort));
+
+    //let web3 = new Web3('http://127.0.0.1:' + port);
 
     // Assuming the first account and private key are the signer's
     let signer = web3.eth.accounts.privateKeyToAccount(envInfo.privateKeys[0]);

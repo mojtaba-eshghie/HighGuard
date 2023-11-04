@@ -1,10 +1,10 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 contracts:
-  - name: "SampleContract1"
+  - name: "ProductOrder"
     models:
       - name: "Model1"
-        id: "1701159" # The id of the model in DCRGraphs.net website
+        id: "1701030" # The id of the model in DCRGraphs.net website
         functions:
           functionIdentifier1:
             paramIdentifier1:
@@ -24,19 +24,27 @@ contracts:
 
       - name: "Model2"
         id: "1701159"
+        functions:
+          setGreet:
+            EVMType: "string"
+            DCRType: "integer"
+            DCRNodeID: "setGreet"
     tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
       - "Contract1TemporalExploits1"
       - "Contract1TemporalExploits2"
 
-  - name: "SampleContract2"
+  - name: "HelloWorld"
     models:
-      - name: "Model3"
-        id: "1701159" # The id of the model in DCRGraphs.net website
+      - name: "HelloWorld Model"
+        id: "1702173" # The id of the model in DCRGraphs.net website
         # Plugin conventions if any, to execute (in order)
         # conventions:
         #  - name: ""
-      - name: "Model4"
-        id: "1701159"
+        functions:
+          setGreet:
+            EVMType: "string"
+            DCRType: "integer"
+            DCRNodeID: "setGreet"
     tests:
       - "Contract1TemporalExploits1"
       - "Contract1TemporalExploits2"

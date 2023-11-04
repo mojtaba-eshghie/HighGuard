@@ -1,29 +1,79 @@
 require('module-alias/register');
-const { makeSimulation } = require('@lib/dcr/exec');
-const { getLastSimulationId } = require('@lib/dcr/info');
+const EventEmitter = require('events');
+const ContractWatcher = require('@lib/monitor/watchpost');
+const DCRTranslator = require('@lib/monitor/translate');
+const DCRExecutor = require('@lib/dcr/exec');
+let { getLastSimulationId } = require('@lib/dcr/info');
 
 
-/**
- * Monitor does three things:
- * 1. Makes the simulation;
- * 2. Execute both the generic and plugin conventions
- * 3. Watches over the contract transactions
- * 4. Translates the transaction to DCR activities and executes DCR activities at each transaction
- */
+class Monitor extends EventEmitter {
+  constructor(configs) {
+    super();
+    this.configs = configs;
+    // Initialize the contract watcher, translator, and executor for this instance
+    this.contractWatcher = new ContractWatcher(
+      this.configs.web3,
+      this.configs.contractAddress,
+      this.configs.contractFileName
+    );
+    this.dcrTranslator = new DCRTranslator(
+      this.configs.contractABI,
+      this.configs.modelFunctionParams,
+      this.configs.web3
+    );
+    this.dcrExecutor = new DCRExecutor();
+  }
 
-// Three parameters: 1. Model id, 2. Smart contract address, 3. Smart contract file name
+  start() {
+    // Bind the event handlers to this instance to ensure they have the correct `this` context
+    this.contractWatcher.on('newTransaction', this.handleContractEvent.bind(this));
+    this.contractWatcher.on('error', this.handleError.bind(this));
+    // Start watching for contract events
+    this.contractWatcher.startWatching();
+    // ... other setup as needed ...
+  }
 
-await makeSimulation(model.id);
-let simId = await getLastSimulationId(model.id);
+  handleContractEvent(tx) {
+    // Process the transaction and translate it into DCR activities
+    const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
+    console.log("The retrieved activity using the translator is: ", dcrActivities)
+    if (dcrActivities) {
+      dcrActivities.forEach(this.executeDCRActivity.bind(this));
+    }
+  }
 
-// TODO
-// execute general conventions
+  async executeDCRActivity(dcrActivity) {
+    console.log("line 46, dcrActivity is: ", dcrActivity);
+    // Execute the DCR activity
+    // Here you would need the simulation ID and other details to execute the activity
+    // Assuming you have a method to get or create a simulation ID
+    await this.dcrExecutor.makeSimulation(this.configs.modelId);
+    let simId = await getLastSimulationId(this.configs.modelId);
 
-// TODO
-// execute model-based conventions
+    this.dcrExecutor.executeActivity(
+      this.configs.modelId,
+      simId,
+      dcrActivity.activityId,
+      dcrActivity.dcrValue,
+      dcrActivity.dcrType
+    )
+    .then(result => {
+      // Handle successful execution
+      console.log('DCR Activity executed:', result);
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('Error executing DCR Activity:', error);
+    });
+  }
 
-// TODO
-// start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
+  handleError(error) {
+    // Handle any errors that occur within the contract watcher
+    console.error('Error in ContractWatcher:', error);
+  }
+
+  // ... other methods as needed ...
+}
 
 
-
+module.exports = Monitor;
