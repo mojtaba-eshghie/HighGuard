@@ -1,6 +1,6 @@
 require('module-alias/register');
 const path = require('path');
-const setupEnv = require('@envs/anvil');
+const setupAnvilEnv = require('@envs/anvil');
 const chalk = require('chalk');
 const { terminateProcessByPid } = require('@lib/os/process');
 const yargs = require('yargs/yargs');
@@ -64,7 +64,7 @@ async function setupAndRunTests() {
             let web3 = null; 
 
             if (environment === 'anvil') {
-                let env = await setupEnv();
+                let env = await setupAnvilEnv();
                 envInfo = env['envInfo'];
                 web3 = env['web3']
             }
