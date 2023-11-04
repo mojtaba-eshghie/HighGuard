@@ -43,6 +43,7 @@ class Monitor extends EventEmitter {
   }
 
   async executeDCRActivity(dcrActivity) {
+    console.log("line 46, dcrActivity is: ", dcrActivity);
     // Execute the DCR activity
     // Here you would need the simulation ID and other details to execute the activity
     // Assuming you have a method to get or create a simulation ID
@@ -50,9 +51,9 @@ class Monitor extends EventEmitter {
     let simId = await getLastSimulationId(this.configs.modelId);
 
     this.dcrExecutor.executeActivity(
-      dcrActivity.dcrID,
+      this.configs.modelId,
       simId,
-      dcrActivity.dcrID,
+      dcrActivity.activityId,
       dcrActivity.dcrValue,
       dcrActivity.dcrType
     )
