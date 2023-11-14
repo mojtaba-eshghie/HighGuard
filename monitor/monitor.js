@@ -8,20 +8,38 @@ let { getLastSimulationId } = require('@lib/dcr/info');
 
 class Monitor extends EventEmitter {
   constructor(configs) {
+    
     super();
     this.configs = configs;
+
     // Initialize the contract watcher, translator, and executor for this instance
+
+    // watcher
     this.contractWatcher = new ContractWatcher(
       this.configs.web3,
       this.configs.contractAddress,
       this.configs.contractFileName
     );
+
+    // translator
     this.dcrTranslator = new DCRTranslator(
       this.configs.contractABI,
       this.configs.modelFunctionParams,
       this.configs.web3
     );
+
+    // executor
     this.dcrExecutor = new DCRExecutor();
+
+
+    // Setting up a new simulation for the model
+    this.simulate().catch(err => console.error('Initialization failed:', err));
+  }
+
+  async simulate() {
+    await this.dcrExecutor.makeSimulation(this.configs.modelId);
+    let simId = await getLastSimulationId(this.configs.modelId);
+    this.simId = simId;
   }
 
   start() {
@@ -47,12 +65,10 @@ class Monitor extends EventEmitter {
     // Execute the DCR activity
     // Here you would need the simulation ID and other details to execute the activity
     // Assuming you have a method to get or create a simulation ID
-    await this.dcrExecutor.makeSimulation(this.configs.modelId);
-    let simId = await getLastSimulationId(this.configs.modelId);
 
     this.dcrExecutor.executeActivity(
       this.configs.modelId,
-      simId,
+      this.simId,
       dcrActivity.activityId,
       dcrActivity.dcrValue,
       dcrActivity.dcrType
@@ -72,8 +88,6 @@ class Monitor extends EventEmitter {
     console.error('Error in ContractWatcher:', error);
   }
 
-  // ... other methods as needed ...
 }
-
 
 module.exports = Monitor;
