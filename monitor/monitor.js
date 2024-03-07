@@ -87,6 +87,7 @@ class Monitor extends EventEmitter {
     console.error('Error in ContractWatcher:', error);
   }
 
+
 }
 
 module.exports = Monitor;
