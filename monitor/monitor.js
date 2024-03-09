@@ -10,6 +10,7 @@ class Monitor extends EventEmitter {
   constructor(configs) {
     
     super();
+    this.receivedActivities = [];
     this.configs = configs;
 
     // Initialize the contract watcher, translator, and executor for this instance
@@ -48,7 +49,8 @@ class Monitor extends EventEmitter {
     this.contractWatcher.on('error', this.handleError.bind(this));
     // Start watching for contract events
     this.contractWatcher.startWatching();
-    // ... other setup as needed ...
+    
+    // TODO: other setup steps
   }
 
   handleContractEvent(tx) {
@@ -73,8 +75,9 @@ class Monitor extends EventEmitter {
       dcrActivity.dcrType
     )
     .then(result => {
-      // Handle successful execution
-      console.log('DCR Activity executed:', result);
+      // Handle the execution result (+verdict)
+      console.log('DCR Activity sent for execution:', result);
+      this.receivedActivities.push(result);
     })
     .catch(error => {
       // Handle errors
@@ -86,7 +89,6 @@ class Monitor extends EventEmitter {
     // Handle any errors that occur within the contract watcher
     console.error('Error in ContractWatcher:', error);
   }
-
 
 }
 
