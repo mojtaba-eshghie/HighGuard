@@ -39,23 +39,7 @@ async function setupAndRunTests() {
                 continue;
             }
 
-            // 1. For each model
-            for (let model of contract.models) {
-                await makeSimulation(model.id);
-                let simId = await getLastSimulationId(model.id);
-                
-                // TODO
-                // execute general conventions
-
-                // TODO
-                // execute model-based conventions
-
-                // TODO
-                // start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
-            }
-
-
-            // 2. Execute the whole test using runner
+            // Setting up the environment for the monitor
             let environment = test.environment;
             let testFiles = test.files;
 
@@ -63,11 +47,67 @@ async function setupAndRunTests() {
             let envInfo = null;
             let web3 = null; 
 
-            if (environment === 'anvil') {
-                let env = await setupAnvilEnv();
-                envInfo = env['envInfo'];
-                web3 = env['web3']
+            
+
+            // 1. For each model, we will create a monitor. A monitor is simply a model running against a test/exploit
+            for (let model of contract.models) {
+                await makeSimulation(model.id);
+                let simId = await getLastSimulationId(model.id);
+
+                // 1.1
+                // start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
+                if (environment === 'anvil') {
+                    let env = await setupAnvilEnv();
+                    envInfo = env['envInfo'];
+                    web3 = env['web3']
+                }
+                
+                // Associated with each test/exploit, the environment differs, so, if envorinment setup
+                // was unsuccessful for the test, we throw an error.
+                if (web3 === null || envInfo === null) {
+                    throw new Error('Web3 testing environment should be correctly set up.');
+                }
+
+                configs = {
+                    web3: web3,
+                    contractAddress: contractInstance._address,
+                    contractFileName: "HelloWorld",
+                    contractName: "HelloWorld",
+                    contractABI: await getContractABI("HelloWorld"),
+                    modelFunctionParams: modelFunctionParams,
+                    activities: await getActivities("1702173"),
+                    modelId: "1702173"
+                }
+                let monitor = new Monitor(configs);
+                console.log(envInfo);
+                console.log(`Monitoring the contract: ${contractInstance._address}`)
+                monitor.start();
+                
+
+
+
+                // 1.2
+                // execute general conventions
+
+
+
+                
+
+                // 1.3
+                // execute model-based conventions
             }
+            
+
+            
+
+
+
+            
+
+
+
+
+
 
             logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
             for (let testFile of testFiles) {
@@ -91,6 +131,9 @@ async function setupAndRunTests() {
 
             // 3. Store the results from the monitor to generate the report later
             // TODO: Implement result storage for report generation
+
+
+            
         }
     }
 
