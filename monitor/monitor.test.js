@@ -1,7 +1,6 @@
 require('module-alias/register');
 const Monitor = require('@monitor/monitor');
 const setupAnvilEnv = require('@envs/anvil');
-const setupEnv = require('@envs/anvil');
 const fs = require('fs');
 const path = require('path');
 const { readModelFunctionsParams } = require('@lib/config');

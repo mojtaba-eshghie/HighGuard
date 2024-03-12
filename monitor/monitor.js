@@ -21,7 +21,7 @@ class Monitor extends EventEmitter {
       this.configs.contractAddress,
       this.configs.contractFileName
     );
-
+      
     // translator
     this.dcrTranslator = new DCRTranslator(
       this.configs.contractABI,
@@ -90,6 +90,7 @@ class Monitor extends EventEmitter {
     console.error('Error in ContractWatcher:', error);
   }
 
+  
 }
 
 module.exports = Monitor;

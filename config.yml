@@ -21,7 +21,6 @@ contracts:
               DCRNodeID: "..."
             roleSetter: true
             roleVariableIdentifier: "owner"
-
       - name: "Model2"
         id: "1701159"
         functions:
