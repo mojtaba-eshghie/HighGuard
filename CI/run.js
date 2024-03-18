@@ -61,13 +61,11 @@ async function setupAndRunTests() {
                     envInfo = env['envInfo'];
                     web3 = env['web3']
                 }
-                
                 // Associated with each test/exploit, the environment differs, so, if envorinment setup
                 // was unsuccessful for the test, we throw an error.
                 if (web3 === null || envInfo === null) {
                     throw new Error('Web3 testing environment should be correctly set up.');
                 }
-
                 configs = {
                     web3: web3,
                     contractAddress: contractInstance._address,
