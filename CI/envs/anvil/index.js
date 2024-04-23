@@ -21,9 +21,8 @@ let extractAnvilInfo = (port) => {
             if (output.includes('Listening on')) {
                 anvilProcess.stdout.removeAllListeners('data'); 
 
-                let accounts = [...output.matchAll(/"0x[a-fA-F0-9]{40}"/g)].map(match => match[0].replace(/"/g, ''));
+                let accounts = [...output.matchAll(/0x[a-fA-F0-9]{40}/g)].map(match => match[0].replace(/"/g, ''));
                 let privateKeys = [...output.matchAll(/0x[a-fA-F0-9]{64}/g)].map(match => match[0]);
-
                 let rpcAddressMatch = output.match(/Listening on (\d+\.\d+\.\d+\.\d+:\d+)/);
                 let rpcAddress = rpcAddressMatch ? rpcAddressMatch[1] : null;
 
