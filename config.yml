@@ -46,20 +46,13 @@ contracts:
             DCRNodeID: "setGreet"
     tests:
       - "Contract1TemporalExploits1"
-      - "Contract1TemporalExploits2"
 
 tests:
   - name: "Contract1TemporalExploits1"
     description: "Exploits for temporal properties of contract 1"
     directory: "/tests/exploits/"
     files:
-      - "exp1.js"
-    environment: "anvil"
-  - name: "Contract1TemporalExploits2"
-    description: "Exploits for temporal properties of contract 1"
-    directory: "/tests/exploits/"
-    files:
-      - "exp1.js"
+      - "helloExploit.js"
     environment: "anvil"
 
 environments:

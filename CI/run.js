@@ -1,15 +1,22 @@
 require('module-alias/register');
-const path = require('path');
-const setupAnvilEnv = require('@envs/anvil');
-const chalk = require('chalk');
+
 const { terminateProcessByPid } = require('@lib/os/process');
-const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-const logger = require('@lib/logging/logger');
 const { readCIConfig } = require('@lib/config');
 const { getLastSimulationId } = require('@lib/dcr/info');
 const { readModelFunctionsParams } = require('@lib/config');
+const { getActivities } = require('@lib/dcr/info')
+
+const logger = require('@lib/logging/logger');
+const yargs = require('yargs/yargs');
+const path = require('path');
+const setupAnvilEnv = require('@envs/anvil');
+const chalk = require('chalk');
+const Monitor = require('@monitor/monitor');
+
 const fs = require('fs');
+
+
 const { 
     extractSolcVersion, 
     compileWithVersion, 
@@ -46,14 +53,15 @@ async function setupAndRunTests() {
                 continue;
             }
                         
-
+            let environment = null;
+            let testFiles = null;
             // 1. For each model, we will create a monitor. A monitor is simply a model running against a test/exploit
             for (let model of contract.models) {
                 // 1.1
                 // Set up required configuration to spawn a new monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
                 // Setting up the environment for the monitor
-                let environment = test.environment;
-                let testFiles = test.files;              
+                environment = test.environment;
+                testFiles = test.files;              
 
                 logger.info(chalk.blue(`Setting up environment: [${environment}]`));
                 let envInfo = null;
@@ -66,7 +74,7 @@ async function setupAndRunTests() {
 
                 // Associated with each test/exploit, the environment differs, so, if envorinment setup
                 // was unsuccessful for the test, we throw an error.
-                if (web3 === null || envInfo === null) {
+                if (!web3 || !envInfo) {
                     throw new Error('Web3 testing environment should be correctly set up.');
                 }
 
@@ -88,7 +96,7 @@ async function setupAndRunTests() {
 
                 // Retrieving the model-function parameter configuration information
                 let modelFunctionParams = readModelFunctionsParams(contractName, model.id)
-                console.log('modelFunctionParams from configurations: ', modelFunctionParams)
+                logger.debug('modelFunctionParams from configurations: ', modelFunctionParams)
 
                 configs = {
                     web3: web3,
@@ -101,8 +109,8 @@ async function setupAndRunTests() {
                     modelId: model.id
                 }
                 let monitor = new Monitor(configs);
-                console.log(envInfo);
-                console.log(`Monitoring the contract: ${contractInstance._address}`)
+                //console.log(envInfo);
+                logger.info(chalk.green(`Monitoring the contract: ${contractInstance._address}`))
                 monitor.start();
                 
 
@@ -119,39 +127,46 @@ async function setupAndRunTests() {
 
                 // 1.3
                 // execute model-based conventions
-            }
-            
-
-            
 
 
 
-            
+                // 1.4
+                // execute exploits
+                logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
+                for (let testFile of testFiles) {
+                    let testFilePath = path.join(__dirname, test.directory, testFile);
 
+                    logger.info(chalk.cyan(`${'- '.repeat(40)+'\n'}`));
+                    logger.info(chalk.cyan(`Executing exploits from: [${testFile}]`));
 
-
-
-
-
-            logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
-            for (let testFile of testFiles) {
-                let testFilePath = path.join(__dirname, test.directory, testFile);
-
-                logger.info(chalk.cyan(`${'- '.repeat(40)+'\n'}`));
-                logger.info(chalk.cyan(`Executing tests from: [${testFile}]`));
-
-                let testModule = require(testFilePath);
-                if (typeof testModule === 'function') {
-                    let result = await testModule(web3, envInfo);
-                    if (result) {
-                        successfulExploits++;
+                    let testModule = require(testFilePath);
+                    if (typeof testModule === 'function') {
+                        let result = await testModule(web3, envInfo);
+                        if (result) {
+                            successfulExploits++;
+                        } else {
+                            failedExploits++;
+                        }
                     } else {
-                        failedExploits++;
+                        logger.error(chalk.red(`Failed to fetch the correct function to run.`))
                     }
-                } else {
-                    logger.error(chalk.red(`Failed to fetch the correct function to run.`))
                 }
+
             }
+            
+
+            
+
+
+
+            
+
+
+
+
+
+
+            
 
             // 3. Store the results from the monitor to generate the report later
             // TODO: Implement result storage for report generation
