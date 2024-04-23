@@ -7,8 +7,15 @@ const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const logger = require('@lib/logging/logger');
 const { readCIConfig } = require('@lib/config');
-const { makeSimulation } = require('@lib/dcr/exec');
 const { getLastSimulationId } = require('@lib/dcr/info');
+const { readModelFunctionsParams } = require('@lib/config');
+const fs = require('fs');
+const { 
+    extractSolcVersion, 
+    compileWithVersion, 
+    deployContract,
+    getContractABI 
+} = require('@lib/web3/deploy');
 
 let argv = yargs(hideBin(process.argv))
     .option('v', {
@@ -38,43 +45,60 @@ async function setupAndRunTests() {
                 logger.error(`Test ${testName} not found in the configuration.`);
                 continue;
             }
-
-            // Setting up the environment for the monitor
-            let environment = test.environment;
-            let testFiles = test.files;
-
-            logger.info(chalk.blue(`Setting up environment: [${environment}]`));
-            let envInfo = null;
-            let web3 = null; 
-
-            
+                        
 
             // 1. For each model, we will create a monitor. A monitor is simply a model running against a test/exploit
             for (let model of contract.models) {
-                await makeSimulation(model.id);
-                let simId = await getLastSimulationId(model.id);
-
                 // 1.1
-                // start the monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
+                // Set up required configuration to spawn a new monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)
+                // Setting up the environment for the monitor
+                let environment = test.environment;
+                let testFiles = test.files;              
+
+                logger.info(chalk.blue(`Setting up environment: [${environment}]`));
+                let envInfo = null;
+                let web3 = null; 
                 if (environment === 'anvil') {
                     let env = await setupAnvilEnv();
                     envInfo = env['envInfo'];
                     web3 = env['web3']
                 }
+
                 // Associated with each test/exploit, the environment differs, so, if envorinment setup
                 // was unsuccessful for the test, we throw an error.
                 if (web3 === null || envInfo === null) {
                     throw new Error('Web3 testing environment should be correctly set up.');
                 }
+
+
+                // Contract preparation and deployment
+                const projectRoot = path.resolve(__dirname, '..'); 
+                const contractsDir = path.join(projectRoot, './contracts');
+                const contractName = contract.name;
+                let contractSource = fs.readFileSync(path.join(contractsDir, 'src', contractName+'.sol'), 'utf8');
+                let solcVersion = extractSolcVersion(contractSource);
+                let parameters = [];
+                let { abi, bytecode } = await compileWithVersion(contractSource, contractName, solcVersion);
+                let contractInstance = await deployContract(web3, abi, bytecode, envInfo, parameters);
+                
+                
+                
+                logger.debug(chalk.white(`Model id: ${model.id}`))
+                logger.debug(chalk.white(`The contract: ${contractName}`))
+
+                // Retrieving the model-function parameter configuration information
+                let modelFunctionParams = readModelFunctionsParams(contractName, model.id)
+                console.log('modelFunctionParams from configurations: ', modelFunctionParams)
+
                 configs = {
                     web3: web3,
                     contractAddress: contractInstance._address,
-                    contractFileName: "HelloWorld",
-                    contractName: "HelloWorld",
-                    contractABI: await getContractABI("HelloWorld"),
+                    contractFileName: contractName,
+                    contractName: contractName,
+                    contractABI: await getContractABI(contractName),
                     modelFunctionParams: modelFunctionParams,
-                    activities: await getActivities("1702173"),
-                    modelId: "1702173"
+                    activities: await getActivities(model.id),
+                    modelId: model.id
                 }
                 let monitor = new Monitor(configs);
                 console.log(envInfo);
@@ -82,7 +106,9 @@ async function setupAndRunTests() {
                 monitor.start();
                 
 
-
+                // Setting up the monitor itself: (get it from monitor.test.js) 
+                // await makeSimulation(model.id);
+                // let simId = await getLastSimulationId(model.id);
 
                 // 1.2
                 // execute general conventions

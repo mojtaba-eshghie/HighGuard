@@ -3,7 +3,6 @@ const { spawn } = require('child_process');
 const Web3 = require("web3");
 const { findFreePorts } = require('@lib/os/network');
 
-
 /**
  * Extracts information from the Anvil command.
  * 
@@ -56,8 +55,6 @@ let setupEnv = async () => {
 
     const wsPort = `ws://127.0.0.1:${port}`;
     const web3 = new Web3(new Web3.providers.WebsocketProvider(wsPort));
-
-    //let web3 = new Web3('http://127.0.0.1:' + port);
 
     // Assuming the first account and private key are the signer's
     let signer = web3.eth.accounts.privateKeyToAccount(envInfo.privateKeys[0]);
