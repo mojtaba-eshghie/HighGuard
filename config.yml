@@ -29,7 +29,7 @@ contracts:
   #           DCRType: "integer"
   #           DCRNodeID: "setGreet"
   #   tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
-  #     - "Contract1TemporalExploits1"
+  #     - "ProductOrder"
   #     - "Contract1TemporalExploits2"
 
   - name: "HelloWorld"
@@ -45,14 +45,14 @@ contracts:
             DCRType: "integer"
             DCRNodeID: "setGreet"
     tests:
-      - "Contract1TemporalExploits1"
+      - "HelloWorldExploit"
 
 tests:
-  - name: "Contract1TemporalExploits1"
-    description: "Exploits for temporal properties of contract 1"
+  - name: "HelloWorldExploit"
+    description: "Exploits for temporal properties of HelloWorld Contract"
     directory: "/tests/exploits/"
     files:
-      - "helloExploit.js"
+      - "HelloWorldExploit.js"
     environment: "anvil"
 
 environments:

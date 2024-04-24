@@ -55,7 +55,7 @@ async function setupAndRunTests() {
                         
             let environment = null;
             let testFiles = null;
-            // 1. For each model, we will create a monitor. A monitor is simply a model running against a test/exploit
+            // 1. For each model, we will create a monitor. A monitor is simply a model running against an exploit
             for (let model of contract.models) {
                 // 1.1
                 // Set up required configuration to spawn a new monitor (thread that watches over the EVM, talks to DCR Engine, and logs the violations or activity executions)

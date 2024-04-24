@@ -1,0 +1,16 @@
+2024-04-24 08:32:08 [info]: Setting up environment: [anvil]
+2024-04-24 08:32:13 [info]: Monitoring the contract: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+2024-04-24 08:32:13 [info]: Running exploits for environment: [anvil] 
+
+2024-04-24 08:32:13 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2024-04-24 08:32:13 [info]: Executing exploits from: [helloExploit.js]
+2024-04-24 08:32:16 [info]: Exploit successful!
+2024-04-24 08:38:30 [info]: Setting up environment: [anvil]
+2024-04-24 08:38:35 [info]: Monitoring the contract: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+2024-04-24 08:38:35 [info]: Running exploits for environment: [anvil] 
+
+2024-04-24 08:38:35 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2024-04-24 08:38:35 [info]: Executing exploits from: [HelloWorldExploit.js]
+2024-04-24 08:38:38 [info]: Exploit successful!
