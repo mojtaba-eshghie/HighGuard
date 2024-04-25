@@ -8,3 +8,6 @@
 */*/.DS_Store 
 .DS_Store 
 /dbs/*
+/logs/
+logs/
+logs/*
