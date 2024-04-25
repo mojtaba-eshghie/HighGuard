@@ -14,3 +14,130 @@
 
 2024-04-24 08:38:35 [info]: Executing exploits from: [HelloWorldExploit.js]
 2024-04-24 08:38:38 [info]: Exploit successful!
+2024-04-24 09:54:18 [info]: Setting up environment: [anvil]
+2024-04-24 09:54:23 [info]: Monitoring the contract: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+2024-04-24 09:54:23 [info]: Running exploits for environment: [anvil] 
+
+2024-04-24 09:54:23 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2024-04-24 09:54:23 [info]: Executing exploits from: [HelloWorldExploit.js]
+2024-04-24 09:54:26 [info]: Exploit successful!
+2024-04-24 13:04:06 [error]: Test PrizeDistributionExploit not found in the configuration.
+2024-04-24 13:04:06 [info]: Setting up environment: [anvil]
+2024-04-24 13:04:12 [info]: Monitoring the contract: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+2024-04-24 13:04:12 [info]: Running exploits for environment: [anvil] 
+
+2024-04-24 13:04:12 [info]: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+2024-04-24 13:04:12 [info]: Executing exploits from: [HelloWorldExploit.js]
+2024-04-24 13:04:16 [info]: Exploit successful!
+2024-04-24 13:05:47 [info]: Setting up environment: [anvil]
+2024-04-24 13:06:37 [info]: Setting up environment: [anvil]
+2024-04-24 13:07:01 [info]: Setting up environment: [anvil]
+2024-04-24 13:08:41 [info]: Setting up environment: [anvil]
+2024-04-24 13:16:15 [info]: Setting up environment: [anvil]
+2024-04-24 13:17:08 [info]: Setting up environment: [anvil]
+2024-04-24 13:17:50 [info]: Setting up environment: [anvil]
+2024-04-24 13:18:11 [info]: Setting up environment: [anvil]
+2024-04-24 13:18:50 [info]: Setting up environment: [anvil]
+2024-04-24 13:18:53 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:19:50 [info]: Setting up environment: [anvil]
+2024-04-24 13:19:53 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:20:08 [info]: Setting up environment: [anvil]
+2024-04-24 13:20:08 [error]: Error during setup or test execution: Error: thread 'main' panicked at /Users/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/hyper-0.14.27/src/server/server.rs:79:13:
+error binding to 127.0.0.1:3054: error creating server listener: Address already in use (os error 48)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+2024-04-24 13:20:18 [info]: Setting up environment: [anvil]
+2024-04-24 13:20:21 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:20:33 [info]: Setting up environment: [anvil]
+2024-04-24 13:20:36 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:21:00 [info]: Setting up environment: [anvil]
+2024-04-24 13:21:03 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:21:37 [info]: Setting up environment: [anvil]
+2024-04-24 13:21:40 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:22:13 [debug]: Line 42
+2024-04-24 13:22:13 [info]: Setting up environment: [anvil]
+2024-04-24 13:22:16 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:23:06 [debug]: Successfully read test: PrizeDistributionExploit for [object Object] from config.
+2024-04-24 13:23:06 [info]: Setting up environment: [anvil]
+2024-04-24 13:23:10 [error]: Error during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1!
+2024-04-24 13:25:51 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 13:25:51 [debug]: 
+2024-04-24 13:25:51 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 13:25:55 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 13:27:09 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 13:27:09 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 13:27:10 [debug]: [37mLine 79[39m
+2024-04-24 13:27:12 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 13:27:17 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 13:27:17 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 13:27:17 [debug]: [37mLine 79[39m
+2024-04-24 13:27:20 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 13:29:09 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 13:29:09 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 13:29:12 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:06:34 [debug]: [37mconstructor parameters according to config: [object Object][39m
+2024-04-24 14:06:34 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:06:34 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:06:37 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:07:56 [debug]: [37mconstructor parameters according to config: [object Object][39m
+2024-04-24 14:07:56 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:07:56 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:07:59 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:08:20 [debug]: [37mconstructor parameters according to config: [{"name":"subscriber","type":"address","source":"dynamic"}][39m
+2024-04-24 14:08:20 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:08:20 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:08:20 [error]: [31mError during setup or test execution: Error: thread 'main' panicked at /Users/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/hyper-0.14.27/src/server/server.rs:79:13:[39m
+[31merror binding to 127.0.0.1:3054: error creating server listener: Address already in use (os error 48)[39m
+[31mnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace[39m
+[31m[39m
+2024-04-24 14:08:29 [debug]: [37mconstructor parameters according to config: [{"name":"subscriber","type":"address","source":"dynamic"}][39m
+2024-04-24 14:08:29 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:08:29 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:08:32 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:09:08 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:09:08 [debug]: [37mConstructor parameters based on config: [{"name":"subscriber","type":"address","source":"dynamic"}][39m
+2024-04-24 14:09:08 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:09:08 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:09:12 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:14:43 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:14:43 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:14:43 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:14:43 [debug]: [37mconstructor parameter specs: [object Object][39m
+2024-04-24 14:14:46 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:14:58 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:14:58 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:14:58 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:14:59 [error]: [31mError during setup or test execution: Error: thread 'main' panicked at /Users/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/hyper-0.14.27/src/server/server.rs:79:13:[39m
+[31merror binding to 127.0.0.1:3065: error creating server listener: Address already in use (os error 48)[39m
+[31mnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace[39m
+[31m[39m
+2024-04-24 14:15:08 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:15:08 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:15:08 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:15:09 [debug]: [37mconstructor parameter specs: [{"name":"subscriber","type":"address","source":"dynamic"}][39m
+2024-04-24 14:15:12 [error]: [31mError during setup or test execution: Error: Invalid number of parameters for "undefined". Got 0 expected 1![39m
+2024-04-24 14:54:03 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:54:03 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:54:03 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:54:03 [debug]: [37mconstructor parameter specs: [{"name":"_beneficiary","type":"address","sourceType":"dynamic","source":{"type":"EOA"}}][39m
+2024-04-24 14:56:30 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:56:30 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:56:30 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:56:30 [error]: [31mError during setup or test execution: Error: thread 'main' panicked at /Users/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/hyper-0.14.27/src/server/server.rs:79:13:[39m
+[31merror binding to 127.0.0.1:3084: error creating server listener: Address already in use (os error 48)[39m
+[31mnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace[39m
+[31m[39m
+2024-04-24 14:56:33 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 14:56:33 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 14:56:33 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 14:56:33 [debug]: [37mconstructor parameter specs: [{"name":"_beneficiary","type":"address","sourceType":"dynamic","source":{"type":"EOA"}}][39m
+2024-04-24 15:37:35 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 15:37:35 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 15:37:35 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 15:37:35 [debug]: [37mconstructor parameter specs: [{"name":"_beneficiary","type":"address","sourceType":"dynamic","source":{"type":"EOA"}}][39m
+2024-04-24 15:37:54 [debug]: [37mWorking on contract: [object Object][39m
+2024-04-24 15:37:54 [debug]: [37mSuccessfully read test: PrizeDistributionExploit for [object Object] from config.[39m
+2024-04-24 15:37:54 [info]: [32mSetting up environment: [anvil][39m
+2024-04-24 15:37:54 [debug]: [37mconstructor parameter specs: undefined[39m

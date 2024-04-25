@@ -6,6 +6,13 @@ const { readCIConfig } = require('@lib/config');
 const { getLastSimulationId } = require('@lib/dcr/info');
 const { readModelFunctionsParams } = require('@lib/config');
 const { getActivities } = require('@lib/dcr/info')
+const { 
+    extractSolcVersion, 
+    compileWithVersion, 
+    deployContract,
+    getContractABI,
+    retrieveConstructorParameters 
+} = require('@lib/web3/deploy');
 
 const logger = require('@lib/logging/logger');
 const yargs = require('yargs/yargs');
@@ -13,16 +20,12 @@ const path = require('path');
 const setupAnvilEnv = require('@envs/anvil');
 const chalk = require('chalk');
 const Monitor = require('@monitor/monitor');
-
 const fs = require('fs');
 
 
-const { 
-    extractSolcVersion, 
-    compileWithVersion, 
-    deployContract,
-    getContractABI 
-} = require('@lib/web3/deploy');
+
+
+
 
 let argv = yargs(hideBin(process.argv))
     .option('v', {
@@ -39,19 +42,25 @@ if (argv.verbose) {
 }
 
 async function setupAndRunTests() {
+    
+
     let ciConfig = readCIConfig();
 
     let successfulExploits = 0;
     let failedExploits = 0;
 
     for (let contract of ciConfig.contracts) {
+        logger.debug(`Working on contract: ${contract}`);
+
         for (let testName of contract.tests || []) {
+            logger.debug(chalk.white(`Successfully read test: ${testName} for ${contract} from config.`));
             // Fetch the full test details from the tests array
             let test = ciConfig.tests.find(t => t.name === testName);
             if (!test) {
                 logger.error(`Test ${testName} not found in the configuration.`);
                 continue;
             }
+
                         
             let environment = null;
             let testFiles = null;
@@ -72,12 +81,17 @@ async function setupAndRunTests() {
                     web3 = env['web3']
                 }
 
+                
+
                 // Associated with each test/exploit, the environment differs, so, if envorinment setup
                 // was unsuccessful for the test, we throw an error.
                 if (!web3 || !envInfo) {
                     throw new Error('Web3 testing environment should be correctly set up.');
                 }
 
+                // Getting contract constructor parameters for deployment
+                let constructorParams = await retrieveConstructorParameters(contract.constructorParamSpecs, web3, envInfo);
+                logger.debug(`The retrieved parameters are: ${JSON.stringify(constructorParams)}`);
 
                 // Contract preparation and deployment
                 const projectRoot = path.resolve(__dirname, '..'); 
@@ -85,11 +99,8 @@ async function setupAndRunTests() {
                 const contractName = contract.name;
                 let contractSource = fs.readFileSync(path.join(contractsDir, 'src', contractName+'.sol'), 'utf8');
                 let solcVersion = extractSolcVersion(contractSource);
-                let parameters = [];
                 let { abi, bytecode } = await compileWithVersion(contractSource, contractName, solcVersion);
-                let contractInstance = await deployContract(web3, abi, bytecode, envInfo, parameters);
-                
-                
+                let contractInstance = await deployContract(web3, abi, bytecode, envInfo, constructorParams);
                 
                 logger.debug(chalk.white(`Model id: ${model.id}`))
                 logger.debug(chalk.white(`The contract: ${contractName}`))
@@ -186,5 +197,5 @@ async function setupAndRunTests() {
 }
 
 setupAndRunTests().catch(error => {
-    console.error(chalk.red(`Error during setup or test execution: ${error}`));
+    logger.error(chalk.red(`Error during setup or test execution: ${error}`));
 });
