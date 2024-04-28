@@ -4,6 +4,7 @@ const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
 const logger = require('@lib/logging/logger');
+const chalk = require('chalk');
 let { getLastSimulationId } = require('@lib/dcr/info');
 
 
@@ -12,6 +13,9 @@ class Monitor extends EventEmitter {
     super();
     this.receivedActivities = [];
     this.configs = configs;
+    
+    this._status = 'IDLE';
+    this.setStatus('IDLE');
 
     // Initialize the contract watcher, translator, and executor for this instance
 
@@ -36,7 +40,10 @@ class Monitor extends EventEmitter {
     
 
     // Setting up a new simulation for the model
-    this.simulate().catch(err => logger.error(`Initialization failed: ${err}`));
+    this.simulate().catch(err => {
+      logger.error(`Initialization failed: ${err}`);
+      this.status = 'ERROR'; 
+    });
     
   }
 
@@ -44,9 +51,18 @@ class Monitor extends EventEmitter {
     await this.dcrExecutor.makeSimulation(this.configs.modelId);
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
-
-    console.log('%%%%%%%%%%%%%%% 48')
+    this.setStatus('INITIALIZED');     
     logger.debug(`The simulation id for the monitor: ${simId}`);
+  } catch (error) {
+    this.setStatus('ERROR');
+    logger.error(`Simulation setup failed: ${error}`);
+  }
+
+  setStatus(newStatus) {
+    if (this._status !== newStatus) {
+      this._status = newStatus;
+      this.emit('statusChange', this._status);  
+    }
   }
 
   start() {
@@ -56,6 +72,7 @@ class Monitor extends EventEmitter {
     // Start watching for contract events
     this.contractWatcher.startWatching();
     
+    this.setStatus('RUNNING');  
     // TODO: other setup steps
   }
 
