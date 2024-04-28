@@ -41,9 +41,7 @@ class Monitor extends EventEmitter {
   }
 
   async simulate() {
-    console.log('%%%%%%%%%%%%%%% 44')
     await this.dcrExecutor.makeSimulation(this.configs.modelId);
-    console.log('%%%%%%%%%%%%%%% 45')
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
 

@@ -125,6 +125,7 @@ async function setupAndRunTests() {
                 monitor.start();
                 
 
+
                 // Setting up the monitor itself: (get it from monitor.test.js) 
                 // await makeSimulation(model.id);
                 // let simId = await getLastSimulationId(model.id);
@@ -193,7 +194,11 @@ async function setupAndRunTests() {
     logger.info(chalk.green(`Total successful exploits: ${successfulExploits}`));
     logger.info(chalk.red(`Total failed exploits: ${failedExploits}\n`));
     logger.info(chalk.cyan('= '.repeat(40)));
-    process.exit(0);
+
+    web3.currentProvider.disconnect();
+    terminateProcessByPid(envInfo.pid);
+    
+    //process.exit(0);
 }
 
 setupAndRunTests().catch(error => {
