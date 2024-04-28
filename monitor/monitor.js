@@ -3,12 +3,12 @@ const EventEmitter = require('events');
 const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
+const logger = require('@lib/logging/logger');
 let { getLastSimulationId } = require('@lib/dcr/info');
 
 
 class Monitor extends EventEmitter {
   constructor(configs) {
-    
     super();
     this.receivedActivities = [];
     this.configs = configs;
@@ -31,16 +31,24 @@ class Monitor extends EventEmitter {
 
     // executor
     this.dcrExecutor = new DCRExecutor();
+    
 
+    
 
     // Setting up a new simulation for the model
-    this.simulate().catch(err => console.error('Initialization failed:', err));
+    this.simulate().catch(err => logger.error(`Initialization failed: ${err}`));
+    
   }
 
   async simulate() {
+    console.log('%%%%%%%%%%%%%%% 44')
     await this.dcrExecutor.makeSimulation(this.configs.modelId);
+    console.log('%%%%%%%%%%%%%%% 45')
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
+
+    console.log('%%%%%%%%%%%%%%% 48')
+    logger.debug(`The simulation id for the monitor: ${simId}`);
   }
 
   start() {
@@ -56,7 +64,7 @@ class Monitor extends EventEmitter {
   handleContractEvent(tx) {
     // Process the transaction and translate it into DCR activities
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
-    console.log("The retrieved activity using the translator is: ", dcrActivities)
+    logger.debug(`The retrieved activity using the translator is: ${dcrActivities}`);
     if (dcrActivities) {
       dcrActivities.forEach(this.executeDCRActivity.bind(this));
     }
@@ -76,7 +84,7 @@ class Monitor extends EventEmitter {
     )
     .then(result => {
       // Handle the execution result (+verdict)
-      console.log('DCR Activity sent for execution:', result);
+      logger.debug(`DCR Activity sent for execution: ${result}`);
       this.receivedActivities.push(result);
     })
     .catch(error => {

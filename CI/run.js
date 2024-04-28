@@ -120,8 +120,8 @@ async function setupAndRunTests() {
                     modelId: model.id
                 }
                 let monitor = new Monitor(configs);
-                //console.log(envInfo);
-                logger.info(chalk.green(`Monitoring the contract: ${contractInstance._address}`))
+                
+                logger.info(chalk.green(`Initiating the monitor for the contract: ${contractInstance._address}`))
                 monitor.start();
                 
 
