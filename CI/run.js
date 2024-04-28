@@ -120,48 +120,56 @@ async function setupAndRunTests() {
                     modelId: model.id
                 }
                 let monitor = new Monitor(configs);
-                //console.log(envInfo);
-                logger.info(chalk.green(`Monitoring the contract: ${contractInstance._address}`))
-                monitor.start();
-                
 
-                // Setting up the monitor itself: (get it from monitor.test.js) 
-                // await makeSimulation(model.id);
-                // let simId = await getLastSimulationId(model.id);
-
-                // 1.2
-                // execute general conventions
+                monitor.on('statusChange', async (newStatus) => {
+                    if (newStatus === 'INITIALIZED') {
+                        logger.debug(`Monitor is initialized...`);
+                        
+                        
+                        logger.info(chalk.green(`Starting the monitor for the contract: ${contractInstance._address}`))
+                        monitor.start();
 
 
 
-                
-
-                // 1.3
-                // execute model-based conventions
+                        // 1.2
+                        // execute general conventions
 
 
 
-                // 1.4
-                // execute exploits
-                logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
-                for (let testFile of testFiles) {
-                    let testFilePath = path.join(__dirname, test.directory, testFile);
+                        
 
-                    logger.info(chalk.cyan(`${'- '.repeat(40)+'\n'}`));
-                    logger.info(chalk.cyan(`Executing exploits from: [${testFile}]`));
+                        // 1.3
+                        // execute model-based conventions
 
-                    let testModule = require(testFilePath);
-                    if (typeof testModule === 'function') {
-                        let result = await testModule(web3, envInfo);
-                        if (result) {
-                            successfulExploits++;
-                        } else {
-                            failedExploits++;
+
+
+                        // 1.4
+                        // execute exploits
+                        logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
+                        for (let testFile of testFiles) {
+                            let testFilePath = path.join(__dirname, test.directory, testFile);
+
+                            logger.info(chalk.cyan(`${'- '.repeat(40)+'\n'}`));
+                            logger.info(chalk.cyan(`Executing exploits from: [${testFile}]`));
+
+                            let testModule = require(testFilePath);
+                            if (typeof testModule === 'function') {
+                                let result = await testModule(web3, envInfo);
+                                if (result) {
+                                    successfulExploits++;
+                                } else {
+                                    failedExploits++;
+                                }
+                            } else {
+                                logger.error(chalk.red(`Failed to fetch the correct function to run.`))
+                            }
                         }
-                    } else {
-                        logger.error(chalk.red(`Failed to fetch the correct function to run.`))
                     }
-                }
+                });
+                
+                
+                
+            
 
             }
             
@@ -193,7 +201,11 @@ async function setupAndRunTests() {
     logger.info(chalk.green(`Total successful exploits: ${successfulExploits}`));
     logger.info(chalk.red(`Total failed exploits: ${failedExploits}\n`));
     logger.info(chalk.cyan('= '.repeat(40)));
-    process.exit(0);
+
+    web3.currentProvider.disconnect();
+    terminateProcessByPid(envInfo.pid);
+    
+    //process.exit(0);
 }
 
 setupAndRunTests().catch(error => {
