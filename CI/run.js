@@ -42,12 +42,10 @@ if (argv.verbose) {
 }
 
 async function setupAndRunTests() {
-    
-
     let ciConfig = readCIConfig();
-
     let successfulExploits = 0;
     let failedExploits = 0;
+    let allMonitors = [];
 
     for (let contract of ciConfig.contracts) {
         logger.debug(`Working on contract: ${contract}`);
@@ -120,52 +118,50 @@ async function setupAndRunTests() {
                     modelId: model.id
                 }
                 let monitor = new Monitor(configs);
+                allMonitors.push(new Promise(resolve => {
+                    monitor.on('statusChange', async (newStatus) => {
+                        if (newStatus === 'INITIALIZED') {
+                            logger.debug(`Monitor is initialized...`);                          
+                            monitor.start();
+                        } else if (newStatus == 'RUNNING') {
+                            logger.info(`Monitor is now running for the contract ${contractInstance._address}.`);
 
-                monitor.on('statusChange', async (newStatus) => {
-                    if (newStatus === 'INITIALIZED') {
-                        logger.debug(`Monitor is initialized...`);
-                        
-                        
-                        logger.info(chalk.green(`Starting the monitor for the contract: ${contractInstance._address}`))
-                        monitor.start();
-
-
-
-                        // 1.2
-                        // execute general conventions
+                            // 1.2
+                            // execute general conventions
 
 
 
-                        
+                            
 
-                        // 1.3
-                        // execute model-based conventions
+                            // 1.3
+                            // execute model-based conventions
 
 
 
-                        // 1.4
-                        // execute exploits
-                        logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
-                        for (let testFile of testFiles) {
-                            let testFilePath = path.join(__dirname, test.directory, testFile);
+                            // 1.4
+                            // execute exploits
+                            logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
+                            let testPromises = testFiles.map(testFile => {
+                                let testFilePath = path.join(__dirname, test.directory, testFile);
+                                let testModule = require(testFilePath);
+                                return typeof testModule === 'function' ? testModule(web3, envInfo) : Promise.reject('Incorrect module type');
+                            });
 
-                            logger.info(chalk.cyan(`${'- '.repeat(40)+'\n'}`));
-                            logger.info(chalk.cyan(`Executing exploits from: [${testFile}]`));
+                            // Wait for all tests to complete
+                            let results = await Promise.allSettled(testPromises);
+                            results.forEach(result => {
+                                if (result.status === 'fulfilled' && result.value) successfulExploits++;
+                                else failedExploits++;
+                            });
+                            
+                            logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
+                            web3.currentProvider.disconnect();
+                            terminateProcessByPid(envInfo.pid);
 
-                            let testModule = require(testFilePath);
-                            if (typeof testModule === 'function') {
-                                let result = await testModule(web3, envInfo);
-                                if (result) {
-                                    successfulExploits++;
-                                } else {
-                                    failedExploits++;
-                                }
-                            } else {
-                                logger.error(chalk.red(`Failed to fetch the correct function to run.`))
-                            }
+                            resolve(); // Resolve once all tests are done
                         }
-                    }
-                });
+                    });
+                }));
                 
                 
                 
@@ -201,13 +197,18 @@ async function setupAndRunTests() {
     logger.info(chalk.green(`Total successful exploits: ${successfulExploits}`));
     logger.info(chalk.red(`Total failed exploits: ${failedExploits}\n`));
     logger.info(chalk.cyan('= '.repeat(40)));
-
-    web3.currentProvider.disconnect();
-    terminateProcessByPid(envInfo.pid);
     
-    //process.exit(0);
+    // Wait for all monitors to complete their tasks
+    await Promise.all(allMonitors);
+
+    logger.info(`Finished all operations. Successful: ${successfulExploits}, Failed: ${failedExploits}`);
+    
+    //web3.currentProvider.disconnect();
+    //terminateProcessByPid(envInfo.pid);
+
+    process.exit(0);
 }
 
 setupAndRunTests().catch(error => {
-    logger.error(chalk.red(`Error during setup or test execution: ${error}`));
+    logger.error(chalk.red(`Error during setup or test execution:\n${error.stack}`));
 });
