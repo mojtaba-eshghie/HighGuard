@@ -144,7 +144,7 @@ async function setupAndRunTests() {
                             let testPromises = testFiles.map(testFile => {
                                 let testFilePath = path.join(__dirname, test.directory, testFile);
                                 let testModule = require(testFilePath);
-                                return typeof testModule === 'function' ? testModule(web3, envInfo) : Promise.reject('Incorrect module type');
+                                return typeof testModule === 'function' ? testModule(web3, envInfo, contractInstance._address) : Promise.reject('Incorrect module type');
                             });
 
                             // Wait for all tests to complete
