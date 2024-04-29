@@ -50,6 +50,7 @@ contract MultiStageAuction {
         return commitments[msg.sender];
     }
 
+    // Axiliary function, do not use in real-world scenarios; do it locally;
     function getHashFromInput(
         uint256 amount,
         string memory secret
@@ -60,3 +61,9 @@ contract MultiStageAuction {
         return hashedBid;
     }
 }
+
+// 1. First a function call to getHashFromInput with an arbitrary number and arbitrary secret (1, "mysecret");
+//      We get the required hashedBid from the above call;
+// 2. Then, making a transaction to commitBid function with the same hashedBid from the first call
+// 3. Then, immedaiately after the above succeeds, make another transaction to revealBid function with the same parameters as (1);
+// Here you go! If the third transaction goes through, a malicious interaction has happened.
