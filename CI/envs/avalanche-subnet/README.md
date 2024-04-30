@@ -1,4 +1,4 @@
-# Avalanche Network Runner Information Extractor
+# Avalanche Subnet Information Extractor
 
 This module provides a utility function to extract Avalanche-related information from a local instance of an Avalanche C-chain subnet.
 
@@ -8,7 +8,7 @@ To be able to use `extractAvalancheInfo` Avalanche-CLI must be installed, follow
 To use the `extractAvalancheInfo` function (in CI directory of the project):
 
 ```javascript
-const { extractAvalancheInfo } = require("./CI/envs/avalanche/avalanche.js");
+const { extractAvalancheInfo } = require("./CI/envs/avalanche-subnet/avalanche.js");
 
 extractAvalancheInfo()
   .then((info) => {
