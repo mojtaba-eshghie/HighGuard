@@ -41,3 +41,7 @@ contract PrizeDistribution {
         return block.timestamp;
     }
 }
+
+// To exploit the poor logic in prize distribution:
+// 1. make a transaction to extend with 9 wei resulting in extending "zero" minutes instead of 0.9 minutes
+// 2. As one might have confused that it has been extended by 0.9 minutes, you can send anther transaction when unlockTime is passed and if this succeeds, it means the exploit is successful
