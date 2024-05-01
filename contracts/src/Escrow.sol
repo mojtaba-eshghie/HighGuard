@@ -1,8 +1,8 @@
-pragma solidity >=0.5.5;
+pragma solidity ^0.6.0;
 
 /* Simple time locked and conditional on two-party release escrow smart contract */
 
-contract Escrow2 {
+contract Escrow {
     enum State {
         AwaitingDeposit,
         DepositPlaced
@@ -97,3 +97,6 @@ contract Escrow2 {
         receiver.transfer(tmp);
     }
 }
+
+// This Escrow contract has an obvious bug. It does not actually perform the the `require(releasedByReceiver && releasedBySender)` check;
+// So, the receiver could basically steal the resources as immediately after the sender places in the escrow.
