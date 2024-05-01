@@ -167,7 +167,7 @@ async function setupAndRunTests() {
 
                             //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
                             //web3.currentProvider.disconnect();
-                            //terminateProcessByPid(envInfo.pid);
+                            terminateProcessByPid(envInfo.pid);
                         }
                     });
                 }));
