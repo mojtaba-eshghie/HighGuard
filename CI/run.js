@@ -43,8 +43,9 @@ if (argv.verbose) {
 
 async function setupAndRunTests() {
     let ciConfig = readCIConfig();
-    let successfulExploits = 0;
-    let failedExploits = 0;
+    let successfulExploitsCount = 0;
+    let failedExploitsCount = 0;
+    let failedExploits = [];
     let allMonitors = [];
 
     for (let contract of ciConfig.contracts) {
@@ -150,15 +151,23 @@ async function setupAndRunTests() {
                             // Wait for all tests to complete
                             let results = await Promise.allSettled(testPromises);
                             results.forEach(result => {
-                                if (result.status === 'fulfilled' && result.value) successfulExploits++;
-                                else failedExploits++;
+                                if (result.status === 'fulfilled' && result.value) successfulExploitsCount++;
+                                else {
+                                    failedExploitsCount++;
+                                    failedExploits.push({
+                                        'contract': contractName,
+                                        'exploit': testName
+                                    });
+                                };
                             });
                             
-                            logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
-                            web3.currentProvider.disconnect();
-                            terminateProcessByPid(envInfo.pid);
+                            
 
                             resolve(); // Resolve once all tests are done
+
+                            //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
+                            //web3.currentProvider.disconnect();
+                            //terminateProcessByPid(envInfo.pid);
                         }
                     });
                 }));
@@ -191,17 +200,20 @@ async function setupAndRunTests() {
         }
     }
 
-    // Display the results  
-    logger.info(chalk.cyan('= '.repeat(40)+'\n'));
-    logger.info(chalk.cyan('Finished executing all exploits.\n'));
-    logger.info(chalk.green(`Total successful exploits: ${successfulExploits}`));
-    logger.info(chalk.red(`Total failed exploits: ${failedExploits}\n`));
-    logger.info(chalk.cyan('= '.repeat(40)));
+    
     
     // Wait for all monitors to complete their tasks
     await Promise.all(allMonitors);
 
-    logger.info(`Finished all operations. Successful: ${successfulExploits}, Failed: ${failedExploits}`);
+    // Display the results  
+    logger.info(chalk.cyan('= '.repeat(40)+'\n'));
+    logger.info(chalk.cyan('Finished executing all exploits.\n'));
+    logger.info(chalk.green(`Total successful exploits: ${successfulExploitsCount}`));
+    logger.info(chalk.red(`Total failed exploits: ${failedExploitsCount}\n`));
+    logger.info(`Failed ones are: ${JSON.stringify(failedExploits)}`);
+    logger.info(chalk.cyan('= '.repeat(40)));
+
+    logger.info(`Finished all operations. Successful: ${successfulExploitsCount}, Failed: ${failedExploitsCount}`);
     
     //web3.currentProvider.disconnect();
     //terminateProcessByPid(envInfo.pid);
