@@ -2,7 +2,7 @@ pragma solidity >=0.5.5;
 
 /* Simple time locked and conditional on two-party release escrow smart contract */
 
-contract Escrow2 {
+contract EscrowSecure {
     enum State {
         AwaitingDeposit,
         DepositPlaced

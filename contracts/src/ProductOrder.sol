@@ -17,7 +17,7 @@ contract ProductOrder {
         customer = msg.sender;
         status = OrderStatus.Created;
         price = _price;
-        discountEndTime = block.timestamp + 5 seconds;
+        discountEndTime = block.timestamp + 10 seconds;
     }
 
     function applyDiscount() public {

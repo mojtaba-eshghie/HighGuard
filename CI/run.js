@@ -222,5 +222,5 @@ async function setupAndRunTests() {
 }
 
 setupAndRunTests().catch(error => {
-    logger.error(chalk.red(`Error during setup or test execution:\n${error.stack}`));
+    logger.error(chalk.red(`Error during setup or test execution:\n${error.stack? error.stack : error}`));
 });

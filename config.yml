@@ -44,6 +44,30 @@ contracts:
     tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
       - "MultiStageAuctionExploit"
 
+  - name: "Escrow"
+    constructorParamSpecs:
+      - name: "_sender"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_receiver"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_delayUntilRelease"
+        type: "uint"
+        sourceType: "static"
+        value: 0
+
+    models:
+      - name: "Escrow"
+        id: "1624258"
+        functions: []
+    tests:
+      - "EscrowExploit"
+
   - name: "PrizeDistribution"
     constructorParamSpecs:
       - name: "_beneficiary"
@@ -117,6 +141,13 @@ tests:
     directory: "/tests/exploits"
     files:
       - "ProductOrderExploit.js"
+    environment: "anvil"
+
+  - name: "EscrowExploit"
+    description: "No description yet..."
+    directory: "/tests/exploits"
+    files:
+      - "EscrowExploit.js"
     environment: "anvil"
 
 environments:
