@@ -154,11 +154,13 @@ async function setupAndRunTests() {
                                 else failedExploits++;
                             });
                             
-                            logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
-                            web3.currentProvider.disconnect();
-                            terminateProcessByPid(envInfo.pid);
+                            
 
                             resolve(); // Resolve once all tests are done
+
+                            //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
+                            //web3.currentProvider.disconnect();
+                            //terminateProcessByPid(envInfo.pid);
                         }
                     });
                 }));
@@ -191,15 +193,17 @@ async function setupAndRunTests() {
         }
     }
 
+    
+    
+    // Wait for all monitors to complete their tasks
+    await Promise.all(allMonitors);
+
     // Display the results  
     logger.info(chalk.cyan('= '.repeat(40)+'\n'));
     logger.info(chalk.cyan('Finished executing all exploits.\n'));
     logger.info(chalk.green(`Total successful exploits: ${successfulExploits}`));
     logger.info(chalk.red(`Total failed exploits: ${failedExploits}\n`));
     logger.info(chalk.cyan('= '.repeat(40)));
-    
-    // Wait for all monitors to complete their tasks
-    await Promise.all(allMonitors);
 
     logger.info(`Finished all operations. Successful: ${successfulExploits}, Failed: ${failedExploits}`);
     

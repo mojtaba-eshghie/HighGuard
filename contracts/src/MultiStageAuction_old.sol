@@ -1,5 +1,6 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MultiStageAuction {
     enum AuctionPhase {
@@ -22,9 +23,10 @@ contract MultiStageAuction {
         _endCommitPhase();
     }
 
+    // Vulnerability: Users can reveal bids during the Commit Phase
     function revealBid(uint256 amount, string memory secret) public {
         bytes32 hashedBid = keccak256(
-            abi.encodePacked(uint256ToString(amount), secret)
+            abi.encodePacked(Strings.toString(amount), secret)
         );
         require(commitments[msg.sender] == hashedBid, "Invalid bid revealed.");
 
@@ -52,35 +54,15 @@ contract MultiStageAuction {
         return commitments[msg.sender];
     }
 
+    // Axiliary function, do not use in real-world scenarios; do it locally;
     function getHashFromInput(
         uint256 amount,
         string memory secret
-    ) public pure returns (bytes32) {
+    ) public view returns (bytes32) {
         bytes32 hashedBid = keccak256(
-            abi.encodePacked(uint256ToString(amount), secret)
+            abi.encodePacked(Strings.toString(amount), secret)
         );
         return hashedBid;
-    }
-
-    function uint256ToString(
-        uint256 value
-    ) internal pure returns (string memory) {
-        if (value == 0) {
-            return "0";
-        }
-        uint256 temp = value;
-        uint256 digits;
-        while (temp != 0) {
-            digits++;
-            temp /= 10;
-        }
-        bytes memory buffer = new bytes(digits);
-        while (value != 0) {
-            digits -= 1;
-            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
-        }
-        return string(buffer);
     }
 }
 
