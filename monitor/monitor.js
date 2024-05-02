@@ -4,7 +4,8 @@ const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
 const logger = require('@lib/logging/logger');
-const chalk = require('chalk');
+const fs = require('fs');
+const path = require('path');
 let { getLastSimulationId } = require('@lib/dcr/info');
 
 
@@ -83,6 +84,7 @@ class Monitor extends EventEmitter {
     if (dcrActivities) {
       const promises = dcrActivities.map(activity => this.executeDCRActivity(activity));
       await Promise.all(promises); // Waits for all activities to finish executing
+      this.writeMarkdownFile();
     }
   }
   
@@ -113,6 +115,28 @@ class Monitor extends EventEmitter {
   }
 
   
+  writeMarkdownFile() {
+    const headers = ['Activity ID', 'Time', 'Violation'];
+    const rows = this.receivedActivities.map(activity => [
+        activity.name || '',
+        activity.time || '',
+        String(activity.violation) || ''
+    ]);
+
+    // Construct markdown content from the headers and rows
+    const headerLine = `| ${headers.join(' | ')} |`;
+    const separatorLine = `| ${headers.map(() => '---').join(' | ')} |`;
+    const tableRows = rows.map(row => `| ${row.join(' | ')} |`).join('\n');
+
+    const markdownContent = `${headerLine}\n${separatorLine}\n${tableRows}`;
+
+    const fileName = `${this.configs.contractFileName}.md`;
+    const filePath = path.join('results', fileName);
+
+    fs.writeFileSync(filePath, markdownContent, 'utf8');
+    logger.info(`Markdown file written: ${filePath}`);
+  }
+
 }
 
 module.exports = Monitor;

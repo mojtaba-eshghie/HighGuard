@@ -32,6 +32,7 @@ contracts:
       - name: "ProductOrder"
         id: "1701030"
         functions: []
+        hasResponseRelation: true
     tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
       - "ProductOrderExploit"
 
