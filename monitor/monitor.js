@@ -76,36 +76,35 @@ class Monitor extends EventEmitter {
     // TODO: other setup steps
   }
 
-  handleContractEvent(tx) {
+  async handleContractEvent(tx) {
     // Process the transaction and translate it into DCR activities
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
-    logger.debug(`The retrieved activity using the translator is: ${dcrActivities}`);
+    logger.debug(`The returned DCR activities are: ${JSON.stringify(dcrActivities)}`);
     if (dcrActivities) {
-      dcrActivities.forEach(this.executeDCRActivity.bind(this));
+      const promises = dcrActivities.map(activity => this.executeDCRActivity(activity));
+      await Promise.all(promises); // Waits for all activities to finish executing
     }
   }
+  
 
   async executeDCRActivity(dcrActivity) {
     // Execute the DCR activity
     // Here you would need the simulation ID and other details to execute the activity
     // Assuming you have a method to get or create a simulation ID
-
-    this.dcrExecutor.executeActivity(
-      this.configs.modelId,
-      this.simId,
-      dcrActivity.activityId,
-      dcrActivity.dcrValue,
-      dcrActivity.dcrType
-    )
-    .then(result => {
-      // Handle the execution result (+verdict)
-      logger.debug(`DCR Activity sent for execution: ${result}`);
+    try {
+      const result = await this.dcrExecutor.executeActivity(
+        this.configs.modelId,
+        this.simId,
+        dcrActivity.activityId,
+        dcrActivity.dcrValue,
+        dcrActivity.dcrType
+      );
+      //logger.debug(`Activity execution result: ${result}`);
       this.receivedActivities.push(result);
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error executing DCR Activity:', error);
-    });
+      logger.debug(JSON.stringify(this.receivedActivities))
+    } catch (error) {
+      logger.error('Error executing DCR Activity:', error);
+    }
   }
 
   handleError(error) {

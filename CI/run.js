@@ -13,7 +13,6 @@ const {
     getContractABI,
     retrieveConstructorParameters 
 } = require('@lib/web3/deploy');
-
 const logger = require('@lib/logging/logger');
 const yargs = require('yargs/yargs');
 const path = require('path');
@@ -167,7 +166,10 @@ async function setupAndRunTests() {
 
                             //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
                             //web3.currentProvider.disconnect();
-                            terminateProcessByPid(envInfo.pid);
+                            // setTimeout(() => {
+                            //     terminateProcessByPid(envInfo.pid);
+                            // }, 20000);
+                            
                         }
                     });
                 }));
@@ -179,18 +181,6 @@ async function setupAndRunTests() {
             }
             
 
-            
-
-
-
-            
-
-
-
-
-
-
-            
 
             // 3. Store the results from the monitor to generate the report later
             // TODO: Implement result storage for report generation
@@ -218,7 +208,7 @@ async function setupAndRunTests() {
     //web3.currentProvider.disconnect();
     //terminateProcessByPid(envInfo.pid);
 
-    process.exit(0);
+    //process.exit(0);
 }
 
 setupAndRunTests().catch(error => {
