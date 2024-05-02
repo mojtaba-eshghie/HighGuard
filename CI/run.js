@@ -129,8 +129,6 @@ async function setupAndRunTests() {
                             // 1.2
                             // execute general conventions
 
-
-
                             
 
                             // 1.3
@@ -163,12 +161,13 @@ async function setupAndRunTests() {
                             
 
                             resolve(); // Resolve once all tests are done
+                            //terminateProcessByPid(envInfo.pid);
 
                             //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
                             //web3.currentProvider.disconnect();
-                            // setTimeout(() => {
-                            //     terminateProcessByPid(envInfo.pid);
-                            // }, 20000);
+                            setTimeout(() => {
+                                terminateProcessByPid(envInfo.pid);
+                            }, 20000);
                             
                         }
                     });

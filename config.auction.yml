@@ -1,0 +1,72 @@
+# Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
+
+contracts:
+  # - name: "ProductOrder"
+  #   models:
+  #     - name: "Model1"
+  #       id: "1701030" # The id of the model in DCRGraphs.net website
+  #       functions:
+  #         functionIdentifier1:
+  #           paramIdentifier1:
+  #             EVMType: "..."
+  #             DCRType: "..."
+  #             DCRNodeID: "..."
+  #           roleSetter: true
+  #           roleVariableIdentifier: "owner"
+  #     - name: "Model2"
+  #       id: "1701159"
+  #       functions:
+  #         setGreet:
+  #           EVMType: "string"
+  #           DCRType: "integer"
+  #           DCRNodeID: "setGreet"
+  #   tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
+  #     - "ProductOrderExploit"
+  - name: "MultiStageAuction"
+    constructorParamSpecs: []
+    models:
+      - name: "MultiStageAuction"
+        id: "1701049"
+        functions: []
+    tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
+      - "MultiStageAuctionExploit"
+
+tests:
+  - name: "HelloWorldExploit"
+    description: "Exploits for time lock-based property of HelloWorld contract"
+    directory: "/tests/exploits/"
+    files:
+      - "HelloWorldExploit.js"
+    environment: "anvil"
+
+  - name: "PrizeDistributionExploit"
+    description: "Exploits for time-based vulnerability of PrizeDistribution contract which is enabled by a poor logic in the contract implementation."
+    directory: "/tests/exploits/"
+    files:
+      - "PrizeDistributionExploit.js"
+    environment: "anvil"
+
+  - name: "MultiStageAuctionExploit"
+    description: "Exploits for a temporal property of ..."
+    directory: "/tests/exploits"
+    files:
+      - "MultiStageAuctionExploit.js"
+    environment: "anvil"
+
+  - name: "ProductOrderExploit"
+    description: "No description yet..."
+    directory: "/tests/exploits"
+    files:
+      - "ProductOrderExploit.js"
+    environment: "anvil"
+
+  - name: "EscrowExploit"
+    description: "No description yet..."
+    directory: "/tests/exploits"
+    files:
+      - "EscrowExploit.js"
+    environment: "anvil"
+
+environments:
+  - name: "anvil"
+    version: "0.2.0"
