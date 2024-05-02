@@ -10,7 +10,7 @@ contract PrizeDistribution {
     constructor(address _beneficiary) payable {
         organizer = msg.sender;
         beneficiary = _beneficiary;
-        unlockTime = block.timestamp + 10 * 1 seconds;
+        unlockTime = block.timestamp + 10 seconds;
         prizeAmount = msg.value; // Initial prize amount set by the organizer
     }
 

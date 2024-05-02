@@ -1,73 +1,6 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 contracts:
-  # - name: "ProductOrder"
-  #   models:
-  #     - name: "Model1"
-  #       id: "1701030" # The id of the model in DCRGraphs.net website
-  #       functions:
-  #         functionIdentifier1:
-  #           paramIdentifier1:
-  #             EVMType: "..."
-  #             DCRType: "..."
-  #             DCRNodeID: "..."
-  #           roleSetter: true
-  #           roleVariableIdentifier: "owner"
-  #     - name: "Model2"
-  #       id: "1701159"
-  #       functions:
-  #         setGreet:
-  #           EVMType: "string"
-  #           DCRType: "integer"
-  #           DCRNodeID: "setGreet"
-  #   tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
-  #     - "ProductOrderExploit"
-  - name: "ProductOrder"
-    constructorParamSpecs:
-      - name: "_price"
-        type: "uint256"
-        sourceType: "static"
-        value: 1
-    models:
-      - name: "ProductOrder"
-        id: "1701030"
-        functions: []
-    tests: # if there are tests specified for the specific monitor, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
-      - "ProductOrderExploit"
-
-  - name: "MultiStageAuction"
-    constructorParamSpecs: []
-    models:
-      - name: "MultiStageAuction"
-        id: "1701049"
-        functions: []
-    tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
-      - "MultiStageAuctionExploit"
-
-  - name: "Escrow"
-    constructorParamSpecs:
-      - name: "_sender"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_receiver"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_delayUntilRelease"
-        type: "uint"
-        sourceType: "static"
-        value: 0
-
-    models:
-      - name: "Escrow"
-        id: "1624258"
-        functions: []
-    tests:
-      - "EscrowExploit"
-
   - name: "PrizeDistribution"
     constructorParamSpecs:
       - name: "_beneficiary"
@@ -88,7 +21,7 @@ contracts:
         #   value: "1000"  # Static value provided directly in the config
     models:
       - name: "PrizeDistribution"
-        id: "1701044" # The id of the model in DCRGraphs.net website
+        id: "1822535" # The id of the model in DCRGraphs.net website
       # - name: "Model2"
       #   id: "1701159"
       #   functions:

@@ -101,7 +101,7 @@ class Monitor extends EventEmitter {
       );
       //logger.debug(`Activity execution result: ${result}`);
       this.receivedActivities.push(result);
-      logger.debug(JSON.stringify(this.receivedActivities))
+      logger.debug(`The executed dcr activities are: ${JSON.stringify(this.receivedActivities)}`);
     } catch (error) {
       logger.error('Error executing DCR Activity:', error);
     }

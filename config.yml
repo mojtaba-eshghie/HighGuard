@@ -88,7 +88,7 @@ contracts:
         #   value: "1000"  # Static value provided directly in the config
     models:
       - name: "PrizeDistribution"
-        id: "1701044" # The id of the model in DCRGraphs.net website
+        id: "1822535" # The id of the model in DCRGraphs.net website
       # - name: "Model2"
       #   id: "1701159"
       #   functions:
