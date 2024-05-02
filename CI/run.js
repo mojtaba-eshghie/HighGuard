@@ -148,6 +148,7 @@ async function setupAndRunTests() {
                             // Wait for all tests to complete
                             let results = await Promise.allSettled(testPromises);
                             results.forEach(result => {
+                                logger.error(`result: ${JSON.stringify(result)}`)
                                 if (result.status === 'fulfilled' && result.value) successfulExploitsCount++;
                                 else {
                                     failedExploitsCount++;
