@@ -1,6 +1,5 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MultiStageAuction {
     enum AuctionPhase {
@@ -19,12 +18,13 @@ contract MultiStageAuction {
     function commitBid(bytes32 hashedBid) public {
         require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
         commitments[msg.sender] = hashedBid;
+
+        _endCommitPhase();
     }
 
-    // Vulnerability: Users can reveal bids during the Commit Phase
     function revealBid(uint256 amount, string memory secret) public {
         bytes32 hashedBid = keccak256(
-            abi.encodePacked(Strings.toString(amount), secret)
+            abi.encodePacked(uint256ToString(amount), secret)
         );
         require(commitments[msg.sender] == hashedBid, "Invalid bid revealed.");
 
@@ -34,14 +34,16 @@ contract MultiStageAuction {
             highestBid = amount;
             highestBidder = msg.sender;
         }
+        currentPhase = AuctionPhase.Reveal;
+        _endAuction();
     }
 
-    function endCommitPhase() public {
+    function _endCommitPhase() internal {
         require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
         currentPhase = AuctionPhase.Reveal;
     }
 
-    function endAuction() public {
+    function _endAuction() internal {
         require(currentPhase == AuctionPhase.Reveal, "Not in Reveal Phase.");
         currentPhase = AuctionPhase.Ended;
     }
@@ -50,15 +52,35 @@ contract MultiStageAuction {
         return commitments[msg.sender];
     }
 
-    // Axiliary function, do not use in real-world scenarios; do it locally;
     function getHashFromInput(
         uint256 amount,
         string memory secret
-    ) public view returns (bytes32) {
+    ) public pure returns (bytes32) {
         bytes32 hashedBid = keccak256(
-            abi.encodePacked(Strings.toString(amount), secret)
+            abi.encodePacked(uint256ToString(amount), secret)
         );
         return hashedBid;
+    }
+
+    function uint256ToString(
+        uint256 value
+    ) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
     }
 }
 

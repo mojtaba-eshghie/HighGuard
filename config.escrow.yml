@@ -1,0 +1,38 @@
+# Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
+
+contracts:
+  - name: "Escrow"
+    constructorParamSpecs:
+      - name: "_sender"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_receiver"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_delayUntilRelease"
+        type: "uint"
+        sourceType: "static"
+        value: 0
+
+    models:
+      - name: "Escrow"
+        id: "1624258"
+        functions: []
+    tests:
+      - "EscrowExploit"
+
+tests:
+  - name: "EscrowExploit"
+    description: "No description yet..."
+    directory: "/tests/exploits"
+    files:
+      - "EscrowExploit.js"
+    environment: "anvil"
+
+environments:
+  - name: "anvil"
+    version: "0.2.0"

@@ -51,3 +51,5 @@ contract ProductOrder {
         status = OrderStatus.Shipped;
     }
 }
+
+// Poor logic design; payForOrder should use time deprecation not applyDiscount;

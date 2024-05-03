@@ -4,14 +4,16 @@ const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
 const logger = require('@lib/logging/logger');
-const chalk = require('chalk');
-let { getLastSimulationId } = require('@lib/dcr/info');
+const fs = require('fs');
+const path = require('path');
+let { getLastSimulationId, getPendingActivities } = require('@lib/dcr/info');
+const { json } = require('express');
 
 
 class Monitor extends EventEmitter {
   constructor(configs) {
     super();
-    this.receivedActivities = [];
+    this.executedActivities = [];
     this.configs = configs;
     
     this._status = 'IDLE';
@@ -36,8 +38,12 @@ class Monitor extends EventEmitter {
     // executor
     this.dcrExecutor = new DCRExecutor();
     
-
+    // Decide if we need the middleware for handling response relation semantics or not
+    this.hasResponse = this.configs.hasResponseRelation;
+     
     
+    // The trace the monitor is watching can either be violating or not;
+    this.violating = false;
 
     // Setting up a new simulation for the model
     this.simulate().catch(err => {
@@ -76,36 +82,57 @@ class Monitor extends EventEmitter {
     // TODO: other setup steps
   }
 
-  handleContractEvent(tx) {
+  async handleContractEvent(tx) {
+    let violates = false;
     // Process the transaction and translate it into DCR activities
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
-    logger.debug(`The retrieved activity using the translator is: ${dcrActivities}`);
     if (dcrActivities) {
-      dcrActivities.forEach(this.executeDCRActivity.bind(this));
+      const promises = dcrActivities.map(async activity => {
+        if (this.hasResponse) {
+          let pendingActivities = await getPendingActivities(this.configs.modelId, this.simId);
+          let pendingActivity = pendingActivities.find(a => a.id === activity["activityId"]);
+          if (pendingActivity){
+            let deadline = pendingActivity.deadline;
+            if (deadline) {
+              // This is where we can use this deadlined pending relation;
+              deadline = new Date(deadline);
+              const now = new Date();
+              if (now > deadline) {
+                violates = true;
+              }            
+            }
+          }
+        }
+
+        await this.executeDCRActivity(activity, violates);
+      });
+      await Promise.all(promises); // Waits for all activities to finish executing
+      this.writeMarkdownFile();
     }
   }
+  
 
-  async executeDCRActivity(dcrActivity) {
+  async executeDCRActivity(dcrActivity, violates) {
     // Execute the DCR activity
     // Here you would need the simulation ID and other details to execute the activity
     // Assuming you have a method to get or create a simulation ID
-
-    this.dcrExecutor.executeActivity(
-      this.configs.modelId,
-      this.simId,
-      dcrActivity.activityId,
-      dcrActivity.dcrValue,
-      dcrActivity.dcrType
-    )
-    .then(result => {
-      // Handle the execution result (+verdict)
-      logger.debug(`DCR Activity sent for execution: ${result}`);
-      this.receivedActivities.push(result);
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error executing DCR Activity:', error);
-    });
+    try {
+      const result = await this.dcrExecutor.executeActivity(
+        this.configs.modelId,
+        this.simId,
+        dcrActivity.activityId,
+        dcrActivity.dcrValue,
+        dcrActivity.dcrType
+      );
+      //logger.debug(`Activity execution result: ${result}`);
+      this.executedActivities.push(result);
+      result.violation = violates;
+      this.violating = result.violation ? result.violation : this.violating;
+      logger.debug(`This time, violates is: ${violates}`);
+      logger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
+    } catch (error) {
+      logger.error('Error executing DCR Activity:', error);
+    }
   }
 
   handleError(error) {
@@ -114,6 +141,28 @@ class Monitor extends EventEmitter {
   }
 
   
+  writeMarkdownFile() {
+    const headers = ['Activity ID', 'Time', 'Violation'];
+    const rows = this.executedActivities.map(activity => [
+        activity.name || '',
+        activity.time || '',
+        String(activity.violation) || ''
+    ]);
+
+    // Construct markdown content from the headers and rows
+    const headerLine = `| ${headers.join(' | ')} |`;
+    const separatorLine = `| ${headers.map(() => '---').join(' | ')} |`;
+    const tableRows = rows.map(row => `| ${row.join(' | ')} |`).join('\n');
+
+    const markdownContent = `${headerLine}\n${separatorLine}\n${tableRows}`;
+
+    const fileName = `${this.configs.contractFileName}.md`;
+    const filePath = path.join('results', fileName);
+
+    fs.writeFileSync(filePath, markdownContent, 'utf8');
+    logger.debug(`Markdown file written: ${filePath}`);
+  }
+
 }
 
 module.exports = Monitor;
