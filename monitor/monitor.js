@@ -6,7 +6,8 @@ const DCRExecutor = require('@lib/dcr/exec');
 const logger = require('@lib/logging/logger');
 const fs = require('fs');
 const path = require('path');
-let { getLastSimulationId } = require('@lib/dcr/info');
+let { getLastSimulationId, getPendingActivities } = require('@lib/dcr/info');
+const { json } = require('express');
 
 
 class Monitor extends EventEmitter {
@@ -39,9 +40,7 @@ class Monitor extends EventEmitter {
     
     // Decide if we need the middleware for handling response relation semantics or not
     this.hasResponse = this.configs.hasResponseRelation;
-    if (this.hasResponse) {
-      this.responseTable = 
-    } 
+     
     
     // The trace the monitor is watching can either be violating or not;
     this.violating = false;
@@ -84,16 +83,28 @@ class Monitor extends EventEmitter {
   }
 
   async handleContractEvent(tx) {
+    let violates = false;
     // Process the transaction and translate it into DCR activities
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
-    logger.debug(`The returned DCR activities are: ${JSON.stringify(dcrActivities)}`);
     if (dcrActivities) {
-      const promises = dcrActivities.map(activity => {
+      const promises = dcrActivities.map(async activity => {
         if (this.hasResponse) {
-          // put the 
-        } else {
-          this.executeDCRActivity(activity);
+          let pendingActivities = await getPendingActivities(this.configs.modelId, this.simId);
+          let pendingActivity = pendingActivities.find(a => a.id === activity["activityId"]);
+          if (pendingActivity){
+            let deadline = pendingActivity.deadline;
+            if (deadline) {
+              // This is where we can use this deadlined pending relation;
+              deadline = new Date(deadline);
+              const now = new Date();
+              if (now > deadline) {
+                violates = true;
+              }            
+            }
+          }
         }
+
+        await this.executeDCRActivity(activity, violates);
       });
       await Promise.all(promises); // Waits for all activities to finish executing
       this.writeMarkdownFile();
@@ -101,7 +112,7 @@ class Monitor extends EventEmitter {
   }
   
 
-  async executeDCRActivity(dcrActivity) {
+  async executeDCRActivity(dcrActivity, violates) {
     // Execute the DCR activity
     // Here you would need the simulation ID and other details to execute the activity
     // Assuming you have a method to get or create a simulation ID
@@ -115,7 +126,9 @@ class Monitor extends EventEmitter {
       );
       //logger.debug(`Activity execution result: ${result}`);
       this.executedActivities.push(result);
+      result.violation = violates;
       this.violating = result.violation ? result.violation : this.violating;
+      logger.debug(`This time, violates is: ${violates}`);
       logger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
     } catch (error) {
       logger.error('Error executing DCR Activity:', error);
@@ -147,7 +160,7 @@ class Monitor extends EventEmitter {
     const filePath = path.join('results', fileName);
 
     fs.writeFileSync(filePath, markdownContent, 'utf8');
-    logger.info(`Markdown file written: ${filePath}`);
+    logger.debug(`Markdown file written: ${filePath}`);
   }
 
 }
