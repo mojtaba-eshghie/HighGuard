@@ -12,7 +12,7 @@ let { getLastSimulationId } = require('@lib/dcr/info');
 class Monitor extends EventEmitter {
   constructor(configs) {
     super();
-    this.receivedActivities = [];
+    this.executedActivities = [];
     this.configs = configs;
     
     this._status = 'IDLE';
@@ -37,8 +37,14 @@ class Monitor extends EventEmitter {
     // executor
     this.dcrExecutor = new DCRExecutor();
     
-
+    // Decide if we need the middleware for handling response relation semantics or not
+    this.hasResponse = this.configs.hasResponseRelation;
+    if (this.hasResponse) {
+      this.responseTable = 
+    } 
     
+    // The trace the monitor is watching can either be violating or not;
+    this.violating = false;
 
     // Setting up a new simulation for the model
     this.simulate().catch(err => {
@@ -82,7 +88,13 @@ class Monitor extends EventEmitter {
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
     logger.debug(`The returned DCR activities are: ${JSON.stringify(dcrActivities)}`);
     if (dcrActivities) {
-      const promises = dcrActivities.map(activity => this.executeDCRActivity(activity));
+      const promises = dcrActivities.map(activity => {
+        if (this.hasResponse) {
+          // put the 
+        } else {
+          this.executeDCRActivity(activity);
+        }
+      });
       await Promise.all(promises); // Waits for all activities to finish executing
       this.writeMarkdownFile();
     }
@@ -102,8 +114,9 @@ class Monitor extends EventEmitter {
         dcrActivity.dcrType
       );
       //logger.debug(`Activity execution result: ${result}`);
-      this.receivedActivities.push(result);
-      logger.debug(`The executed dcr activities are: ${JSON.stringify(this.receivedActivities)}`);
+      this.executedActivities.push(result);
+      this.violating = result.violation ? result.violation : this.violating;
+      logger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
     } catch (error) {
       logger.error('Error executing DCR Activity:', error);
     }
@@ -117,7 +130,7 @@ class Monitor extends EventEmitter {
   
   writeMarkdownFile() {
     const headers = ['Activity ID', 'Time', 'Violation'];
-    const rows = this.receivedActivities.map(activity => [
+    const rows = this.executedActivities.map(activity => [
         activity.name || '',
         activity.time || '',
         String(activity.violation) || ''
