@@ -115,8 +115,10 @@ async function setupAndRunTests() {
                     contractABI: await getContractABI(contractName),
                     modelFunctionParams: modelFunctionParams,
                     activities: await getActivities(model.id),
-                    modelId: model.id
+                    modelId: model.id,
+                    hasResponseRelation: model.hasResponseRelation,
                 }
+                
                 let monitor = new Monitor(configs);
                 allMonitors.push(new Promise(resolve => {
                     monitor.on('statusChange', async (newStatus) => {
