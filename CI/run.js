@@ -118,7 +118,7 @@ async function setupAndRunTests() {
                     modelId: model.id,
                     hasResponseRelation: model.hasResponseRelation,
                 }
-                
+
                 let monitor = new Monitor(configs);
                 allMonitors.push(new Promise(resolve => {
                     monitor.on('statusChange', async (newStatus) => {
@@ -170,7 +170,7 @@ async function setupAndRunTests() {
                             //web3.currentProvider.disconnect();
                             setTimeout(() => {
                                 terminateProcessByPid(envInfo.pid);
-                            }, 20000);
+                            }, 15000);
                             
                         }
                     });
