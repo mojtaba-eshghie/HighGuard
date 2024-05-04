@@ -34,35 +34,35 @@ contracts:
 tests:
   - name: "HelloWorldExploit"
     description: "Exploits for time lock-based property of HelloWorld contract"
-    directory: "/tests/exploits/"
+    directory: "/exploits/"
     files:
       - "HelloWorldExploit.js"
     environment: "anvil"
 
   - name: "PrizeDistributionExploit"
     description: "Exploits for time-based vulnerability of PrizeDistribution contract which is enabled by a poor logic in the contract implementation."
-    directory: "/tests/exploits/"
+    directory: "/exploits/"
     files:
       - "PrizeDistributionExploit.js"
     environment: "anvil"
 
   - name: "MultiStageAuctionExploit"
     description: "Exploits for a temporal property of ..."
-    directory: "/tests/exploits"
+    directory: "/exploits"
     files:
       - "MultiStageAuctionExploit.js"
     environment: "anvil"
 
   - name: "ProductOrderExploit"
     description: "No description yet..."
-    directory: "/tests/exploits"
+    directory: "/exploits"
     files:
       - "ProductOrderExploit.js"
     environment: "anvil"
 
   - name: "EscrowExploit"
     description: "No description yet..."
-    directory: "/tests/exploits"
+    directory: "/exploits"
     files:
       - "EscrowExploit.js"
     environment: "anvil"

@@ -28,7 +28,7 @@ contracts:
 tests:
   - name: "EscrowExploit"
     description: "No description yet..."
-    directory: "/tests/exploits"
+    directory: "/exploits"
     files:
       - "EscrowExploit.js"
     environment: "anvil"
