@@ -1,9 +1,7 @@
 require('module-alias/register');
-
 const { terminateProcessByPid } = require('@lib/os/process');
 const { hideBin } = require('yargs/helpers');
 const { readCIConfig } = require('@lib/config');
-const { getLastSimulationId } = require('@lib/dcr/info');
 const { readModelFunctionsParams } = require('@lib/config');
 const { getActivities } = require('@lib/dcr/info')
 const { 
@@ -150,7 +148,6 @@ async function setupAndRunTests() {
                             // Wait for all tests to complete
                             let results = await Promise.allSettled(testPromises);
                             results.forEach(result => {
-                                logger.error(`result: ${JSON.stringify(result)}`)
                                 if (result.status === 'fulfilled' && result.value) successfulExploitsCount++;
                                 else {
                                     failedExploitsCount++;
