@@ -126,7 +126,8 @@ class Monitor extends EventEmitter {
       );
       //logger.debug(`Activity execution result: ${result}`);
       this.executedActivities.push(result);
-      result.violation = violates;
+      //result.violation = violates;
+      result.violation = violates ? violates : result.violation;
       this.violating = result.violation ? result.violation : this.violating;
       logger.debug(`This time, violates is: ${violates}`);
       logger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
