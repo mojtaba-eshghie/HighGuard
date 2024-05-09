@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 let { getLastSimulationId, getPendingActivities } = require('@lib/dcr/info');
 const { json } = require('express');
+const { default: chalk } = require('chalk');
 
 
 class Monitor extends EventEmitter {
@@ -25,7 +26,8 @@ class Monitor extends EventEmitter {
     this.contractWatcher = new ContractWatcher(
       this.configs.web3,
       this.configs.contractAddress,
-      this.configs.contractFileName
+      this.configs.contractName, 
+      this.configs.contractABI
     );
       
     // translator
@@ -57,8 +59,9 @@ class Monitor extends EventEmitter {
     await this.dcrExecutor.makeSimulation(this.configs.modelId);
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
+    console.log(`simId is ${this.simId}`)
     this.setStatus('INITIALIZED');     
-    logger.debug(`The simulation id for the monitor: ${simId}`);
+    logger.debug(`The simulation id for the monitor: ${this.simId}`);
   } catch (error) {
     this.setStatus('ERROR');
     logger.error(`Simulation setup failed: ${error}`);
