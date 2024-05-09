@@ -48,6 +48,7 @@
     "@dbs": "./dbs",
     "@models": "./models",
     "@envs": "./CI/envs/",
-    "@conventions": "./CI/conventions"
+    "@conventions": "./CI/conventions",
+    "@CI": "./CI/"
   }
 }
