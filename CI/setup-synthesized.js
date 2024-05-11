@@ -88,10 +88,10 @@ async function setupAndRunTests() {
                     let contractInstance = await deployContract(web3, abi, bytecode, envInfo, constructorParams);
                     
                     logger.debug(chalk.white(`Model id: ${model.id}`))
-                    logger.debug(chalk.white(`The contract: ${fullContractFileName}`))
+                    logger.debug(chalk.white(`The contract file: ${fullContractFileName}`))
 
                     // Retrieving the model-function parameter configuration information
-                    let modelFunctionParams = readModelFunctionsParams(contractName, model.id)
+                    let modelFunctionParams = readModelFunctionsParams(contractName, model.id, 'config-synthesized.yml')
                     logger.debug('modelFunctionParams from configurations: ', modelFunctionParams)
 
                     configs = {
@@ -143,9 +143,7 @@ async function setupAndRunTests() {
                                 
 
                                 resolve(); // Resolve once all tests are done
-                                //terminateProcessByPid(envInfo.pid);
 
-                                //logger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
                                 //web3.currentProvider.disconnect();
                                 setTimeout(() => {
                                     terminateProcessByPid(envInfo.pid);

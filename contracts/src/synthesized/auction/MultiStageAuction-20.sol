@@ -8,57 +8,54 @@ contract MultiStageAuction {
     }
 
     AuctionPhase public currentPhase = AuctionPhase.Commit;
+    address public auctioneer;
 
-    mapping(address => bytes32) public commitments; // Hashed bids
+    mapping(address => bytes32) public commitments;
     mapping(address => uint256) public revealedBids;
     address public highestBidder;
     uint256 public highestBid;
 
+    constructor() {
+        auctioneer = msg.sender; // The auctioneer controls the auction process.
+    }
+
     function commitBid(bytes32 hashedBid) public {
         require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
         commitments[msg.sender] = hashedBid;
-
-        _endCommitPhase();
     }
 
     function revealBid(uint256 amount, string memory secret) public {
+        // Vulnerability: Allows bid revelation even after the auction has ended
+        require(
+            currentPhase == AuctionPhase.Reveal ||
+                currentPhase == AuctionPhase.Ended,
+            "Not in correct phase for revealing bids."
+        );
         bytes32 hashedBid = keccak256(
             abi.encodePacked(uint256ToString(amount), secret)
         );
         require(commitments[msg.sender] == hashedBid, "Invalid bid revealed.");
-
         revealedBids[msg.sender] = amount;
 
         if (amount > highestBid) {
             highestBid = amount;
             highestBidder = msg.sender;
         }
-        currentPhase = AuctionPhase.Reveal;
-        _endAuction();
     }
 
-    function _endCommitPhase() internal {
-        require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
-        currentPhase = AuctionPhase.Reveal;
-    }
-
-    function _endAuction() internal {
-        require(currentPhase == AuctionPhase.Reveal, "Not in Reveal Phase.");
+    function endAuction() public {
+        require(
+            auctioneer == msg.sender,
+            "Only the auctioneer can end the auction."
+        );
         currentPhase = AuctionPhase.Ended;
-    }
-
-    function getCommittedHash() public view returns (bytes32) {
-        return commitments[msg.sender];
     }
 
     function getHashFromInput(
         uint256 amount,
         string memory secret
     ) public pure returns (bytes32) {
-        bytes32 hashedBid = keccak256(
-            abi.encodePacked(uint256ToString(amount), secret)
-        );
-        return hashedBid;
+        return keccak256(abi.encodePacked(uint256ToString(amount), secret));
     }
 
     function uint256ToString(
@@ -82,9 +79,3 @@ contract MultiStageAuction {
         return string(buffer);
     }
 }
-
-// 1. First a function call to getHashFromInput with an arbitrary number and arbitrary secret (1, "mysecret");
-//      We get the required hashedBid from the above call;
-// 2. Then, making a transaction to commitBid function with the same hashedBid from the first call
-// 3. Then, immedaiately after the above succeeds, make another transaction to revealBid function with the same parameters as (1);
-// Here you go! If the third transaction goes through, a malicious interaction has happened.

@@ -84,7 +84,7 @@ async function setupAndRunTests() {
                 logger.debug(chalk.white(`The contract: ${contractName}`))
 
                 // Retrieving the model-function parameter configuration information
-                let modelFunctionParams = readModelFunctionsParams(contractName, model.id)
+                let modelFunctionParams = readModelFunctionsParams(contractName, model.id);
                 logger.debug('modelFunctionParams from configurations: ', modelFunctionParams)
 
                 configs = {
