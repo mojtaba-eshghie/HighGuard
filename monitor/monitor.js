@@ -59,7 +59,6 @@ class Monitor extends EventEmitter {
     await this.dcrExecutor.makeSimulation(this.configs.modelId);
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
-    console.log(`simId is ${this.simId}`)
     this.setStatus('INITIALIZED');     
     logger.debug(`The simulation id for the monitor: ${this.simId}`);
   } catch (error) {

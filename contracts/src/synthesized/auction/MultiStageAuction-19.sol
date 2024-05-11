@@ -8,57 +8,58 @@ contract MultiStageAuction {
     }
 
     AuctionPhase public currentPhase = AuctionPhase.Commit;
+    address public auctioneer;
 
-    mapping(address => bytes32) public commitments; // Hashed bids
+    mapping(address => bytes32) public commitments;
     mapping(address => uint256) public revealedBids;
+    mapping(address => bool) public bidCancelled; // Tracks whether a bid has been cancelled
     address public highestBidder;
     uint256 public highestBid;
+
+    constructor() {
+        auctioneer = msg.sender; // The auctioneer initially controls the auction.
+    }
 
     function commitBid(bytes32 hashedBid) public {
         require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
         commitments[msg.sender] = hashedBid;
-
-        _endCommitPhase();
     }
 
     function revealBid(uint256 amount, string memory secret) public {
+        require(currentPhase == AuctionPhase.Reveal, "Not in Reveal Phase.");
+        require(!bidCancelled[msg.sender], "Bid has been cancelled.");
         bytes32 hashedBid = keccak256(
             abi.encodePacked(uint256ToString(amount), secret)
         );
         require(commitments[msg.sender] == hashedBid, "Invalid bid revealed.");
-
         revealedBids[msg.sender] = amount;
 
         if (amount > highestBid) {
             highestBid = amount;
             highestBidder = msg.sender;
         }
-        currentPhase = AuctionPhase.Reveal;
-        _endAuction();
     }
 
-    function _endCommitPhase() internal {
-        require(currentPhase == AuctionPhase.Commit, "Not in Commit Phase.");
-        currentPhase = AuctionPhase.Reveal;
+    // Vulnerability: Allows cancellation of bids at any time without checks
+    function cancelBid() public {
+        bidCancelled[msg.sender] = true; // Simply marks the bid as cancelled
+        commitments[msg.sender] = 0x0;
+        revealedBids[msg.sender] = 0;
     }
 
-    function _endAuction() internal {
-        require(currentPhase == AuctionPhase.Reveal, "Not in Reveal Phase.");
+    function endAuction() public {
+        require(
+            currentPhase == AuctionPhase.Reveal,
+            "Auction not in reveal phase."
+        );
         currentPhase = AuctionPhase.Ended;
-    }
-
-    function getCommittedHash() public view returns (bytes32) {
-        return commitments[msg.sender];
     }
 
     function getHashFromInput(
         uint256 amount,
         string memory secret
     ) public pure returns (bytes32) {
-        bytes32 hashedBid = keccak256(
-            abi.encodePacked(uint256ToString(amount), secret)
-        );
-        return hashedBid;
+        return keccak256(abi.encodePacked(uint256ToString(amount), secret));
     }
 
     function uint256ToString(
@@ -82,9 +83,3 @@ contract MultiStageAuction {
         return string(buffer);
     }
 }
-
-// 1. First a function call to getHashFromInput with an arbitrary number and arbitrary secret (1, "mysecret");
-//      We get the required hashedBid from the above call;
-// 2. Then, making a transaction to commitBid function with the same hashedBid from the first call
-// 3. Then, immedaiately after the above succeeds, make another transaction to revealBid function with the same parameters as (1);
-// Here you go! If the third transaction goes through, a malicious interaction has happened.
