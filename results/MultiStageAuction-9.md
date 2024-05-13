@@ -1,4 +1,4 @@
 | Activity ID | Time | Violation |
 | --- | --- | --- |
-| commitBid | Sat, 11 May 2024 09:59:03 GMT | false |
-| revealBid | Sat, 11 May 2024 09:59:03 GMT | true |
+| revealBid | Sun, 12 May 2024 15:22:19 GMT | true |
+| commitBid | Sun, 12 May 2024 15:22:19 GMT | false |
