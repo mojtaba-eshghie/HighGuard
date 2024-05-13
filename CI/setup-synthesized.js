@@ -11,13 +11,21 @@ const {
     getContractABI,
     retrieveConstructorParameters 
 } = require('@lib/web3/deploy');
-const logger = require('@lib/logging/logger');
+//const logger = require('@lib/logging/logger');
+
+const getLogger = require('@lib/logging/logger').getLogger;
+const setupSyncLogger = getLogger('setup-synthesized');
+
+
 const yargs = require('yargs/yargs');
 const path = require('path');
 const setupAnvilEnv = require('@envs/anvil');
 const chalk = require('chalk');
 const Monitor = require('@monitor/monitor');
 const fs = require('fs').promises;
+
+//  Increase the Max Listeners Limit globally
+require('events').EventEmitter.defaultMaxListeners = 100; 
 
 
 async function setupAndRunTests() {
@@ -28,7 +36,7 @@ async function setupAndRunTests() {
     let allMonitors = [];
 
     for (let contract of ciConfig.contracts) {
-        logger.debug(`Working on contract: ${JSON.stringify(contract)}`);
+        setupSyncLogger.debug(`Working on contract: ${JSON.stringify(contract)}`);
 
                 
         let env = await setupAnvilEnv();
@@ -46,11 +54,11 @@ async function setupAndRunTests() {
             console.log(`tests are: ${contract.tests}`)
             let testName = contract.tests[0];
 
-            logger.debug(chalk.white(`Successfully read test info: ${testName} for ${contract} from config. Full name of test is: ${fullTestName}`));
+            setupSyncLogger.debug(chalk.white(`Successfully read test info: ${testName} for ${contract} from config. Full name of test is: ${fullTestName}`));
             
             let test = ciConfig.tests.find(t => t.name === testName);
             if (!test) {
-                logger.error(`Test ${testName} not found in the configuration.`);
+                setupSyncLogger.error(`Test ${testName} not found in the configuration.`);
                 continue;
             }
 
@@ -69,7 +77,7 @@ async function setupAndRunTests() {
 
                 // Getting contract constructor parameters for deployment
                 let constructorParams = await retrieveConstructorParameters(contract.constructorParamSpecs, web3, envInfo);
-                logger.debug(`The retrieved parameters are: ${JSON.stringify(constructorParams)}`);
+                setupSyncLogger.debug(`The retrieved parameters are: ${JSON.stringify(constructorParams)}`);
 
                 // Contract preparation and deployment
                 const projectRoot = path.resolve(__dirname, '..'); 
@@ -87,12 +95,12 @@ async function setupAndRunTests() {
                     let { abi, bytecode } = await compileWithVersion(contractSource, fullContractFileName, contractName, solcVersion);
                     let contractInstance = await deployContract(web3, abi, bytecode, envInfo, constructorParams);
                     
-                    logger.debug(chalk.white(`Model id: ${model.id}`))
-                    logger.debug(chalk.white(`The contract file: ${fullContractFileName}`))
+                    setupSyncLogger.debug(chalk.white(`Model id: ${model.id}`))
+                    setupSyncLogger.debug(chalk.white(`The contract file: ${fullContractFileName}`))
 
                     // Retrieving the model-function parameter configuration information
                     let modelFunctionParams = readModelFunctionsParams(contractName, model.id, 'config-synthesized.yml')
-                    logger.debug('modelFunctionParams from configurations: ', modelFunctionParams)
+                    setupSyncLogger.debug('modelFunctionParams from configurations: ', modelFunctionParams)
 
                     configs = {
                         web3: web3,
@@ -105,27 +113,24 @@ async function setupAndRunTests() {
                         modelId: model.id,
                         hasResponseRelation: model.hasResponseRelation,
                     }
-
                     let monitor = new Monitor(configs);
                     allMonitors.push(new Promise(resolve => {
                         monitor.on('statusChange', async (newStatus) => {
                             if (newStatus === 'INITIALIZED') {
-                                logger.debug(`Monitor is initialized...`);                          
+                                setupSyncLogger.debug(`Monitor is initialized...`);                          
                                 monitor.start();
                             } else if (newStatus == 'RUNNING') {
-                                logger.info(`Monitor is now running for the contract ${contractInstance._address}.`);
-
+                                setupSyncLogger.info(`Monitor is now running for the contract ${contractInstance._address}.`);
 
 
                                 // 1.4
                                 // execute exploits
-                                logger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
+                                setupSyncLogger.info(chalk.green(`Running exploits for environment: [${environment}] \n`));
                                 let testPromises = testFiles.map(testFile => {
                                     let testFilePath = path.join(__dirname, testDirectory, testFile);
                                     let testModule = require(testFilePath);
                                     return typeof testModule === 'function' ? testModule(web3, envInfo, contractInstance._address) : Promise.reject('Incorrect module type');
                                 });
-
                                 // Wait for all tests to complete
                                 let results = await Promise.allSettled(testPromises);
                                 results.forEach(result => {
@@ -140,10 +145,8 @@ async function setupAndRunTests() {
                                     };
                                 });
                                 
-                                
 
                                 resolve(); // Resolve once all tests are done
-
                                 //web3.currentProvider.disconnect();
                                 setTimeout(() => {
                                     terminateProcessByPid(envInfo.pid);
@@ -154,7 +157,7 @@ async function setupAndRunTests() {
                     }));
 
                 } catch (error) {
-                    logger.error(`Failed for: ${contractName}\n Error: ${error}\nContract path: ${contractPath}`);
+                    setupSyncLogger.error(`Failed for: ${fullContractFileName}\n Error: ${error.stack}\nContract path: ${contractPath}`);
                     failedExploitsCount++;
                     failedExploits.push({
                         'contract': fullContractFileName,
@@ -190,14 +193,14 @@ async function setupAndRunTests() {
     await Promise.allSettled(allMonitors);
 
     // Display the results  
-    logger.info(chalk.cyan('= '.repeat(40)+'\n'));
-    logger.info(chalk.cyan('Finished executing all exploits.\n'));
-    logger.info(chalk.green(`Total successful exploits: ${successfulExploitsCount}`));
-    logger.info(chalk.red(`Total failed exploits: ${failedExploitsCount}\n`));
-    logger.info(`Failed ones are: ${JSON.stringify(failedExploits)}`);
-    logger.info(chalk.cyan('= '.repeat(40)));
+    setupSyncLogger.info(chalk.cyan('= '.repeat(40)+'\n'));
+    setupSyncLogger.info(chalk.cyan('Finished executing all exploits.\n'));
+    setupSyncLogger.info(chalk.green(`Total successful exploits: ${successfulExploitsCount}`));
+    setupSyncLogger.info(chalk.red(`Total failed exploits: ${failedExploitsCount}\n`));
+    setupSyncLogger.info(`Failed ones are: ${JSON.stringify(failedExploits)}`);
+    setupSyncLogger.info(chalk.cyan('= '.repeat(40)));
 
-    logger.info(`Finished all operations. Successful: ${successfulExploitsCount}, Failed: ${failedExploitsCount}`);
+    setupSyncLogger.info(`Finished all operations. Successful: ${successfulExploitsCount}, Failed: ${failedExploitsCount}`);
     
     //web3.currentProvider.disconnect();
     //terminateProcessByPid(envInfo.pid);

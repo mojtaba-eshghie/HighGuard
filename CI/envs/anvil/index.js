@@ -37,7 +37,7 @@ let extractAnvilInfo = (port) => {
 
         // Handle any errors
         anvilProcess.stderr.on('data', (data) => {
-            reject(`Error: ${data}`);
+            reject(`Anvil process setup error: ${data}`);
         });
     });
 }

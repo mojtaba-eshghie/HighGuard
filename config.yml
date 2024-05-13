@@ -1,19 +1,33 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 contracts:
-  - name: "ProductOrder"
-    constructorParamSpecs:
-      - name: "_price"
-        type: "uint256"
-        sourceType: "static"
-        value: 1
-    models:
-      - name: "ProductOrder"
-        id: "1822680"
-        functions: []
-        hasResponseRelation: true
-    tests:
-      - "ProductOrderExploit"
+  # - name: "ProductOrder"
+  #   constructorParamSpecs:
+  #     - name: "_price"
+  #       type: "uint256"
+  #       sourceType: "static"
+  #       value: 1
+  #   models:
+  #     - name: "ProductOrder"
+  #       id: "1822680"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "ProductOrderExploit"
+
+  # - name: "ProductOrder"
+  #   constructorParamSpecs:
+  #     - name: "_price"
+  #       type: "uint256"
+  #       sourceType: "static"
+  #       value: 1
+  #   models:
+  #     - name: "ProductOrder"
+  #       id: "1822680"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "ProductOrderExploit"
 
 tests:
   - name: "HelloWorldExploit"
@@ -56,6 +70,13 @@ tests:
     directory: "/exploits"
     files:
       - "EscrowExploit.js"
+    environment: "anvil"
+
+  - name: "GovernanceExploit"
+    description: "No description yet..."
+    directory: "/exploits"
+    files:
+      - "GovernanceExploit.js"
     environment: "anvil"
 
 environments:

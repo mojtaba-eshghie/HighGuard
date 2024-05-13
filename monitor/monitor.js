@@ -3,7 +3,10 @@ const EventEmitter = require('events');
 const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
-const logger = require('@lib/logging/logger');
+//const logger = require('@lib/logging/logger');
+const getLogger = require('@lib/logging/logger').getLogger;
+const monitorLogger = getLogger('monitor');
+
 const fs = require('fs');
 const path = require('path');
 let { getLastSimulationId, getPendingActivities } = require('@lib/dcr/info');
@@ -49,7 +52,7 @@ class Monitor extends EventEmitter {
 
     // Setting up a new simulation for the model
     this.simulate().catch(err => {
-      logger.error(`Initialization failed: ${err}`);
+      monitorLogger.error(`Initialization failed: ${err}`);
       this.status = 'ERROR'; 
     });
     
@@ -60,10 +63,10 @@ class Monitor extends EventEmitter {
     let simId = await getLastSimulationId(this.configs.modelId);
     this.simId = simId;
     this.setStatus('INITIALIZED');     
-    logger.debug(`The simulation id for the monitor: ${this.simId}`);
+    monitorLogger.debug(`The simulation id for the monitor: ${this.simId}`);
   } catch (error) {
     this.setStatus('ERROR');
-    logger.error(`Simulation setup failed: ${error}`);
+    monitorLogger.error(`Simulation setup failed: ${error}`);
   }
 
   setStatus(newStatus) {
@@ -126,15 +129,15 @@ class Monitor extends EventEmitter {
         dcrActivity.dcrValue,
         dcrActivity.dcrType
       );
-      //logger.debug(`Activity execution result: ${result}`);
+      //monitorLogger.debug(`Activity execution result: ${result}`);
       this.executedActivities.push(result);
       //result.violation = violates;
       result.violation = violates ? violates : result.violation;
       this.violating = result.violation ? result.violation : this.violating;
-      logger.debug(`This time, violates is: ${violates}`);
-      logger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
+      monitorLogger.debug(`This time, violates is: ${violates}`);
+      monitorLogger.debug(`The executed dcr activities are: ${JSON.stringify(this.executedActivities)}`);
     } catch (error) {
-      logger.error('Error executing DCR Activity:', error);
+      monitorLogger.error('Error executing DCR Activity:', error);
     }
   }
 
@@ -163,7 +166,7 @@ class Monitor extends EventEmitter {
     const filePath = path.join('results', fileName);
 
     fs.writeFileSync(filePath, markdownContent, 'utf8');
-    logger.debug(`Markdown file written: ${filePath}`);
+    monitorLogger.debug(`Markdown file written: ${filePath}`);
   }
 
 }

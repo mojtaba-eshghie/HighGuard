@@ -48,7 +48,7 @@ let extractAvalancheInfo = () => {
         });
         // Handle any errors
         AvalancheProcess.stderr.on('data', (data) => {
-            reject(`Error: ${data}`);
+            reject(`Avalance subnet setup error: ${data}`);
         });
     });
 }

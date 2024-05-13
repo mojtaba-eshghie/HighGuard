@@ -1,10 +1,22 @@
 ## HighGuard: Monitoring High-Level Properties in Smart Contracts
+
 <p align="center">
   <img src="https://github.com/mojtaba-eshghie/Clawk/assets/37236297/4ea40602-3791-478b-b121-28f4cd9555a5" width="200" alt="HighGuard Logo">
 </p>
 
-Smart contracts embody complex business processes that can be difficult to analyze statically. Therefore, we present HighGuard, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs. 
+Smart contracts embody complex business processes that can be difficult to analyze statically. Therefore, we present HighGuard, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs.
 
+## Features
+
+### Main Features
+
+- Fully automated model-based monitoring/testing of smart contracts
+- Supports DCR graphs enhanced with data and time.
+
+### Axiliary Features
+
+- Batteries included
+- Distributed logging
 
 ## Installation
 
