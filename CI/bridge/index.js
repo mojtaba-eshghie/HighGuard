@@ -30,20 +30,20 @@ async function deployBridge(web3A, envInfoA, web3B, envInfoB){
 
     // Deploying the three different contracts
     let sourceSolcVersion = extractSolcVersion(sourceSource);
-    let compiledSource = await compileWithVersion(sourceSource, 'CrossSource', sourceSolcVersion);
+    let compiledSource = await compileWithVersion(sourceSource, 'CrossSource', 'CrossSource', sourceSolcVersion);
     let sourceParameters = [];
     let sourceContract = await deployContract(web3A, compiledSource.abi, compiledSource.bytecode, envInfoA, sourceParameters);
     //console.log("source:" + sourceContract._address);
 
     let tokenSolcVersion = extractSolcVersion(tokenSource);
-    let compiledToken = await compileWithVersion(tokenSource, 'CrossToken', tokenSolcVersion);
+    let compiledToken = await compileWithVersion(tokenSource, 'CrossToken', 'CrossToken', tokenSolcVersion);
     let tokenParameters = [];
     let tokenContract = await deployContract(web3B, compiledToken.abi, compiledToken.bytecode, envInfoB, tokenParameters);
     let tokenAddress = tokenContract._address;
     //console.log("token: " + tokenContract._address);
 
     let destinationSolcVersion = extractSolcVersion(destinationSource);
-    let compiledDestination = await compileWithVersion(destinationSource, 'CrossDestination', destinationSolcVersion);
+    let compiledDestination = await compileWithVersion(destinationSource, 'CrossDestination', 'CrossDestination', destinationSolcVersion);
     let destinationParameters = [tokenAddress];
     let destinationContract = await deployContract(web3B, compiledDestination.abi, compiledDestination.bytecode, envInfoB, destinationParameters);
     //console.log("destination: " + destinationContract._address);
