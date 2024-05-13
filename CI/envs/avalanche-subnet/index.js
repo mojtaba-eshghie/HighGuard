@@ -16,7 +16,12 @@ let extractAvalancheInfo = () => {
         
         let subnetList = execSync('avalanche subnet list'); //check if highguardAvalanche is already imported , if subnet does not exist, load from file
         if (!subnetList.toString("utf8").includes('highguardAvalanche')){
-            loadAvalanche = execSync('avalanche subnet import file ' + __dirname + '/highguardAvalanche.json');
+            let loadKey = execSync('avalanche key create highguard-teleporter --force --file ' + __dirname + '/teleporter');
+            if (!loadKey.toString().includes('Key loaded')){
+                reject(`Error with loading Avalanche key: ${loadAvalanche.toString()}`);
+            }
+            let loadAvalanche = execSync('avalanche subnet import file ' + __dirname + '/highguardAvalanche.json');
+
             if (!loadAvalanche.toString().includes('Subnet imported successfully')){
                 reject(`Error with loading Avalanche subnet: ${loadAvalanche.toString()}`);
             }
