@@ -4,6 +4,9 @@ const Web3 = require("web3");
 const { findFreePorts } = require('@lib/os/network');
 
 
+const getLogger = require('@lib/logging/logger').getLogger;
+const avalancheIndexLogger = getLogger('avalanche-index');
+
 /**
  * Extracts information from the avalanche-network-runner command.
  * 
@@ -12,21 +15,43 @@ const { findFreePorts } = require('@lib/os/network');
  */
 let extractAvalancheInfo = () => {
     return new Promise((resolve, reject) => {
-        execSync('avalanche network clean'); //Resets the blockchain to initial state, 
-        
-        let subnetList = execSync('avalanche subnet list'); //check if highguardAvalanche is already imported , if subnet does not exist, load from file
-        if (!subnetList.toString("utf8").includes('highguardAvalanche')){
-            loadAvalanche = execSync('avalanche subnet import file ' + __dirname + '/highguardAvalanche.json');
-            if (!loadAvalanche.toString().includes('Subnet imported successfully')){
-                reject(`Error with loading Avalanche subnet: ${loadAvalanche.toString()}`);
+        avalancheIndexLogger.debug(`Exectuing command: "avalanche network clean"`)
+        try {
+            execSync('avalanche network clean'); //Resets the blockchain to initial state, 
+        } catch (error) {
+            avalancheIndexLogger.error(error.stack);
+            throw new Error(error.stack);
+        }
+
+
+        try {
+            avalancheIndexLogger.debug(`Executing command: "avalanche subnet list"`);
+            let subnetList = execSync('avalanche subnet list'); //check if highguardAvalanche is already imported , if subnet does not exist, load from file
+            avalancheIndexLogger.debug(`subnetList: ${subnetList.toString()}`);         
+
+            if (!subnetList.toString("utf8").includes('highguardAvalanche')){
+                let loadKey = execSync('avalanche key create highguard-teleporter --force --file ' + __dirname + '/teleporter');
+                avalancheIndexLogger.debug(`loadKey: ${loadKey}`);
+                if (!loadKey.toString().includes('Key loaded')){
+                    reject(`Error with loading Avalanche key: ${loadAvalanche.toString()}`);
+                }
+                let loadAvalanche = execSync('avalanche subnet import file ' + __dirname + '/highguardAvalanche.json');
+
+                if (!loadAvalanche.toString().includes('Subnet imported successfully')){
+                    reject(`Error with loading Avalanche subnet: ${loadAvalanche.toString()}`);
+                }
             }
+        } catch (error) {
+            avalancheIndexLogger.error(error.stack);
+            throw new Error(error.stack);
         }
         
+        
         let AvalancheProcess = spawn('avalanche', ['subnet', 'deploy', 'highguardAvalanche', '-l']);
-
         let output = '';
 
         AvalancheProcess.stdout.on('data', (data) => {
+            avalancheIndexLogger.debug(`data: ${data.toString()}`);
             output += data.toString();
             if (output.includes('Currency Symbol:   AVAX')) {
                 AvalancheProcess.stdout.removeAllListeners('data'); 
@@ -55,7 +80,7 @@ let extractAvalancheInfo = () => {
 
 
 let setupEnv = async () => {
-
+    avalancheIndexLogger.debug(`Starting to setup avalance index... (setupEnv)`)
     let envInfo = await extractAvalancheInfo();
 
     const wsPort = envInfo.rpcAddress.slice(0, -3) + "ws";
