@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-contract SimpleGovernance {
+contract Governance {
     struct Proposal {
         uint256 id;
         string description;
@@ -13,24 +13,25 @@ contract SimpleGovernance {
         bool isExecuted;
     }
 
-    uint256 public reviewDuration = 3 days;
-    uint256 public votingDuration = 5 days;
-    uint256 public gracePeriod = 2 days;
-    uint256 public voteThreshold = 10; // Arbitrary threshold
+    uint256 public reviewDuration = 5 seconds;
+    uint256 public votingDuration = 10 seconds;
+    uint256 public gracePeriod = 5 seconds;
+    uint256 public voteThreshold = 3; // Arbitrary voting threshold
 
     mapping(uint256 => Proposal) public proposals;
     mapping(uint256 => mapping(address => bool)) public votes; // Tracks if an address has voted on a proposal
     uint256 public nextProposalId;
 
-    function createProposal() public {
+    function createProposal() public returns (uint256) {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
-        p.description = "Sample proposal";
+        p.description = "dummy description";
         p.startTime = block.timestamp;
         p.reviewEndTime = block.timestamp + reviewDuration;
         p.votingEndTime = p.reviewEndTime + votingDuration;
         p.executionTime = p.votingEndTime + gracePeriod;
         nextProposalId++;
+        return nextProposalId;
     }
 
     function vote(uint256 proposalId) public {

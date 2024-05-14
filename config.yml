@@ -79,6 +79,17 @@ contracts:
     tests:
       - "ProductOrderExploit"
 
+  - name: "Governance"
+    constructorParamSpecs: []
+    models:
+      - name: "Governance"
+        id: "1822688"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "GovernanceExploit"
+
+
 tests:
   - name: "HelloWorldExploit"
     description: "Exploits for time lock-based property of HelloWorld contract"
@@ -125,6 +136,7 @@ tests:
   - name: "GovernanceExploit"
     description: "No description yet..."
     directory: "/exploits/regular"
+
     files:
       - "GovernanceExploit.js"
     environment: "anvil"

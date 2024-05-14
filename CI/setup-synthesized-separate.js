@@ -109,6 +109,7 @@ async function setupAndRunTests() {
                 const contractsDir = path.join(projectRoot, './contracts');
                 const contractName = contract.name;
                 let contractPath = path.join(contractsDir, 'src/synthesized', contractName+'-'+variantIndex+'.sol')
+                
                 let contractSource;
                 try {
                     contractSource = await fs.readFile(contractPath, 'utf8');
