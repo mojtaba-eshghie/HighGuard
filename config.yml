@@ -15,19 +15,15 @@ contracts:
   #   tests:
   #     - "ProductOrderExploit"
 
-  # - name: "ProductOrder"
-  #   constructorParamSpecs:
-  #     - name: "_price"
-  #       type: "uint256"
-  #       sourceType: "static"
-  #       value: 1
-  #   models:
-  #     - name: "ProductOrder"
-  #       id: "1822680"
-  #       functions: []
-  #       hasResponseRelation: true
-  #   tests:
-  #     - "ProductOrderExploit"
+  - name: "Governance"
+    constructorParamSpecs: []
+    models:
+      - name: "Governance"
+        id: "1822688"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "GovernanceExploit"
 
 tests:
   - name: "HelloWorldExploit"
@@ -74,7 +70,7 @@ tests:
 
   - name: "GovernanceExploit"
     description: "No description yet..."
-    directory: "/exploits"
+    directory: "/exploits/regular/"
     files:
       - "GovernanceExploit.js"
     environment: "anvil"
