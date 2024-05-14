@@ -11,15 +11,15 @@ const {
     getContractABI,
     retrieveConstructorParameters 
 } = require('@lib/web3/deploy');
-//const logger = require('@lib/logging/logger');
 const getLogger = require('@lib/logging/logger').getLogger;
 const setupRegLogger = getLogger('setup-regular');
-const yargs = require('yargs/yargs');
+
 const path = require('path');
 const setupAnvilEnv = require('@envs/anvil');
 const chalk = require('chalk');
 const Monitor = require('@monitor/monitor');
 const fs = require('fs');
+const { sleep } = require('@lib/os/process');
 
 
 async function setupAndRunTests() {
@@ -67,15 +67,15 @@ async function setupAndRunTests() {
                         try {
                             await sleep(1000);
                             env = await setupAnvilEnv();
-                            setupSyncLoggerUnified.debug('Environment setup successful:', env);
+                            setupRegLogger.debug('Environment setup successful:', env);
                             break; 
                         } catch (error) {
-                            setupSyncLoggerUnified.debug(`Attempt ${attempts + 1}: Failed to set up environment - ${error}`)
+                            setupRegLogger.debug(`Attempt ${attempts + 1}: Failed to set up environment - ${error}`)
                             console.error(`Attempt ${attempts + 1}: Failed to set up environment - ${error}`);
                             attempts++;
                             if (attempts === maxRetries) {
                                 console.error('Max retries reached, failing with error');
-                                setupSyncLoggerUnified.error('Max retries reached, failing with error')
+                                setupRegLogger.error('Max retries reached, failing with error')
                                 throw error;
                             }
                         }
@@ -102,7 +102,7 @@ async function setupAndRunTests() {
                 const projectRoot = path.resolve(__dirname, '..'); 
                 const contractsDir = path.join(projectRoot, './contracts');
                 const contractName = contract.name;
-                let contractSource = fs.readFileSync(path.join(contractsDir, 'src', contractName+'.sol'), 'utf8');
+                let contractSource = fs.readFileSync(path.join(contractsDir, 'src', 'regular', contractName+'.sol'), 'utf8');
                 let solcVersion = extractSolcVersion(contractSource);
                 let { abi, bytecode } = await compileWithVersion(contractSource, contractName, contractName, solcVersion);
                 let contractInstance = await deployContract(web3, abi, bytecode, envInfo, constructorParams);
@@ -119,7 +119,7 @@ async function setupAndRunTests() {
                     contractAddress: contractInstance._address,
                     contractFileName: contractName,
                     contractName: contractName,
-                    contractABI: await getContractABI(contractSource, contractFileName, contractName),
+                    contractABI: await getContractABI(contractSource, contractName, contractName),
                     modelFunctionParams: modelFunctionParams,
                     activities: await getActivities(model.id),
                     modelId: model.id,
@@ -176,7 +176,7 @@ async function setupAndRunTests() {
                             //web3.currentProvider.disconnect();
                             setTimeout(() => {
                                 terminateProcessByPid(envInfo.pid);
-                            }, 15000);
+                            }, 150000);
                             
                         }
                     });
