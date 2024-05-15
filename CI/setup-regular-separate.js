@@ -13,10 +13,7 @@ const {
 } = require('@lib/web3/deploy');
 const getLogger = require('@lib/logging/logger').getLogger;
 const setupRegLogger = getLogger('setup-regular');
-<<<<<<< feat_issue_89
 
-=======
->>>>>>> main
 const path = require('path');
 const setupAnvilEnv = require('@envs/anvil');
 const chalk = require('chalk');
@@ -108,10 +105,7 @@ async function setupAndRunTests() {
                 const contractsDir = path.join(projectRoot, './contracts');
                 const contractName = contract.name;
                 let contractSource = fs.readFileSync(path.join(contractsDir, 'src', 'regular', contractName+'.sol'), 'utf8');
-<<<<<<< feat_issue_89
-=======
-                
->>>>>>> main
+
                 let solcVersion = extractSolcVersion(contractSource);
                 //console.log(`contractSource: ${contractSource}\n\n contractName: ${contractName} \n\n solcVersion: ${solcVersion}`);
                 let { abi, bytecode } = await compileWithVersion(contractSource, contractName, contractName, solcVersion);

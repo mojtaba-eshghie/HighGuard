@@ -51,11 +51,11 @@ contract Governance {
 
     function executeProposal(uint256 proposalId) public {
         Proposal storage p = proposals[proposalId];
-        require(block.timestamp >= p.executionTime, "Grace period is not over");
-        require(p.voteCount >= voteThreshold, "Votes below threshold");
-        require(!p.isExecuted, "Proposal already executed");
+
+        // require(block.timestamp >= p.executionTime, "Grace period is not over");
+        // require(p.voteCount >= voteThreshold, "Votes below threshold");
+        // require(!p.isExecuted, "Proposal already executed");
 
         p.isExecuted = true;
-        // Execute the proposal logic here (e.g., change contract state)
     }
 }
