@@ -22,23 +22,29 @@ contract Governance {
     mapping(uint256 => mapping(address => bool)) public votes; // Tracks if an address has voted on a proposal
     uint256 public nextProposalId;
 
-    function createProposal() public returns (uint256) {
+    function createProposal(bool immediateExecution) public returns (uint256) {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
         p.description = "dummy description";
         p.startTime = block.timestamp;
         p.reviewEndTime = block.timestamp + reviewDuration;
         p.votingEndTime = p.reviewEndTime + votingDuration;
-        p.executionTime = p.votingEndTime + gracePeriod;
+
+        // Allow immediate execution by setting executionTime to current time
+        if (immediateExecution) {
+            p.executionTime = block.timestamp;
+        } else {
+            p.executionTime = p.votingEndTime + gracePeriod;
+        }
         nextProposalId++;
         return nextProposalId;
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"

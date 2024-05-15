@@ -26,19 +26,21 @@ contract Governance {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
         p.description = "dummy description";
+
+        // Allow setting reviewDuration and votingDuration to zero
         p.startTime = block.timestamp;
-        p.reviewEndTime = block.timestamp + reviewDuration;
-        p.votingEndTime = p.reviewEndTime + votingDuration;
-        p.executionTime = p.votingEndTime + gracePeriod;
+        p.reviewEndTime = block.timestamp; // Immediate end of review period
+        p.votingEndTime = block.timestamp; // Immediate end of voting period
+        p.executionTime = block.timestamp + gracePeriod;
         nextProposalId++;
         return nextProposalId;
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"

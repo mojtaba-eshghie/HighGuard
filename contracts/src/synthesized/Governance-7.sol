@@ -26,19 +26,21 @@ contract Governance {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
         p.description = "dummy description";
+
+        // Allow setting executionTime to votingEndTime, bypassing the grace period
         p.startTime = block.timestamp;
         p.reviewEndTime = block.timestamp + reviewDuration;
         p.votingEndTime = p.reviewEndTime + votingDuration;
-        p.executionTime = p.votingEndTime + gracePeriod;
+        p.executionTime = p.votingEndTime; // No grace period
         nextProposalId++;
         return nextProposalId;
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"
@@ -52,7 +54,11 @@ contract Governance {
     function executeProposal(uint256 proposalId) public {
         Proposal storage p = proposals[proposalId];
 
-        require(block.timestamp >= p.executionTime, "Grace period is not over");
+        // Bypass grace period
+        require(
+            block.timestamp >= p.executionTime,
+            "Voting period is not over"
+        );
         require(p.voteCount >= voteThreshold, "Votes below threshold");
         require(!p.isExecuted, "Proposal already executed");
 

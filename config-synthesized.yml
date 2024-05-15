@@ -26,38 +26,29 @@ contracts:
   #   tests:
   #     - "ProductOrderExploit"
 
-  # - name: "MultiStageAuction"
-  #   constructorParamSpecs: []
+  # - name: "Escrow"
+  #   numOfVariants: 4
+  #   constructorParamSpecs:
+  #     - name: "_sender"
+  #       type: "address"
+  #       sourceType: "dynamic"
+  #       source:
+  #         type: "EOA"
+  #     - name: "_receiver"
+  #       type: "address"
+  #       sourceType: "dynamic"
+  #       source:
+  #         type: "EOA"
+  #     - name: "_delayUntilRelease"
+  #       type: "uint"
+  #       sourceType: "static"
+  #       value: 0
   #   models:
-  #     - name: "MultiStageAuction"
-  #       id: "1701049"
+  #     - name: "Escrow"
+  #       id: "1624258"
   #       functions: []
   #   tests:
-  #     - "MultiStageAuctionExploit"
-
-  - name: "Escrow"
-    numOfVariants: 8
-    constructorParamSpecs:
-      - name: "_sender"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_receiver"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_delayUntilRelease"
-        type: "uint"
-        sourceType: "static"
-        value: 0
-    models:
-      - name: "Escrow"
-        id: "1624258"
-        functions: []
-    tests:
-      - "EscrowExploit"
+  #     - "EscrowExploit"
 
   # - name: "PrizeDistribution"
   #   numOfVariants: 25
@@ -90,7 +81,16 @@ contracts:
   #     #       DCRNodeID: "setGreet"
   #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
   #     - "PrizeDistributionExploit"
-
+  - name: "Governance"
+    numOfVariants: 21
+    constructorParamSpecs: []
+    models:
+      - name: "Governance"
+        id: "1822751"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "GovernanceExploit"
 tests:
   - name: "PrizeDistributionExploit"
     description: "Exploits for time-based vulnerability of PrizeDistribution contract which is enabled by a poor logic in the contract implementation."
@@ -108,6 +108,11 @@ tests:
     environment: "anvil"
 
   - name: "EscrowExploit"
+    description: "No description yet..."
+    directory: "/exploits/synthesized"
+    environment: "anvil"
+
+  - name: "GovernanceExploit"
     description: "No description yet..."
     directory: "/exploits/synthesized"
     environment: "anvil"

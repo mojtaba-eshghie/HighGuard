@@ -102,8 +102,11 @@ class Monitor extends EventEmitter {
               // This is where we can use this deadlined pending relation;
               deadline = new Date(deadline);
               const now = new Date();
-              if (now > deadline) {
+              const futureTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Add 24 hours in milliseconds
+              if (futureTime > deadline) {
                 violates = true;
+              } else {
+                
               }            
             }
           }

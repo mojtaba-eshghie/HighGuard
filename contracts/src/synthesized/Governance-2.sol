@@ -35,14 +35,18 @@ contract Governance {
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"
         );
+
+        // Reset the vote tracking for the user after each vote, allowing double voting
+        votes[proposalId][msg.sender] = false;
+
         require(!votes[proposalId][msg.sender], "Already voted");
 
         proposals[proposalId].voteCount += 1;

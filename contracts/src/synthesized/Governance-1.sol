@@ -35,14 +35,14 @@ contract Governance {
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
         require(
-            block.timestamp <= proposals[proposalId].votingEndTime,
-            "Voting period is over"
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
         );
+        // require(
+        //     block.timestamp <= proposals[proposalId].votingEndTime,
+        //     "Voting period is over"
+        // );
         require(!votes[proposalId][msg.sender], "Already voted");
 
         proposals[proposalId].voteCount += 1;
@@ -59,3 +59,5 @@ contract Governance {
         p.isExecuted = true;
     }
 }
+
+// The way to exploit this contract is simply showing that it is possible to vote even after the deadline (in the DCR model) is passed since the appropriate require statement in the "vote" function is commented! Therefore, nothing guards this invariant.

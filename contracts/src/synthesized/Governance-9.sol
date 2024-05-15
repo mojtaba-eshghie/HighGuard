@@ -16,6 +16,7 @@ contract Governance {
     uint256 public reviewDuration = 5 seconds;
     uint256 public votingDuration = 5 seconds;
     uint256 public gracePeriod = 5 seconds;
+    uint256 public bypassDuration = 10 seconds; // Duration after which vote threshold can be bypassed
     uint256 public voteThreshold = 3; // Arbitrary voting threshold
 
     mapping(uint256 => Proposal) public proposals;
@@ -35,10 +36,10 @@ contract Governance {
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"
@@ -53,7 +54,12 @@ contract Governance {
         Proposal storage p = proposals[proposalId];
 
         require(block.timestamp >= p.executionTime, "Grace period is not over");
-        require(p.voteCount >= voteThreshold, "Votes below threshold");
+
+        // Allow execution if vote count is below threshold but bypass duration has passed
+        if (block.timestamp < p.executionTime + bypassDuration) {
+            require(p.voteCount >= voteThreshold, "Votes below threshold");
+        }
+
         require(!p.isExecuted, "Proposal already executed");
 
         p.isExecuted = true;

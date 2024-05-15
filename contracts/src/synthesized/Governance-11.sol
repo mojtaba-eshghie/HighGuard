@@ -22,6 +22,9 @@ contract Governance {
     mapping(uint256 => mapping(address => bool)) public votes; // Tracks if an address has voted on a proposal
     uint256 public nextProposalId;
 
+    address public privilegedAddress =
+        0x1234567890abcdef1234567890abcdef12345678; // Set a specific privileged address
+
     function createProposal() public returns (uint256) {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
@@ -30,15 +33,21 @@ contract Governance {
         p.reviewEndTime = block.timestamp + reviewDuration;
         p.votingEndTime = p.reviewEndTime + votingDuration;
         p.executionTime = p.votingEndTime + gracePeriod;
+
+        // Reset isExecuted flag for a specific proposal by privileged address
+        if (msg.sender == privilegedAddress && nextProposalId > 0) {
+            proposals[nextProposalId - 1].isExecuted = false;
+        }
+
         nextProposalId++;
         return nextProposalId;
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"

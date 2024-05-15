@@ -26,6 +26,8 @@ contract Governance {
         Proposal storage p = proposals[nextProposalId];
         p.id = nextProposalId;
         p.description = "dummy description";
+
+        // Overlapping voting periods by setting the startTime of each proposal to the current timestamp
         p.startTime = block.timestamp;
         p.reviewEndTime = block.timestamp + reviewDuration;
         p.votingEndTime = p.reviewEndTime + votingDuration;
@@ -35,10 +37,10 @@ contract Governance {
     }
 
     function vote(uint256 proposalId) public {
-        // require(
-        //     block.timestamp >= proposals[proposalId].reviewEndTime,
-        //     "Review period is not over"
-        // );
+        require(
+            block.timestamp >= proposals[proposalId].reviewEndTime,
+            "Review period is not over"
+        );
         require(
             block.timestamp <= proposals[proposalId].votingEndTime,
             "Voting period is over"
