@@ -13,9 +13,9 @@ contract Governance {
         bool isExecuted;
     }
 
-    uint256 public reviewDuration = 5 seconds;
-    uint256 public votingDuration = 10 seconds;
-    uint256 public gracePeriod = 5 seconds;
+    uint256 public reviewDuration = 2 seconds;
+    uint256 public votingDuration = 5 seconds;
+    uint256 public gracePeriod = 1 seconds;
     uint256 public voteThreshold = 3; // Arbitrary voting threshold
 
     mapping(uint256 => Proposal) public proposals;
@@ -52,9 +52,9 @@ contract Governance {
     function executeProposal(uint256 proposalId) public {
         Proposal storage p = proposals[proposalId];
 
-        // require(block.timestamp >= p.executionTime, "Grace period is not over");
-        // require(p.voteCount >= voteThreshold, "Votes below threshold");
-        // require(!p.isExecuted, "Proposal already executed");
+        require(block.timestamp >= p.executionTime, "Grace period is not over");
+        require(p.voteCount >= voteThreshold, "Votes below threshold");
+        require(!p.isExecuted, "Proposal already executed");
 
         p.isExecuted = true;
     }
