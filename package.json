@@ -52,6 +52,7 @@
     "@models": "./models",
     "@envs": "./CI/envs/",
     "@conventions": "./CI/conventions",
-    "@CI": "./CI/"
+    "@CI": "./CI/",
+    "@analyzer": "./analyzer/"
   }
 }

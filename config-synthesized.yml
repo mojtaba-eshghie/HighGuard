@@ -81,8 +81,9 @@ contracts:
   #     #       DCRNodeID: "setGreet"
   #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
   #     - "PrizeDistributionExploit"
+
   - name: "Governance"
-    numOfVariants: 21
+    numOfVariants: 25
     constructorParamSpecs: []
     models:
       - name: "Governance"
@@ -91,6 +92,7 @@ contracts:
         hasResponseRelation: true
     tests:
       - "GovernanceExploit"
+
 tests:
   - name: "PrizeDistributionExploit"
     description: "Exploits for time-based vulnerability of PrizeDistribution contract which is enabled by a poor logic in the contract implementation."

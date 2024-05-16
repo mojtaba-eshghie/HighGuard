@@ -175,13 +175,16 @@ async function setupAndRunTests() {
                             
 
                             resolve(); // Resolve once all tests are done
+
+                            setTimeout(() => {
+                                resolve();
+                                terminateProcessByPid(envInfo.pid);
+                            }, 25000);
                             //terminateProcessByPid(envInfo.pid);
 
                             //setupRegLogger.info(`Freeing resources for this model<->monitor<->contract(contract)<->test`);
                             //web3.currentProvider.disconnect();
-                            setTimeout(() => {
-                                terminateProcessByPid(envInfo.pid);
-                            }, 150000);
+                            
                             
                         }
                     });
