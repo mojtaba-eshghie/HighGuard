@@ -1,4 +1,4 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| commitBid | Fri May 17 2024 07:28:42 GMT+0200 (Central European Summer Time) | false | 2010473 |
-| revealBid | Fri May 17 2024 07:28:42 GMT+0200 (Central European Summer Time) | true | 2010473 |
+| commitBid | 2024-05-17T12:50:43.827Z | false | 2010715 |
+| revealBid | 2024-05-17T12:50:43.841Z | true | 2010715 |

@@ -1,3 +1,3 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| claimPrize | Thu May 16 2024 19:16:17 GMT+0200 (Central European Summer Time) | true | 2010393 |
+| claimPrize | 2024-05-17T12:44:20.564Z | true | 2010668 |

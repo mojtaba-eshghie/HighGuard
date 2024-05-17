@@ -55,29 +55,31 @@ contract Escrow {
         state = State.DepositPlaced;
     }
 
-    function releaseBySender() public by(sender) stateIs(State.DepositPlaced) {
-        releasedBySender = true;
-    }
-
-    function releaseByReceiver()
-        public
-        by(receiver)
-        stateIs(State.DepositPlaced)
-    {
-        releasedByReceiver = true;
-    }
-
-    function withdrawFromEscrow()
-        public
-        by(receiver)
-        stateIs(State.DepositPlaced)
-    {
-        // Incorrect conditional check, should require time and both releases
-        if (releasedBySender || releasedByReceiver) {
-            uint tmp = amountInEscrow;
-            amountInEscrow = 0;
-            state = State.AwaitingDeposit;
-            receiver.transfer(tmp);
+    function release() public {
+        // Allow either party to release funds under certain conditions
+        require(state == State.DepositPlaced, "Funds not yet placed in escrow");
+        if (
+            (msg.sender == sender && !releasedBySender) ||
+            (msg.sender == receiver && !releasedByReceiver)
+        ) {
+            if (msg.sender == sender) {
+                releasedBySender = true;
+            } else {
+                releasedByReceiver = true;
+            }
         }
+    }
+
+    function withdraw() public by(receiver) stateIs(State.DepositPlaced) {
+        require(now >= releaseTime, "Release time has not been reached yet");
+        require(
+            releasedBySender && releasedByReceiver,
+            "Not all release conditions met"
+        );
+
+        uint tmp = amountInEscrow;
+        amountInEscrow = 0;
+        state = State.AwaitingDeposit;
+        receiver.transfer(tmp);
     }
 }

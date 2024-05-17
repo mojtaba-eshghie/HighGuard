@@ -1,4 +1,4 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| vote | Thu May 16 2024 20:29:11 GMT+0200 (Central European Summer Time) | true | 2010427 |
-| createProposal | Thu May 16 2024 20:29:11 GMT+0200 (Central European Summer Time) | false | 2010427 |
+| vote | 2024-05-17T12:42:30.968Z | true | 2010650 |
+| createProposal | 2024-05-17T12:42:30.962Z | false | 2010650 |

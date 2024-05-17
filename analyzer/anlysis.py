@@ -1,4 +1,29 @@
 import os
+import json
+
+
+def collect_contract_occurrences(json_file_path, contract_name):
+    try:
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+        
+        occurrences = []
+        index = 1
+        
+        for entry in data:
+            if entry['contract'].startswith(contract_name):
+                occurrences.append(f"{contract_name}-{index}")
+                index += 1
+        
+        return occurrences
+    
+    except FileNotFoundError:
+        return "The JSON file does not exist."
+    except json.JSONDecodeError:
+        return "Error decoding JSON file."
+    except Exception as e:
+        return f"An error occurred: {e}"
+
 
 def list_files_in_directory(directory_path):
     try:
@@ -16,7 +41,9 @@ def list_files_in_directory(directory_path):
     except Exception as e:
         return f"An error occurred: {e}"
 
-# Example usage:
+
 directory_path = 'results/auction'
 files = list_files_in_directory(directory_path)
-print(files)
+
+
+
