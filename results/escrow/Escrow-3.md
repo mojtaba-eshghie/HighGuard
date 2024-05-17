@@ -1,4 +1,4 @@
-| Activity ID | Time | Violation |
-| --- | --- | --- |
-| withdrawFromEscrow | Thu, 16 May 2024 07:25:44 GMT | true |
-| placeInEscrow | Thu, 16 May 2024 07:25:44 GMT | false |
+| Activity ID | Time | Violation | Simulation |
+| --- | --- | --- | --- |
+| placeInEscrow | Thu May 16 2024 21:38:49 GMT+0200 (Central European Summer Time) | false | 2010439 |
+| withdrawFromEscrow | Thu May 16 2024 21:38:49 GMT+0200 (Central European Summer Time) | true | 2010439 |

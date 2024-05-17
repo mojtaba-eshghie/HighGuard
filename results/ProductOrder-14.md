@@ -1,3 +1,3 @@
-| Activity ID | Time | Violation |
-| --- | --- | --- |
-| applyDiscount | Thu, 16 May 2024 07:35:01 GMT | false |
+| Activity ID | Time | Violation | Simulation |
+| --- | --- | --- | --- |
+| applyDiscount | Fri May 17 2024 10:14:00 GMT+0200 (Central European Summer Time) | false | 2010529 |

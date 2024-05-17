@@ -11,20 +11,20 @@ contracts:
   #   tests:
   #     - "MultiStageAuctionExploit"
 
-  # - name: "ProductOrder"
-  #   numOfVariants: 25
-  #   constructorParamSpecs:
-  #     - name: "_price"
-  #       type: "uint256"
-  #       sourceType: "static"
-  #       value: 1
-  #   models:
-  #     - name: "ProductOrder"
-  #       id: "1822680"
-  #       functions: []
-  #       hasResponseRelation: true
-  #   tests:
-  #     - "ProductOrderExploit"
+  - name: "ProductOrder"
+    numOfVariants: 25
+    constructorParamSpecs:
+      - name: "_price"
+        type: "uint256"
+        sourceType: "static"
+        value: 1
+    models:
+      - name: "ProductOrder"
+        id: "1822680"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "ProductOrderExploit"
 
   # - name: "Escrow"
   #   numOfVariants: 4
@@ -82,16 +82,16 @@ contracts:
   #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
   #     - "PrizeDistributionExploit"
 
-  - name: "Governance"
-    numOfVariants: 25
-    constructorParamSpecs: []
-    models:
-      - name: "Governance"
-        id: "1822751"
-        functions: []
-        hasResponseRelation: true
-    tests:
-      - "GovernanceExploit"
+  # - name: "Governance"
+  #   numOfVariants: 25
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "Governance"
+  #       id: "1822788"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "GovernanceExploit"
 
 tests:
   - name: "PrizeDistributionExploit"

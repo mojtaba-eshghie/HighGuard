@@ -151,11 +151,12 @@ class Monitor extends EventEmitter {
 
   
   writeMarkdownFile() {
-    const headers = ['Activity ID', 'Time', 'Violation'];
+    const headers = ['Activity ID', 'Time', 'Violation', 'Simulation'];
     const rows = this.executedActivities.map(activity => [
         activity.name || '',
         activity.time || '',
-        String(activity.violation) || ''
+        String(activity.violation) || '',
+        this.simId || ''
     ]);
 
     // Construct markdown content from the headers and rows
