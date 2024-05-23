@@ -26,7 +26,8 @@ contract CrossToken is ERC20 {
         _burn(msg.sender, amount);
     }
 
-    function testToken(address destination, uint amount) public {
-        _mint(destination, amount);
+    //For testing purposes, would not be in actual deployed token
+    function testToken(uint amount) public {
+        _mint(msg.sender, amount);
     }
 }

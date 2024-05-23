@@ -30,7 +30,16 @@ async function sequence(contractsA, contractsB, web3A, web3B){
     let accountB = web3B.eth.accounts.wallet[0].address;
     console.log(vaultA._address);
 
-    let fundTarget = await vaultB.methods.fund().send({
+    /* let fundTarget = await vaultB.methods.fund().send({
+        from: accountB,
+        gas: 300000,
+        value: 100000
+    });
+    if(!fundTarget.status){
+        console.log(fundTarget);
+    } */
+    //Crypto test
+    let fundTarget = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "ADD:B.AVAX:_").send({
         from: accountB,
         gas: 300000,
         value: 100000
@@ -38,6 +47,7 @@ async function sequence(contractsA, contractsB, web3A, web3B){
     if(!fundTarget.status){
         console.log(fundTarget);
     }
+    
 
     let balance = await web3B.eth.getBalance(vaultB._address); 
     console.log(balance);
@@ -52,11 +62,54 @@ async function sequence(contractsA, contractsB, web3A, web3B){
 
     let balance2 = await web3B.eth.getBalance(vaultB._address); 
     console.log(balance2);
+    
+    //ERC20 TEST
+    let getTokens = await tokenA.methods.testToken(200).send({
+        from: accountA,
+        gas: 300000,
+    });
+    if(!getTokens.status){
+        console.log(getTokens);
+    }
 
-    //console.log(receipt1);
+    let approve = await tokenA.methods.approve(routerA._address, 150).send({
+        from: accountA,
+        gas: 300000,
+    });
 
+    let fundERC = await routerA.methods.deposit(vaultA._address, tokenA._address, 150, "ADD:A." + tokenA._address + ":_").send({
+        from: accountA,
+        gas: 300000,
+    });
+    if(!fundERC.status){
+        console.log(fundERC);
+    }
+
+    let tokenBalanceUser = await tokenA.methods.balanceOf(accountA).call();
+    console.log(tokenBalanceUser);
+    let tokenBalanceRouter = await tokenA.methods.balanceOf(routerA._address).call();
+    console.log(tokenBalanceRouter);
+    
+    //200 avax should be 40 erc20 withdrawn
+    let avaxToERC = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:A."+ tokenA._address +":" + accountA).send({
+        from: accountB,
+        gas: 300000,
+        value: 200
+    });
+
+    let newTokenBalanceUser = await tokenA.methods.balanceOf(accountA).call();
+    console.log(newTokenBalanceUser);
+    let newTokenBalanceRouter = await tokenA.methods.balanceOf(routerA._address).call();
+    console.log(newTokenBalanceRouter);
 }
 
+async function callSmartContract(method, sender, value = 0){
+    let receipt = await method.send({
+        from: sender,
+        gas: 300000,
+        value: value
+    });
+}
 
 async function startUp() {
     bridgeTestLogger.debug("Starting Anvil...");

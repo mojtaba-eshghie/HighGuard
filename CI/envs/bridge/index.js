@@ -117,17 +117,18 @@ async function handleEvent(data, name){
     console.log("Event on chain: " + name);
     switch(data.event) {
         case "Deposit":
-            console.log("Deposit");
+            console.log("Deposit: " + data.returnValues.memo);
             await deposit(data, name);
             break;
-        case "PayOut":
-            console.log("PayOut");
+        case "PayOut":  //no handling necessary, payout has happened
+            console.log("PayOut: " + data.returnValues.memo);
             break;
         default:
             console.log("Unexpected Event");
     }
 }
 
+//Handles all calls of the deposit function of the router contract, currently supports swap and add.
 async function deposit(data, name){
     let memo = parseMemo(data.returnValues.memo);
 
@@ -135,13 +136,14 @@ async function deposit(data, name){
     try {
         if(target){ //If blockchain exists
             switch(memo.operation){
+                case "=":
                 case "SWAP":
                     //If 0x0 token, represent it as the name of the native token, eg. ETH or AVAX
                     let sourceAsset = data.returnValues.asset == "0x0000000000000000000000000000000000000000" ? blockchains.get(name).nativeToken : data.returnValues.asset;
                     //If native token, represent as 0x0
                     let targetToken = memo.asset == target.nativeToken ? "0x0000000000000000000000000000000000000000" : memo.asset;
-                    let amount = getExchange(sourceAsset, target.nativeToken, data.returnValues.amount);
-                    let receipt = await target.vault.methods.bridgeForwards(memo.destaddr, targetToken, amount, data.returnValues.memo).send({
+                    let amount = getExchange(sourceAsset, memo.asset, data.returnValues.amount);
+                    let receipt = await target.vault.methods.bridgeForwards(memo.destaddr, targetToken, amount, "OUT:" + memo.destaddr).send({
                         from: target.signer,
                         gas: 300000,
                     });
@@ -149,16 +151,19 @@ async function deposit(data, name){
                         return;
                     }
                     break;
+                case "ADD": //Liquidity was added to the vault, no relaying necessary
+                    return;
                 default:
                     break;
             }
         }
     } catch (error) {
-        console.log(data);
+        console.log(error);
+        console.log("Could not relay transaction");
     }
     //If above section did not return, refund the transaction, could implement some kind of fee to stop spamming
     target = blockchains.get(name);
-    let receipt = await target.vault.methods.bridgeForwards(memo.destaddr, "0x0000000000000000000000000000000000000000", data.returnValues.amount, data.returnValues.memo).send({
+    let receipt = await target.vault.methods.bridgeForwards(data.returnValues.from, data.returnValues.asset, data.returnValues.amount, "REFUND:" + data.returnValues.from).send({
         from: target.signer,
         gas: 300000,
     });
@@ -175,7 +180,6 @@ async function deposit(data, name){
 function getExchange(sourceAsset, targetAsset, amount){
     let sourceDollarValue = assetDollarValue.get(sourceAsset);
     let targetDollarValue = assetDollarValue.get(targetAsset);
-
     if (sourceDollarValue && targetDollarValue){
         return Math.floor((sourceDollarValue * amount)/targetDollarValue); //If we want to have a fee for conversion, put it here
     }

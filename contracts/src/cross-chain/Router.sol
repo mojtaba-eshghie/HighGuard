@@ -8,18 +8,16 @@ interface iERC20 {
 }
 
 contract Router {
+    //This keeps track of bridge-owned token, is burned
     address public CrossToken;
 
-    struct Coin {
-        address asset; 
-        uint amount;
-    }
-
+    //Keeps track of how many of each token that belongs to the vault vaultAllowance[vault][memo]
     mapping(address => mapping(address => uint)) private vaultAllowance;
 
-    //Variable to keep track if function has been entered before
+    //Variable to keep track if function has been entered before forr reentrancy guard
     bool private entered;
 
+    //Checks for reentrancy
     modifier reentrancyGuard(){
         require(!entered, "Reentrancy not allowed");
         entered = true;
@@ -35,7 +33,11 @@ contract Router {
     //Memo has format: PAYLOAD:CHAIN.ASSET:DESTADDR
     //ex for transferring to ETH chain with Eth asset to address:
     // SWAP:ETH.ETH:0xe6a30f4f3bad978910e2cbb4d97581f5b5a0ade0
-    event Deposit(address indexed to, address indexed asset, uint amount, string memo);
+
+    //ex for adding liquidity to a vault:
+    //ADD:_._:_
+
+    event Deposit(address indexed from, address indexed to, address indexed asset, uint amount, string memo);
 
     event PayOut(address indexed vault, address indexed to, address asset, uint amount, string memo);
 
@@ -59,9 +61,15 @@ contract Router {
             recieveERC20(msg.sender, asset, depositAmount);
             vaultAllowance[vault][asset] += depositAmount;
         }
-        emit Deposit(vault, asset, depositAmount, memo);
+        emit Deposit(msg.sender, vault, asset, depositAmount, memo);
     }
 
+    function depositWithExpiry(address payable vault, address asset, uint amount, string memory memo, uint expiration) external payable{
+        require(block.timestamp < expiration, "Deposit request expired");
+        deposit(vault, asset, amount, memo);
+    }
+
+    //Called by a vault to pay out funds to indicated address
     function payOut(address payable to, address asset, uint amount, string memory memo) public payable reentrancyGuard{
         uint payAmount;
         if(asset == address(0)){

@@ -26,10 +26,11 @@ contract Vault {
 
     function bridgeForwards(address payable to, address asset, uint amount, string memory memo) external{
         if(msg.sender == owner){
-            if(asset == address(0) && address(this).balance >= amount){
-            routerContract.payOut{value: amount}(to, asset, amount, memo);
+            if(asset == address(0)){
+                require(address(this).balance >= amount, "Vault has insufficient funds");
+                routerContract.payOut{value: amount}(to, asset, amount, memo);
             } else {
-            routerContract.payOut(to, asset, amount, memo);
+                routerContract.payOut(to, asset, amount, memo);
             }
         }
     }
