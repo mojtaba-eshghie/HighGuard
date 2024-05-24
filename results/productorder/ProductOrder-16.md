@@ -1,12 +1,12 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| applyDiscount | 2024-05-17T12:48:16.674Z | false | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.679Z | false | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.694Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.703Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.700Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.743Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.718Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.710Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.739Z | true | 2010697 |
-| applyDiscount | 2024-05-17T12:48:16.723Z | true | 2010697 |
+| applyDiscount | 2024-05-19T13:07:13.907Z | false | 2011378 |
+| applyDiscount | 2024-05-19T13:07:15.147Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:15.324Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:16.026Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:17.273Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:17.414Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:18.018Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:19.393Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:19.433Z | true | 2011378 |
+| applyDiscount | 2024-05-19T13:07:19.600Z | true | 2011378 |

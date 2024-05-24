@@ -1,15 +1,15 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 contracts:
-  - name: "MultiStageAuction"
-    numOfVariants: 25
-    constructorParamSpecs: []
-    models:
-      - name: "MultiStageAuction"
-        id: "1701049"
-        functions: []
-    tests:
-      - "MultiStageAuctionExploit"
+  # - name: "MultiStageAuction"
+  #   numOfVariants: 25
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "MultiStageAuction"
+  #       id: "1701049"
+  #       functions: []
+  #   tests:
+  #     - "MultiStageAuctionExploit"
 
   # - name: "ProductOrder"
   #   numOfVariants: 25
@@ -82,16 +82,16 @@ contracts:
   #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
   #     - "PrizeDistributionExploit"
 
-  # - name: "Governance"
-  #   numOfVariants: 25
-  #   constructorParamSpecs: []
-  #   models:
-  #     - name: "Governance"
-  #       id: "1822788"
-  #       functions: []
-  #       hasResponseRelation: true
-  #   tests:
-  #     - "GovernanceExploit"
+  - name: "Governance"
+    numOfVariants: 25
+    constructorParamSpecs: []
+    models:
+      - name: "Governance"
+        id: "1822788"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "GovernanceExploit"
 
 tests:
   - name: "PrizeDistributionExploit"
