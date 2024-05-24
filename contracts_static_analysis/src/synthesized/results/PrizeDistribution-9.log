@@ -1,0 +1,51 @@
+'solc --version' running
+'solc PrizeDistribution-9.sol --combined-json abi,ast,bin,bin-runtime,srcmap,srcmap-runtime,userdoc,devdoc,hashes,compact-format --allow-paths .,/Users/mojtabaeshghie/projects/highguard/contracts_static_analysis/src/synthesized' running
+Compilation warnings/errors on PrizeDistribution-9.sol:
+Error: Source file requires different compiler version (current compiler is 0.7.6+commit.7338295f.Darwin.appleclang) - note that nightly builds are considered to be strictly less than the released version
+ --> PrizeDistribution-9.sol:1:1:
+  |
+1 | pragma solidity ^0.8.0;
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Traceback (most recent call last):
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 582, in _run_solc
+    ret: Dict = json.loads(stdout)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/bin/slither", line 8, in <module>
+    sys.exit(main())
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/slither/__main__.py", line 746, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/slither/__main__.py", line 852, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/slither/__main__.py", line 96, in process_all
+    compilations = compile_all(target, **vars(args))
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 722, in compile_all
+    compilations.append(CryticCompile(target, **kwargs))
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 211, in __init__
+    self._compile(**kwargs)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 633, in _compile
+    self._platform.compile(self, **kwargs)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 151, in compile
+    targets_json = _get_targets_json(compilation_unit, self._target, **kwargs)
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 280, in _get_targets_json
+    return _run_solc(
+  File "/Users/mojtabaeshghie/.pyenv/versions/3.8.13/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 586, in _run_solc
+    raise InvalidCompilation(f"Invalid solc compilation {stderr}")
+crytic_compile.platform.exceptions.InvalidCompilation: Invalid solc compilation Error: Source file requires different compiler version (current compiler is 0.7.6+commit.7338295f.Darwin.appleclang) - note that nightly builds are considered to be strictly less than the released version
+ --> PrizeDistribution-9.sol:1:1:
+  |
+1 | pragma solidity ^0.8.0;
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+
+
