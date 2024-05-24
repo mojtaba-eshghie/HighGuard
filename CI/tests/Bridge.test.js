@@ -16,127 +16,100 @@ const { sleep } = require('@lib/os/process');
 const getLogger = require('@lib/logging/logger').getLogger;
 const bridgeTestLogger = getLogger('bridgetest');
 
-async function sequence(sourceContract, tokenContract, destinationContract, web3A, web3B) {
-    bridgeTestLogger.debug(`Called: sequence...`);
-    let sourceAccount = web3A.eth.accounts.wallet[0].address;
-    let destinationAccount = web3B.eth.accounts.wallet[0].address;
+async function sequence(contractsA, contractsB, web3A, web3B){
 
-    //Source account deposit 100 wei into source contract
-    let receipt1 = await sourceContract.methods.deposit().send({
-        from: sourceAccount,
+    let tokenA = contractsA.token;
+    let vaultA = contractsA.vault;
+    let routerA = contractsA.router;
+
+    let tokenB = contractsB.token;
+    let vaultB = contractsB.vault;
+    let routerB = contractsB.router;
+
+    let accountA = web3A.eth.accounts.wallet[0].address;
+    let accountB = web3B.eth.accounts.wallet[0].address;
+    console.log(vaultA._address);
+
+    /* let fundTarget = await vaultB.methods.fund().send({
+        from: accountB,
+        gas: 300000,
+        value: 100000
+    });
+    if(!fundTarget.status){
+        console.log(fundTarget);
+    } */
+    //Crypto test
+    let fundTarget = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "ADD:B.AVAX:_").send({
+        from: accountB,
+        gas: 300000,
+        value: 100000
+    });
+    if(!fundTarget.status){
+        console.log(fundTarget);
+    }
+    
+
+    let balance = await web3B.eth.getBalance(vaultB._address); 
+    console.log(balance);
+
+    let receipt1 = await routerA.methods.deposit(vaultA._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:B.AVAX:" + accountB).send({
+        from: accountA,
         gas: 300000,
         value: 100
     });
-    bridgeTestLogger.debug(`Transaction receipt 1: ${JSON.stringify(receipt1)}`);
-    if (!receipt1.status) {
-        console.error(receipt1);
-    }
-    //Ensure that 100 wei in balance for source account
-    let receipt2 = await sourceContract.methods.balance(sourceAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 2: ${JSON.stringify(receipt2)}`);
-    if (receipt2 != 100) {
-        console.error(receipt2);
-    }
-    //Initiate cross chain transfer of 25 wei
-    let receipt3 = await sourceContract.methods.toCrossChain(25, destinationAccount).send({
-        from: sourceAccount,
-        gas: 300000,
-    });
-    bridgeTestLogger.debug(`Transaction receipt 3: ${JSON.stringify(receipt3)}`);
-    if (!receipt3.status) {
-        console.error(receipt3);
-    }
 
-    //Wait for relay
     await sleep(5000);
 
-    //Ensure that 75 wei remains in source balance
-    let receipt4 = await sourceContract.methods.balance(sourceAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 4: ${JSON.stringify(receipt4)}`);
-    if (receipt4 != 75) {
-        console.error(receipt4);
-    }
-    //Ensure 25 wei in destination balance
-    let receipt5 = await destinationContract.methods.balance(destinationAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 5: ${JSON.stringify(receipt5)}`);
-    if (receipt5 != 25){
-        console.error(receipt5);
-    }
-    //Withdraw 20 Wei on destination
-    let receipt6 = await destinationContract.methods.withdraw(20).send({
-        from: destinationAccount,
-        gas: 300000,
-    });
-    bridgeTestLogger.debug(`Transaction receipt 6: ${JSON.stringify(receipt6)}`);
-    if (!receipt6.status){
-        console.error(receipt6);
-    }
-
-    //Ensure 5 wei in balance on destination
-    let receipt7 = await destinationContract.methods.balance(destinationAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 7: ${JSON.stringify(receipt7)}`);
-    if (receipt7 != 5){
-        console.error(receipt7);
-    }
-
-    //Ensure receiver has 20 wei
-    let receipt8 = await tokenContract.methods.balanceOf(destinationAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 8: ${JSON.stringify(receipt8)}`);
-
-    if (receipt8 != 20){
-        console.error(receipt8);
-    }
-
-    //Ensure destination contract has 5 wei
-    let receipt9 = await tokenContract.methods.balanceOf(destinationContract._address).call();
-    bridgeTestLogger.debug(`Transaction receipt 9: ${JSON.stringify(receipt9)}`);
-    if (receipt9 != 5){
-        console.error(receipt9);
-    }
-
-    //Allow sending of 15 tokens from 'reciever' to destination contract (deposit)
-    let receipt10 = await tokenContract.methods.approve(destinationContract._address, 15).send({
-        from: destinationAccount,
-        gas: 300000,
-    });
-    bridgeTestLogger.debug(`Transaction receipt 10: ${JSON.stringify(receipt10)}`);
-    if (!receipt10.status){
-        console.error(receipt10);
-    }
-
-    //Deposit 15 tokens into destination contract
-    let receipt11 = await destinationContract.methods.deposit(15).send({
-        from: destinationAccount,
-        gas: 300000,
-    });
-    bridgeTestLogger.debug(`Transaction receipt 11: ${JSON.stringify(receipt11)}`);
-    if (!receipt11.status){
-        console.error(receipt11);
-    }
+    let balance2 = await web3B.eth.getBalance(vaultB._address); 
+    console.log(balance2);
     
-    //Initiate cross chain transfer of 20 wei
-    let receipt12 = await destinationContract.methods.toCrossChain(20, sourceAccount).send({
-        from: destinationAccount,
+    //ERC20 TEST
+    let getTokens = await tokenA.methods.testToken(200).send({
+        from: accountA,
         gas: 300000,
     });
-    bridgeTestLogger.debug(`Transaction receipt 12: ${JSON.stringify(receipt12)}`);
-    if (!receipt12.status){
-        console.error(receipt12);
+    if(!getTokens.status){
+        console.log(getTokens);
     }
 
-    //Wait for relay
-    await sleep(5000);
+    let approve = await tokenA.methods.approve(routerA._address, 150).send({
+        from: accountA,
+        gas: 300000,
+    });
 
-    //Ensure that 95 wei remains in balance on source chain
-    let receipt13 = await sourceContract.methods.balance(sourceAccount).call();
-    bridgeTestLogger.debug(`Transaction receipt 13: ${JSON.stringify(receipt13)}`);
-    if (receipt13 != 95) {
-        console.error(receipt13);
+    let fundERC = await routerA.methods.deposit(vaultA._address, tokenA._address, 150, "ADD:A." + tokenA._address + ":_").send({
+        from: accountA,
+        gas: 300000,
+    });
+    if(!fundERC.status){
+        console.log(fundERC);
     }
 
+    let tokenBalanceUser = await tokenA.methods.balanceOf(accountA).call();
+    console.log(tokenBalanceUser);
+    let tokenBalanceRouter = await tokenA.methods.balanceOf(routerA._address).call();
+    console.log(tokenBalanceRouter);
+    
+    //200 avax should be 40 erc20 withdrawn
+    let avaxToERC = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:A."+ tokenA._address +":" + accountA).send({
+        from: accountB,
+        gas: 300000,
+        value: 200
+    });
+
+    let newTokenBalanceUser = await tokenA.methods.balanceOf(accountA).call();
+    console.log(newTokenBalanceUser);
+    let newTokenBalanceRouter = await tokenA.methods.balanceOf(routerA._address).call();
+    console.log(newTokenBalanceRouter);
 }
 
-
+async function callSmartContract(method, sender, value = 0){
+    let receipt = await method.send({
+        from: sender,
+        gas: 300000,
+        value: value
+    });
+}
 
 async function startUp() {
     bridgeTestLogger.debug("Starting Anvil...");
@@ -150,11 +123,13 @@ async function startUp() {
     bridgeTestLogger.debug("Web3 A: " + envAnvil.envInfo.rpcAddress);
     bridgeTestLogger.debug("Web3 B: " + envAvalanche.envInfo.rpcAddress);
 
-    
+    let contractsA = await deployBridge(envAnvil.web3, envAnvil.envInfo, 'A', 'ETH');
+    let contractsB = await deployBridge(envAvalanche.web3, envAvalanche.envInfo, 'B', 'AVAX');
+    console.log("Bridge deployed");
     //console.log(envAnvil.web3);
-    let contracts = await deployBridge(envAnvil.web3, envAnvil.envInfo, envAvalanche.web3, envAvalanche.envInfo);
+    //let contracts = await deployBridge(envAnvil.web3, envAnvil.envInfo, envAvalanche.web3, envAvalanche.envInfo);
     bridgeTestLogger.debug("Executing sequence");
-    let execution = await sequence(contracts.sourceContract, contracts.tokenContract, contracts.destinationContract, envAnvil.web3, envAvalanche.web3);
+    let execution = await sequence(contractsA, contractsB, envAnvil.web3, envAvalanche.web3);
     bridgeTestLogger.debug("Done");
 
 
