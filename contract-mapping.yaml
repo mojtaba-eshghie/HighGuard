@@ -1,0 +1,21 @@
+ContractMappings:
+  - ContractID: EtherWallet
+    Activities:
+      - DCRActivityID: withdraw
+        FunctionID: withdraw
+        FunctionSignature: withdraw(uint256)
+        Effects:
+          StateMutations:
+            - Variable: balances
+              NewValue: balances[msg.sender] - msg.value
+          EmitEvents:
+            - FundsWithdrawn
+      - DCRActivityID: deposit
+        FunctionID: deposit
+        FunctionSignature: deposit()
+        Effects:
+          StateMutations:
+            - Variable: balances
+              NewValue: balances[msg.sender] + msg.value
+          EmitEvents:
+            - FundsDeposited

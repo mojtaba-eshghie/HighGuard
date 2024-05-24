@@ -1,4 +1,4 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| commitBid | 2024-05-17T12:50:58.789Z | false | 2010722 |
-| revealBid | 2024-05-17T12:50:58.795Z | true | 2010722 |
+| commitBid | 2024-05-18T17:40:04.159Z | false | 2011330 |
+| revealBid | 2024-05-18T17:40:04.669Z | true | 2011330 |

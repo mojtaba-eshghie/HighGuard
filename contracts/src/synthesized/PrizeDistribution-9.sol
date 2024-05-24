@@ -1,42 +1,54 @@
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.0;
 
-contract PrizeDistribution {
-    address public organizer;
-    address public beneficiary;
-    uint256 public unlockTime;
-    uint256 public prizeAmount;
-    bool public lockEnabled; // This variable controls whether the prize is locked or not
+contract ProductOrder {
+    address public customer;
+    enum OrderStatus {
+        Created,
+        Paid,
+        Confirmed,
+        Shipped
+    }
+    OrderStatus public status;
+    uint256 public price;
+    uint256 public discountEndTime;
+    bool public discountApplied = false;
 
-    constructor(address _beneficiary) payable {
-        organizer = msg.sender;
-        beneficiary = _beneficiary;
-        unlockTime = block.timestamp + 1 days;
-        prizeAmount = msg.value;
-        lockEnabled = true;
+    constructor(uint256 _price) {
+        customer = msg.sender;
+        status = OrderStatus.Created;
+        price = _price;
+        discountEndTime = block.timestamp + 5 seconds;
     }
 
-    function toggleLock(bool _lockState) external {
+    function applyDiscount() public {
         require(
-            msg.sender == organizer,
-            "Only the organizer can toggle the lock."
+            block.timestamp <= discountEndTime,
+            "Discount period has ended."
         );
-        lockEnabled = _lockState;
+        require(!discountApplied, "Discount already applied.");
+        price -= 1;
+        discountApplied = true;
     }
 
-    function claimPrize() public {
-        require(
-            msg.sender == beneficiary,
-            "Only the beneficiary can claim the prize."
-        );
-        require(
-            !lockEnabled || block.timestamp >= unlockTime,
-            "Prize is still locked."
-        );
-        payable(beneficiary).transfer(prizeAmount);
-        prizeAmount = 0; // Reset prize after claiming
+    function payForOrder() public payable {
+        require(msg.value == price, "Incorrect payment amount.");
+        status = OrderStatus.Paid;
     }
 
-    function getTimestamp() public view returns (uint256) {
-        return block.timestamp;
+    function confirmOrder() public {
+        require(
+            status == OrderStatus.Paid,
+            "Order must be paid for before confirmation."
+        );
+        status = OrderStatus.Confirmed;
+    }
+
+    // Introduced a logic flaw: allowing order to be shipped directly if paid, bypassing confirmation
+    function shipOrder() public {
+        require(
+            status == OrderStatus.Paid || status == OrderStatus.Confirmed,
+            "Order must be paid or confirmed before shipping."
+        );
+        status = OrderStatus.Shipped;
     }
 }

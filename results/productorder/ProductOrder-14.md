@@ -1,3 +1,3 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| applyDiscount | 2024-05-17T12:49:00.400Z | false | 2010695 |
+| applyDiscount | 2024-05-19T13:08:00.457Z | false | 2011376 |

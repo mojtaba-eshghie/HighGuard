@@ -22,10 +22,10 @@ let contracts = [
 
 // countSynthesizedCompilables();
 
-let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'governance'), "Governance");
-//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'prizedist'), "PrizeDistribution");
-//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'auction'), "MultiStageAuction");
-//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'escrow'), "Escrow");
-//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'productorder'), "ProductOrder");
+//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'Governance'), "Governance");
+//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'PrizeDistribution'), "PrizeDistribution");
+//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'MultiStageAuction'), "MultiStageAuction");
+//let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'Escrow'), "Escrow");
+let synthesizedCount = countCompilable(path.join('contracts', 'src', 'synthesized', 'ProductOrder'), "ProductOrder");
 
 //let synthesizedCount = countCompilable(path.join('contracts', 'src', 'testset'), "Governance");

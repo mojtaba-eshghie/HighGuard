@@ -2,44 +2,32 @@ pragma solidity ^0.7.6;
 
 contract PrizeDistribution {
     address public organizer;
-    address public beneficiary;
+    address public beneficiary; // Receiver of the prize
     uint256 public unlockTime;
     uint256 public prizeAmount;
+    uint256 public totalSent;
+    uint256 constant BONUS_THRESHOLD = 10 wei; // If organizer sends 0.1 ether or more, they get a bonus period
 
     constructor(address _beneficiary) payable {
         organizer = msg.sender;
         beneficiary = _beneficiary;
-        unlockTime = block.timestamp + 1 days;
-        prizeAmount = msg.value;
+        unlockTime = block.timestamp + 10 seconds;
+        prizeAmount = msg.value; // Initial prize amount set by the organizer
+        totalSent = 0;
     }
 
-    function extendLockTime(uint256 additionalTime) public payable {
+    function extendLockTime() public payable {
         require(
             msg.sender == organizer,
             "Only the organizer can extend the lock time."
         );
-
-        // Read the current unlock time
-        uint256 currentUnlockTime = unlockTime;
-
-        // Simulate processing delay which could be exploited in a race condition
-        // This is purely illustrative; actual vulnerabilities would not intentionally include delays
-        (bool delay, ) = address(this).call(
-            abi.encodePacked(this.dummyDelay.selector)
-        );
-
-        // Update the unlock time based on the potentially stale currentUnlockTime
-        unlockTime = currentUnlockTime + additionalTime;
-
-        prizeAmount += msg.value; // Increase the prize amount
-    }
-
-    function dummyDelay() public {
-        // Simulate a delay
-        uint256 start = block.timestamp;
-        while (block.timestamp < start + 1 seconds) {
-            // Waste some time
+        totalSent += msg.value;
+        if (totalSent >= BONUS_THRESHOLD) {
+            // Subtly increases unlockTime by a factor dependent on cumulative totalSent above the threshold
+            unlockTime += (1 minutes * (totalSent / BONUS_THRESHOLD));
+            totalSent = 0; // Reset totalSent after applying bonus
         }
+        prizeAmount += msg.value; // Increase the prize amount
     }
 
     function claimPrize() public {
@@ -49,6 +37,11 @@ contract PrizeDistribution {
         );
         require(block.timestamp >= unlockTime, "Prize is still locked.");
         payable(beneficiary).transfer(prizeAmount);
-        prizeAmount = 0; // Reset the prize amount after claiming
+        prizeAmount = 0;
+    }
+
+    // Auxiliary functions
+    function getTimestamp() public view returns (uint256) {
+        return block.timestamp;
     }
 }
