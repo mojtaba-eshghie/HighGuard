@@ -1,5 +1,4 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
-
 contracts:
   # - name: "MultiStageAuction"
   #   constructorParamSpecs: []

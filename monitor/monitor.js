@@ -3,7 +3,6 @@ const EventEmitter = require('events');
 const ContractWatcher = require('@lib/monitor/watchpost');
 const DCRTranslator = require('@lib/monitor/translate');
 const DCRExecutor = require('@lib/dcr/exec');
-//const logger = require('@lib/logging/logger');
 const getLogger = require('@lib/logging/logger').getLogger;
 const monitorLogger = getLogger('monitor');
 
@@ -22,6 +21,7 @@ class Monitor extends EventEmitter {
     
     this._status = 'IDLE';
     this.setStatus('IDLE');
+
 
     // Initialize the contract watcher, translator, and executor for this instance
 
@@ -91,14 +91,19 @@ class Monitor extends EventEmitter {
     let violates = false;
     // Process the transaction and translate it into DCR activities
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
+    monitorLogger.info(`dcrActivities: ${dcrActivities}`);
+    monitorLogger.info(`LINE 94 monitor`)
     if (dcrActivities) {
+      monitorLogger.info(`LINE 96 monitor`)
       const promises = dcrActivities.map(async activity => {
+        monitorLogger.info(`LINE 97 monitor`)
         if (this.hasResponse) {
           let pendingActivities = await getPendingActivities(this.configs.modelId, this.simId);
           let pendingActivity = pendingActivities.find(a => a.id === activity["activityId"]);
           if (pendingActivity){
             let deadline = pendingActivity.deadline;
             if (deadline) {
+              monitorLogger.info(`LINE 104 monitor`)
               // This is where we can use this deadlined pending relation;
               deadline = new Date(deadline);
               const now = new Date();
@@ -117,6 +122,8 @@ class Monitor extends EventEmitter {
       await Promise.all(promises); // Waits for all activities to finish executing
       this.writeMarkdownFile();
     }
+
+    monitorLogger.error(`LINE 121 monitor`);
   }
   
 

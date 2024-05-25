@@ -1,0 +1,15 @@
+contracts:
+  - name: "CrossChainDEX"
+    constructorParamSpecs: []
+    models:
+      - name: "CrossChainDEX"
+        id: "1823056"
+        functions: []
+        hasResponseRelation: true
+    tests:
+      - "CrossChainDEXExploit"
+
+tests:
+  - name: "CrossChainDEXExploit"
+    description: "No description yet..."
+    directory: "/exploits/cross-chain"
