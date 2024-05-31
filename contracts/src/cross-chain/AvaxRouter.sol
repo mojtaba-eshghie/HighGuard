@@ -7,7 +7,7 @@ interface iERC20 {
     function transfer(address, uint256) external returns (bool success);
 }
 
-contract Router {
+contract AvaxRouter {
     //This keeps track of bridge-owned token, is burned
     address public CrossToken;
 
@@ -18,14 +18,14 @@ contract Router {
     bool private entered;
 
     //Checks for reentrancy
-    modifier reentrancyGuard(){
+    modifier reentrancyGuard() {
         require(!entered, "Reentrancy not allowed");
         entered = true;
         _;
         entered = false;
     }
 
-    constructor(address crosstoken){
+    constructor(address crosstoken) {
         CrossToken = crosstoken;
         entered = false;
     }
@@ -37,14 +37,32 @@ contract Router {
     //ex for adding liquidity to a vault:
     //ADD:_._:_
 
-    event Deposit(address indexed from, address indexed to, address indexed asset, uint amount, string memo);
+    event Deposit(
+        address indexed from,
+        address indexed to,
+        address indexed asset,
+        uint amount,
+        string memo
+    );
 
-    event PayOut(address indexed vault, address indexed to, address asset, uint amount, string memo);
+    event PayOut(
+        address indexed vault,
+        address indexed to,
+        address asset,
+        uint amount,
+        string memo
+    );
 
     //Used to deposit funds into a vault controlled by the relay
-    function deposit(address payable vault, address asset, uint amount, string memory memo) public payable reentrancyGuard{
+    function avax_deposit(
+        address payable vault,
+        address asset,
+        uint amount,
+        string memory memo
+    ) public payable reentrancyGuard {
         uint depositAmount;
-        if(asset == address(0)){ //If native token
+        if (asset == address(0)) {
+            //If native token
             depositAmount = msg.value;
             bool success = vault.send(depositAmount);
             require(success, "Could not send native cryptocurrency to address");
@@ -55,8 +73,12 @@ contract Router {
             iERC20(CrossToken).transferFrom(msg.sender, address(this), depositAmount);
             iERC20(CrossToken).burn(depositAmount);
         } */
-        else {  //If ERC20 token
-            require(msg.value == 0, "Native cryptocurrency recieved along with ERC20");
+        else {
+            //If ERC20 token
+            require(
+                msg.value == 0,
+                "Native cryptocurrency recieved along with ERC20"
+            );
             depositAmount = amount;
             recieveERC20(msg.sender, asset, depositAmount);
             vaultAllowance[vault][asset] += depositAmount;
@@ -64,22 +86,35 @@ contract Router {
         emit Deposit(msg.sender, vault, asset, depositAmount, memo);
     }
 
-    function depositWithExpiry(address payable vault, address asset, uint amount, string memory memo, uint expiration) external payable{
+    function depositWithExpiry(
+        address payable vault,
+        address asset,
+        uint amount,
+        string memory memo,
+        uint expiration
+    ) external payable {
         require(block.timestamp < expiration, "Deposit request expired");
-        deposit(vault, asset, amount, memo);
+        avax_deposit(vault, asset, amount, memo);
     }
 
     //Called by a vault to pay out funds to indicated address
-    function payOut(address payable to, address asset, uint amount, string memory memo) public payable reentrancyGuard{
+    function avax_payOut(
+        address payable to,
+        address asset,
+        uint amount,
+        string memory memo
+    ) public payable reentrancyGuard {
         uint payAmount;
-        if(asset == address(0)){
+        if (asset == address(0)) {
             payAmount = msg.value;
             bool success = to.send(payAmount);
             require(success, "Could not pay out native cryptocurrency");
-        }
-        else {
+        } else {
             payAmount = amount;
-            require(vaultAllowance[msg.sender][asset] >= payAmount, "ERC20 amount exceeds allowance");
+            require(
+                vaultAllowance[msg.sender][asset] >= payAmount,
+                "ERC20 amount exceeds allowance"
+            );
             sendERC20(to, asset, payAmount);
             vaultAllowance[msg.sender][asset] -= payAmount;
         }
@@ -96,7 +131,11 @@ contract Router {
     }
 
     //Sends specified amount of specified ERC20 to address
-    function sendERC20(address payable to, address asset, uint amount) internal {
+    function sendERC20(
+        address payable to,
+        address asset,
+        uint amount
+    ) internal {
         bool success = iERC20(asset).transfer(to, amount);
         require(success, "Could not transfer ERC20 to specified address");
     }

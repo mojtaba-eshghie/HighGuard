@@ -44,7 +44,7 @@ async function sequence(contractsA, contractsB, web3A, web3B){
         console.log(fundTarget);
     } */
     //Crypto test
-    let fundTarget = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "ADD:B.AVAX:_").send({
+    let fundTarget = await routerB.methods.avax_deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "ADD:B.AVAX:_").send({
         from: accountB,
         gas: 300000,
         value: 100000
@@ -57,7 +57,7 @@ async function sequence(contractsA, contractsB, web3A, web3B){
     let balance = await web3B.eth.getBalance(vaultB._address); 
     console.log(balance);
 
-    let receipt1 = await routerA.methods.deposit(vaultA._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:B.AVAX:" + accountB).send({
+    let receipt1 = await routerA.methods.eth_deposit(vaultA._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:B.AVAX:" + accountB).send({
         from: accountA,
         gas: 300000,
         value: 100
@@ -82,7 +82,7 @@ async function sequence(contractsA, contractsB, web3A, web3B){
         gas: 300000,
     });
 
-    let fundERC = await routerA.methods.deposit(vaultA._address, tokenA._address, 150, "ADD:A." + tokenA._address + ":_").send({
+    let fundERC = await routerA.methods.eth_deposit(vaultA._address, tokenA._address, 150, "ADD:A." + tokenA._address + ":_").send({
         from: accountA,
         gas: 300000,
     });
@@ -96,7 +96,7 @@ async function sequence(contractsA, contractsB, web3A, web3B){
     console.log(tokenBalanceRouter);
     
     //200 avax should be 40 erc20 withdrawn
-    let avaxToERC = await routerB.methods.deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:A."+ tokenA._address +":" + accountA).send({
+    let avaxToERC = await routerB.methods.avax_deposit(vaultB._address, "0x0000000000000000000000000000000000000000", 0, "SWAP:A."+ tokenA._address +":" + accountA).send({
         from: accountB,
         gas: 300000,
         value: 200
@@ -128,18 +128,21 @@ async function setupAndRunTests() {
     bridgeTestLogger.debug("Web3 A: " + envAnvil.envInfo.rpcAddress);
     bridgeTestLogger.debug("Web3 B: " + envAvalanche.envInfo.rpcAddress);
 
-    let contractsA = await deployBridge(envAnvil.web3, envAnvil.envInfo, 'A', 'ETH');
-    let contractsB = await deployBridge(envAvalanche.web3, envAvalanche.envInfo, 'B', 'AVAX');
+    let contractsA = await deployBridge(envAnvil.web3, envAnvil.envInfo, 'A', 'ETH', 'EthRouter', 'EthVault');
+    let contractsB = await deployBridge(envAvalanche.web3, envAvalanche.envInfo, 'B', 'AVAX', 'AvaxRouter', 'AvaxVault');
 
-    let contractSource = fs.readFileSync(path.join('contracts', 'src', 'cross-chain', 'Router.sol'), 'utf8');
-    let contractABI = await getContractABI(contractSource, 'Router', 'Router');
+    let contractSourceA = fs.readFileSync(path.join('contracts', 'src', 'cross-chain', 'EthRouter.sol'), 'utf8');
+    let contractABIA = await getContractABI(contractSourceA, 'EthRouter', 'EthRouter');
+
+    let contractSourceB = fs.readFileSync(path.join('contracts', 'src', 'cross-chain', 'AvaxRouter.sol'), 'utf8');
+    let contractABIB = await getContractABI(contractSourceB, 'AvaxRouter', 'AvaxRouter');
 
     let configsA = {
         web3: envAnvil.web3,
         contractAddress: contractsA.router._address,
-        contractFileName: 'Router',
-        contractName: 'Router',
-        contractABI: contractABI,
+        contractFileName: 'EthRouter',
+        contractName: 'EthRouter',
+        contractABI: contractABIA,
         modelFunctionParams: null,
         activities: await getActivities(1823056),
         modelId: 1823056,
@@ -149,9 +152,9 @@ async function setupAndRunTests() {
     let configsB = {
         web3: envAvalanche.web3,
         contractAddress: contractsB.router._address,
-        contractFileName: 'Router',
-        contractName: 'Router',
-        contractABI: contractABI,
+        contractFileName: 'AvaxRouter',
+        contractName: 'AvaxRouter',
+        contractABI: contractABIB,
         modelFunctionParams: null,
         activities: await getActivities(1823056),
         modelId: 1823056,
@@ -200,9 +203,6 @@ async function setupAndRunTests() {
             checkMonitorsRunning();
         }
     });
-
-    monitorA.start();
-    monitorB.start();
 }
 
 setupAndRunTests();
