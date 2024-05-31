@@ -90,6 +90,7 @@ class Monitor extends EventEmitter {
   async handleContractEvent(tx) {
     let violates = false;
     // Process the transaction and translate it into DCR activities
+    console.log(chalk.cyan(`config activities are: ${this.configs.activities}`))
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
     monitorLogger.info(`dcrActivities: ${dcrActivities}`);
     monitorLogger.info(`LINE 94 monitor`)
@@ -122,8 +123,6 @@ class Monitor extends EventEmitter {
       await Promise.all(promises); // Waits for all activities to finish executing
       this.writeMarkdownFile();
     }
-
-    monitorLogger.error(`LINE 121 monitor`);
   }
   
 
