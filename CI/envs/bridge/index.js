@@ -31,7 +31,7 @@ const assetDollarValue = new Map([
  * @returns {Object} An object containing the sourceContract, tokenCrontract and destinationContract instances.
  * @throws {Error} If there's an error during the deployment.
  */
-async function deployBridge(web3, envInfo, name, nativeToken, router, vault){
+async function deployBridge(web3, envInfo, name, nativeToken, router, vault, bridgeForwards, bridgeForwardsERC20){
     let routerSource = fs.readFileSync(path.join(contractsDir, router+'.sol'), 'utf8');
     let vaultSource = fs.readFileSync(path.join(contractsDir, vault+'.sol'), 'utf8');
 
@@ -53,13 +53,18 @@ async function deployBridge(web3, envInfo, name, nativeToken, router, vault){
     let vaultParameters = [routerContract._address];
     let vaultContract = await deployContract(web3, compiledVault.abi, compiledVault.bytecode, envInfo, vaultParameters);
 
+    console.log(vaultContract.methods);
+    console.log(vaultContract.methods[bridgeForwards]);
+
     blockchains.set(name, {
         name: name,
         web3: web3,
         nativeToken: nativeToken,
         envInfo: envInfo,
         vault: vaultContract,
-        signer: web3.eth.accounts.wallet[0].address
+        signer: web3.eth.accounts.wallet[0].address,
+        bridgeForwards: vaultContract.methods[bridgeForwards],
+        bridgeForwardsERC20: vaultContract.methods[bridgeForwardsERC20]
     });
 
     assetDollarValue.set(tokenContract._address, 1.0);
@@ -144,10 +149,19 @@ async function deposit(data, name){
                     //If native token, represent as 0x0
                     let targetToken = memo.asset == target.nativeToken ? "0x0000000000000000000000000000000000000000" : memo.asset;
                     let amount = getExchange(sourceAsset, memo.asset, data.returnValues.amount);
-                    let receipt = await target.vault.methods.bridgeForwards(memo.destaddr, targetToken, amount, "OUT:" + memo.destaddr).send({
-                        from: target.signer,
-                        gas: 300000,
-                    });
+                    let receipt;
+                    if (targetToken == "0x0000000000000000000000000000000000000000"){
+                        receipt = await target.bridgeForwards(memo.destaddr, targetToken, amount, "OUT:" + memo.destaddr).send({
+                            from: target.signer,
+                            gas: 300000,
+                        });
+                    }
+                    else{
+                        receipt = await target.bridgeForwardsERC20(memo.destaddr, targetToken, amount, "OUT:" + memo.destaddr).send({
+                            from: target.signer,
+                            gas: 300000,
+                        });
+                    }
                     if(receipt.status){
                         return;
                     }

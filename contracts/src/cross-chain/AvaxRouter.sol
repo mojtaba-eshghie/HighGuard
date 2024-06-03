@@ -53,6 +53,19 @@ contract AvaxRouter {
         string memo
     );
 
+    //Used to give ERC20 funds to router and give a vault the allowance, no cross chain transaction is performed
+    function avax_fundERC20(
+        address vault,
+        address asset,
+        uint amount,
+        string memory memo
+        ) public reentrancyGuard{
+            uint depositAmount = amount;
+            recieveERC20(msg.sender, asset, depositAmount);
+            vaultAllowance[vault][asset] += depositAmount;
+    
+    }
+
     //Used to deposit funds into a vault controlled by the relay
     function avax_deposit(
         address payable vault,

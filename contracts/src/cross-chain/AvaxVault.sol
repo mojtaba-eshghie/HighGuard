@@ -26,27 +26,35 @@ contract AvaxVault {
 
     function fund() external payable {}
 
-    function bridgeForwards(
+    function avax_bridgeForwards(
         address payable to,
         address asset,
         uint amount,
         string memory memo
     ) external {
         if (msg.sender == owner) {
-            if (asset == address(0)) {
-                require(
-                    address(this).balance >= amount,
-                    "Vault has insufficient funds"
-                );
-                routerContract.avax_payOut{value: amount}(
-                    to,
-                    asset,
-                    amount,
-                    memo
-                );
-            } else {
-                routerContract.avax_payOut(to, asset, amount, memo);
-            }
+            require(
+                address(this).balance >= amount,
+                "Vault has insufficient funds"
+            );
+            routerContract.avax_payOut{value: amount}(
+                to,
+                asset,
+                amount,
+                memo
+            );
+             
+        }
+    }
+
+    function avax_bridgeForwardsERC20(
+        address payable to,
+        address asset,
+        uint amount,
+        string memory memo
+    ) external {
+        if (msg.sender == owner) {
+            routerContract.avax_payOut(to, asset, amount, memo);
         }
     }
 }

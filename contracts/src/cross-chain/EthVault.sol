@@ -26,27 +26,35 @@ contract EthVault {
 
     function fund() external payable {}
 
-    function bridgeForwards(
+    function eth_bridgeForwards(
         address payable to,
         address asset,
         uint amount,
         string memory memo
     ) external {
         if (msg.sender == owner) {
-            if (asset == address(0)) {
-                require(
-                    address(this).balance >= amount,
-                    "Vault has insufficient funds"
-                );
-                routerContract.eth_payOut{value: amount}(
-                    to,
-                    asset,
-                    amount,
-                    memo
-                );
-            } else {
-                routerContract.eth_payOut(to, asset, amount, memo);
-            }
+            require(
+                address(this).balance >= amount,
+                "Vault has insufficient funds"
+            );
+            routerContract.eth_payOut{value: amount}(
+                to,
+                asset,
+                amount,
+                memo
+            );
+             
+        }
+    }
+
+    function eth_bridgeForwardsERC20(
+        address payable to,
+        address asset,
+        uint amount,
+        string memory memo
+    ) external {
+        if (msg.sender == owner) {
+            routerContract.eth_payOut(to, asset, amount, memo);
         }
     }
 }
