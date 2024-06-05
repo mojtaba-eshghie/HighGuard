@@ -128,8 +128,8 @@ async function setupAndRunTests() {
     bridgeTestLogger.debug("Web3 A: " + envAnvil.envInfo.rpcAddress);
     bridgeTestLogger.debug("Web3 B: " + envAvalanche.envInfo.rpcAddress);
 
-    let contractsA = await deployBridge(envAnvil.web3, envAnvil.envInfo, 'A', 'ETH', 'EthRouter', 'EthVault');
-    let contractsB = await deployBridge(envAvalanche.web3, envAvalanche.envInfo, 'B', 'AVAX', 'AvaxRouter', 'AvaxVault');
+    let contractsA = await deployBridge(envAnvil.web3, envAnvil.envInfo, 'A', 'ETH', 'EthRouter', 'EthVault', 'eth_bridgeForwards', 'eth_bridgeForwardsERC20');
+    let contractsB = await deployBridge(envAvalanche.web3, envAvalanche.envInfo, 'B', 'AVAX', 'AvaxRouter', 'AvaxVault', 'avax_bridgeForwards', 'avax_bridgeForwardsERC20');
 
     let contractSourceA = fs.readFileSync(path.join('contracts', 'src', 'cross-chain', 'EthRouter.sol'), 'utf8');
     let contractABIA = await getContractABI(contractSourceA, 'EthRouter', 'EthRouter');
