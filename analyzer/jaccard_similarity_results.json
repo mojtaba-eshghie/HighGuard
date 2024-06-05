@@ -1,0 +1,522 @@
+[
+    {
+        "original_file": "Escrow.sol",
+        "variant_file": "Escrow-2.sol",
+        "jaccard_similarity": 0.8559148587801882
+    },
+    {
+        "original_file": "Escrow.sol",
+        "variant_file": "Escrow-3.sol",
+        "jaccard_similarity": 0.7402223137093454
+    },
+    {
+        "original_file": "Escrow.sol",
+        "variant_file": "Escrow-1.sol",
+        "jaccard_similarity": 0.7711340206185567
+    },
+    {
+        "original_file": "Escrow.sol",
+        "variant_file": "Escrow-4.sol",
+        "jaccard_similarity": 0.7628442252363338
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-16.sol",
+        "jaccard_similarity": 0.8903337667967057
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-17.sol",
+        "jaccard_similarity": 0.912405513561583
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-15.sol",
+        "jaccard_similarity": 0.8934319269247499
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-14.sol",
+        "jaccard_similarity": 0.8601340033500837
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-10.sol",
+        "jaccard_similarity": 0.8891774891774892
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-11.sol",
+        "jaccard_similarity": 0.8554768846314036
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-13.sol",
+        "jaccard_similarity": 0.8804114873553365
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-8.sol",
+        "jaccard_similarity": 0.8992112182296231
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-9.sol",
+        "jaccard_similarity": 0.883061049011178
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-12.sol",
+        "jaccard_similarity": 0.8911062906724512
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-23.sol",
+        "jaccard_similarity": 0.792212798766384
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-4.sol",
+        "jaccard_similarity": 0.9508804448563485
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-5.sol",
+        "jaccard_similarity": 0.9606741573033708
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-22.sol",
+        "jaccard_similarity": 0.8952879581151832
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-20.sol",
+        "jaccard_similarity": 0.8911062906724512
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-7.sol",
+        "jaccard_similarity": 0.930222020842773
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-6.sol",
+        "jaccard_similarity": 0.950834879406308
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-21.sol",
+        "jaccard_similarity": 0.8659359190556493
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-19.sol",
+        "jaccard_similarity": 0.8590547887913007
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-25.sol",
+        "jaccard_similarity": 0.8905775075987842
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-2.sol",
+        "jaccard_similarity": 0.9374143444495203
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-3.sol",
+        "jaccard_similarity": 0.922247191011236
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-24.sol",
+        "jaccard_similarity": 0.8354327509142625
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-18.sol",
+        "jaccard_similarity": 0.9055604589585172
+    },
+    {
+        "original_file": "Governance.sol",
+        "variant_file": "Governance-1.sol",
+        "jaccard_similarity": 0.8897535667963683
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-4.sol",
+        "jaccard_similarity": 0.8125879043600562
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-5.sol",
+        "jaccard_similarity": 0.7441041886659627
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-7.sol",
+        "jaccard_similarity": 0.6893886156008433
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-6.sol",
+        "jaccard_similarity": 0.8048438048438048
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-2.sol",
+        "jaccard_similarity": 0.8537521815008726
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-3.sol",
+        "jaccard_similarity": 0.7972593113141251
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-1.sol",
+        "jaccard_similarity": 0.8165202108963093
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-25.sol",
+        "jaccard_similarity": 0.8816340782122905
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-19.sol",
+        "jaccard_similarity": 0.8784205057152754
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-18.sol",
+        "jaccard_similarity": 0.7764540995094604
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-24.sol",
+        "jaccard_similarity": 0.757661148291652
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-23.sol",
+        "jaccard_similarity": 0.9151329243353783
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-22.sol",
+        "jaccard_similarity": 0.8835904628330996
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-20.sol",
+        "jaccard_similarity": 0.819268635724332
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-21.sol",
+        "jaccard_similarity": 0.8622237569060773
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-10.sol",
+        "jaccard_similarity": 0.7593244194229416
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-11.sol",
+        "jaccard_similarity": 0.7898627243928195
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-13.sol",
+        "jaccard_similarity": 0.8721778395276137
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-12.sol",
+        "jaccard_similarity": 0.8640674394099052
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-16.sol",
+        "jaccard_similarity": 0.9094580949175362
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-17.sol",
+        "jaccard_similarity": 0.8314014752370916
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-15.sol",
+        "jaccard_similarity": 0.897119341563786
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-14.sol",
+        "jaccard_similarity": 0.8808109052778749
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-8.sol",
+        "jaccard_similarity": 0.6598591549295775
+    },
+    {
+        "original_file": "MultiStageAuction.sol",
+        "variant_file": "MultiStageAuction-9.sol",
+        "jaccard_similarity": 0.7643334505803728
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-13.sol",
+        "jaccard_similarity": 0.7517501346257405
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-12.sol",
+        "jaccard_similarity": 0.6037940379403794
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-10.sol",
+        "jaccard_similarity": 0.621195652173913
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-11.sol",
+        "jaccard_similarity": 0.5456521739130434
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-15.sol",
+        "jaccard_similarity": 0.8089103596349974
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-14.sol",
+        "jaccard_similarity": 0.7696
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-16.sol",
+        "jaccard_similarity": 0.6774891774891775
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-17.sol",
+        "jaccard_similarity": 0.8700322234156821
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-8.sol",
+        "jaccard_similarity": 0.849846782431052
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-9.sol",
+        "jaccard_similarity": 0.7142857142857143
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-7.sol",
+        "jaccard_similarity": 0.7809278350515464
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-6.sol",
+        "jaccard_similarity": 0.8353184878301398
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-4.sol",
+        "jaccard_similarity": 0.801058201058201
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-5.sol",
+        "jaccard_similarity": 0.7823560486001057
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-1.sol",
+        "jaccard_similarity": 0.703485254691689
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-2.sol",
+        "jaccard_similarity": 0.7510799136069114
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-3.sol",
+        "jaccard_similarity": 0.8176563321071991
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-25.sol",
+        "jaccard_similarity": 0.592391304347826
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-19.sol",
+        "jaccard_similarity": 0.7860045146726863
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-18.sol",
+        "jaccard_similarity": 0.6322650733297122
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-24.sol",
+        "jaccard_similarity": 0.6930481283422459
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-20.sol",
+        "jaccard_similarity": 0.6588810429114612
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-21.sol",
+        "jaccard_similarity": 0.7979635584137191
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-23.sol",
+        "jaccard_similarity": 0.6867862969004894
+    },
+    {
+        "original_file": "PrizeDistribution.sol",
+        "variant_file": "PrizeDistribution-22.sol",
+        "jaccard_similarity": 0.8678839957035446
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-3.sol",
+        "jaccard_similarity": 0.8423423423423423
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-23.sol",
+        "jaccard_similarity": 0.7556818181818182
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-22.sol",
+        "jaccard_similarity": 0.750654793085385
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-2.sol",
+        "jaccard_similarity": 0.8784497944803288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-20.sol",
+        "jaccard_similarity": 0.8597701149425288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-21.sol",
+        "jaccard_similarity": 0.8258706467661692
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-1.sol",
+        "jaccard_similarity": 0.8573065902578797
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-5.sol",
+        "jaccard_similarity": 0.9330385344283006
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-25.sol",
+        "jaccard_similarity": 0.7552742616033755
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-19.sol",
+        "jaccard_similarity": 0.7883096366508688
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-18.sol",
+        "jaccard_similarity": 0.8362537764350453
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-24.sol",
+        "jaccard_similarity": 0.7969009407858328
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-4.sol",
+        "jaccard_similarity": 0.8482245131729668
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-6.sol",
+        "jaccard_similarity": 0.8337053571428571
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-7.sol",
+        "jaccard_similarity": 0.8074433656957929
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-16.sol",
+        "jaccard_similarity": 0.8754427390791027
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-17.sol",
+        "jaccard_similarity": 0.7938526762056174
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-9.sol",
+        "jaccard_similarity": 0.8874925194494315
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-15.sol",
+        "jaccard_similarity": 0.8605187319884726
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-14.sol",
+        "jaccard_similarity": 0.7587430309173847
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-8.sol",
+        "jaccard_similarity": 0.79596174282678
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-10.sol",
+        "jaccard_similarity": 0.798614810868407
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-11.sol",
+        "jaccard_similarity": 0.9340452261306532
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-13.sol",
+        "jaccard_similarity": 0.8301781737193764
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-12.sol",
+        "jaccard_similarity": 0.7951037786056413
+    }
+]
