@@ -518,5 +518,255 @@
         "original_file": "ProductOrder.sol",
         "variant_file": "ProductOrder-12.sol",
         "jaccard_similarity": 0.7951037786056413
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-3.sol",
+        "jaccard_similarity": 0.8423423423423423
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-23.sol",
+        "jaccard_similarity": 0.7556818181818182
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-22.sol",
+        "jaccard_similarity": 0.750654793085385
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-2.sol",
+        "jaccard_similarity": 0.8784497944803288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-20.sol",
+        "jaccard_similarity": 0.8597701149425288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-21.sol",
+        "jaccard_similarity": 0.8258706467661692
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-1.sol",
+        "jaccard_similarity": 0.8573065902578797
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-5.sol",
+        "jaccard_similarity": 0.9330385344283006
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-25.sol",
+        "jaccard_similarity": 0.7552742616033755
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-19.sol",
+        "jaccard_similarity": 0.7883096366508688
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-18.sol",
+        "jaccard_similarity": 0.8362537764350453
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-24.sol",
+        "jaccard_similarity": 0.7969009407858328
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-4.sol",
+        "jaccard_similarity": 0.8482245131729668
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-6.sol",
+        "jaccard_similarity": 0.8337053571428571
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-7.sol",
+        "jaccard_similarity": 0.8074433656957929
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-16.sol",
+        "jaccard_similarity": 0.8754427390791027
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-17.sol",
+        "jaccard_similarity": 0.7938526762056174
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-9.sol",
+        "jaccard_similarity": 0.8874925194494315
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-15.sol",
+        "jaccard_similarity": 0.8605187319884726
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-14.sol",
+        "jaccard_similarity": 0.7587430309173847
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-8.sol",
+        "jaccard_similarity": 0.79596174282678
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-10.sol",
+        "jaccard_similarity": 0.798614810868407
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-11.sol",
+        "jaccard_similarity": 0.9340452261306532
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-13.sol",
+        "jaccard_similarity": 0.8301781737193764
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-12.sol",
+        "jaccard_similarity": 0.7951037786056413
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-3.sol",
+        "jaccard_similarity": 0.8423423423423423
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-23.sol",
+        "jaccard_similarity": 0.7556818181818182
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-22.sol",
+        "jaccard_similarity": 0.750654793085385
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-2.sol",
+        "jaccard_similarity": 0.8784497944803288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-20.sol",
+        "jaccard_similarity": 0.8597701149425288
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-21.sol",
+        "jaccard_similarity": 0.8258706467661692
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-1.sol",
+        "jaccard_similarity": 0.8573065902578797
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-5.sol",
+        "jaccard_similarity": 0.9330385344283006
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-25.sol",
+        "jaccard_similarity": 0.7552742616033755
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-19.sol",
+        "jaccard_similarity": 0.7883096366508688
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-18.sol",
+        "jaccard_similarity": 0.8362537764350453
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-24.sol",
+        "jaccard_similarity": 0.7969009407858328
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-4.sol",
+        "jaccard_similarity": 0.8482245131729668
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-6.sol",
+        "jaccard_similarity": 0.8337053571428571
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-7.sol",
+        "jaccard_similarity": 0.8074433656957929
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-16.sol",
+        "jaccard_similarity": 0.8754427390791027
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-17.sol",
+        "jaccard_similarity": 0.7938526762056174
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-9.sol",
+        "jaccard_similarity": 0.8874925194494315
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-15.sol",
+        "jaccard_similarity": 0.8605187319884726
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-14.sol",
+        "jaccard_similarity": 0.7587430309173847
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-8.sol",
+        "jaccard_similarity": 0.79596174282678
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-10.sol",
+        "jaccard_similarity": 0.798614810868407
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-11.sol",
+        "jaccard_similarity": 0.9340452261306532
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-13.sol",
+        "jaccard_similarity": 0.8301781737193764
+    },
+    {
+        "original_file": "ProductOrder.sol",
+        "variant_file": "ProductOrder-12.sol",
+        "jaccard_similarity": 0.7951037786056413
     }
 ]
