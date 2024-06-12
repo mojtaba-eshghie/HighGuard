@@ -9,13 +9,20 @@ interface AvaxRouter {
     ) external payable;
 }
 
-contract AvaxVault {
+interface Oracle {
+    function getExchangeRate(uint amount, string memory sourceAsset, string memory targetAsset) external view returns (uint);
+    function getPrice(string memory asset) external view returns (uint256);
+}
+
+contract AvaxVaultOracle {
     address owner;
     AvaxRouter routerContract;
+    Oracle oracleContract;
 
-    constructor(address _routerContract) {
+    constructor(address _routerContract, address _oracleContract) {
         owner = msg.sender;
         routerContract = AvaxRouter(_routerContract);
+        oracleContract = Oracle(_oracleContract);
     }
 
     modifier onlyOwner() {
@@ -34,10 +41,12 @@ contract AvaxVault {
     function avax_bridgeForwards(
         address payable to,
         address asset,
-        uint amount,
+        uint amountPaid,
+        string memory sourceAsset,
         string memory memo
     ) external onlyOwner {
-        require(
+            uint amount = (oracleContract.getPrice(sourceAsset) * amountPaid)/1000;
+            require(
                 address(this).balance >= amount,
                 "Vault has insufficient funds"
             );
@@ -51,10 +60,13 @@ contract AvaxVault {
 
     function avax_bridgeForwardsERC20(
         address payable to,
-        address asset,
-        uint amount,
+        address asset,              //actual address of asset
+        uint amountPaid,
+        string memory sourceAsset,
+        string memory targetAsset,//has format AVAX.0x12341...
         string memory memo
     ) external onlyOwner {
+        uint amount = oracleContract.getExchangeRate(amountPaid, sourceAsset, targetAsset);
         routerContract.avax_payOut(to, asset, amount, memo);
     }
 }

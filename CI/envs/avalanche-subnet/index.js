@@ -47,7 +47,7 @@ let extractAvalancheInfo = () => {
         }
         
         
-        let AvalancheProcess = spawn('avalanche', ['subnet', 'deploy', 'highguardAvalanche', '-l']);
+        let AvalancheProcess = spawn('avalanche', ['subnet', 'deploy', 'highguardAvalanche', '-l', '--avalanchego-version', 'v1.11.7']);
         let output = '';
 
         AvalancheProcess.stdout.on('data', (data) => {
