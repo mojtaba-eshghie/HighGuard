@@ -26,32 +26,32 @@ contracts:
   #   tests:
   #     - "ProductOrderExploit"
 
-  # - name: "Escrow"
-  #   numOfVariants: 4
-  #   constructorParamSpecs:
-  #     - name: "_sender"
-  #       type: "address"
-  #       sourceType: "dynamic"
-  #       source:
-  #         type: "EOA"
-  #     - name: "_receiver"
-  #       type: "address"
-  #       sourceType: "dynamic"
-  #       source:
-  #         type: "EOA"
-  #     - name: "_delayUntilRelease"
-  #       type: "uint"
-  #       sourceType: "static"
-  #       value: 0
-  #   models:
-  #     - name: "Escrow"
-  #       id: "1624258"
-  #       functions: []
-  #   tests:
-  #     - "EscrowExploit"
+  - name: "Escrow"
+    numOfVariants: 4
+    constructorParamSpecs:
+      - name: "_sender"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_receiver"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_delayUntilRelease"
+        type: "uint"
+        sourceType: "static"
+        value: 0
+    models:
+      - name: "Escrow"
+        id: "1624258"
+        functions: []
+    tests:
+      - "EscrowExploit"
 
   # - name: "PrizeDistribution"
-  #   numOfVariants: 25
+  #   numOfVariants: 1
   #   constructorParamSpecs:
   #     - name: "_beneficiary"
   #       type: "address"
@@ -82,16 +82,16 @@ contracts:
   #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
   #     - "PrizeDistributionExploit"
 
-  - name: "Governance"
-    numOfVariants: 1
-    constructorParamSpecs: []
-    models:
-      - name: "Governance"
-        id: "1822788"
-        functions: []
-        hasResponseRelation: true
-    tests:
-      - "GovernanceExploit"
+  # - name: "Governance"
+  #   numOfVariants: 1
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "Governance"
+  #       id: "1822788"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "GovernanceExploit"
 
 tests:
   - name: "PrizeDistributionExploit"
