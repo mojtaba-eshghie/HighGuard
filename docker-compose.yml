@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  node-cli:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    entrypoint: ["bash", "-c"]
+    command: "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-governance.yml"

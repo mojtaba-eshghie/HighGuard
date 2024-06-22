@@ -6,6 +6,92 @@
 
 Smart contracts embody complex business processes that can be difficult to analyze statically. Therefore, we present HighGuard, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs.
 
+## Installation
+
+### Manual Installation
+
+To manually install and run HighGuard, follow these steps:
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/mojtaba-eshghie/HighGuard.git
+   cd highguard
+   ```
+
+2. **Install Node.js and npm:**
+
+   Ensure you have Node.js version 16.20.2 and npm version 8.19.4 installed. You can download and install Node.js from [Node.js official website](https://nodejs.org/).
+
+   Verify the installation:
+
+   ```sh
+   node --version
+   npm --version
+   ```
+
+3. **Install project dependencies:**
+
+   ```sh
+   npm install
+   ```
+
+4. **Install Foundry and Anvil:**
+
+   Follow the instructions to install Foundry from the [Foundry Book](https://book.getfoundry.sh/getting-started/installation).
+
+   ```sh
+   curl -L https://foundry.paradigm.xyz | bash
+   source ~/.bashrc
+   foundryup
+   ```
+
+5. **Run the CLI commands:**
+
+   You can now run the CLI commands as needed:
+
+   ```sh
+   pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-governance.yml
+   pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-escrow.yml
+   pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml
+   pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml
+   pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml
+   ```
+
+### Docker Installation
+
+To build and run the project using Docker, follow these steps:
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/mojtaba-eshghie/HighGuard.git
+   cd highguard
+   ```
+
+2. **Build the Docker image:**
+
+   ```sh
+   docker build -t HighGuard-cli-docker .
+   ```
+
+3. **Run the Docker container with specific commands:**
+
+   Replace the command as needed:
+
+   ```sh
+   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-governance.yml"
+   ```
+
+   Example commands:
+
+   ```sh
+   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-escrow.yml"
+   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml"
+   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml"
+   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml"
+   ```
+
 ## Features
 
 ### Main Features
@@ -17,6 +103,7 @@ Smart contracts embody complex business processes that can be difficult to analy
 
 - Batteries included
 - Distributed logging
+<!--
 
 ## Installation
 
@@ -31,7 +118,7 @@ Run the `npm install` in the main repository directory and the following directo
 
 `server/monitor`
 
-`client`
+`client` -->
 
 ## Usage
 
