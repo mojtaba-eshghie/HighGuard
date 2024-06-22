@@ -41,6 +41,11 @@ let argv = yargs(hideBin(process.argv))
         type: 'boolean',
         description: 'Run with verbose logging'
     })
+    .option('config', {
+        alias: 'c',
+        type: 'string',
+        description: 'Micro config file full relative path (to the root of the project).',
+    })
     .argv;
 
 if (argv.verbose) {
@@ -49,8 +54,14 @@ if (argv.verbose) {
     runLogger.level = 'info';
 }
 
-const setupAndRunTests = require(`@CI/setup-${argv.type}-${argv.env}`);
+let setupAndRunTests = require(`@CI/setup-${argv.type}-${argv.env}`);
 
-setupAndRunTests().catch(error => {
-    runLogger.error(chalk.red(`Error during setup or test execution:\n${error.stack ? error.stack : error}`));
-})
+if (argv.config) { 
+    setupAndRunTests(argv.config).catch(error => {
+        runLogger.error(chalk.red(`Error during setup or test execution:\n${error.stack ? error.stack : error}`));
+    })
+} else {
+    setupAndRunTests().catch(error => {
+        runLogger.error(chalk.red(`Error during setup or test execution:\n${error.stack ? error.stack : error}`));
+    })
+}

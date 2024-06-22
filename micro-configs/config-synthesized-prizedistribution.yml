@@ -1,57 +1,57 @@
 # Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
 
 contracts:
-  - name: "MultiStageAuction"
-    numOfVariants: 25
-    constructorParamSpecs: []
-    models:
-      - name: "MultiStageAuction"
-        id: "1701049"
-        functions: []
-    tests:
-      - "MultiStageAuctionExploit"
+  # - name: "MultiStageAuction"
+  #   numOfVariants: 25
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "MultiStageAuction"
+  #       id: "1701049"
+  #       functions: []
+  #   tests:
+  #     - "MultiStageAuctionExploit"
 
-  - name: "ProductOrder"
-    numOfVariants: 25
-    constructorParamSpecs:
-      - name: "_price"
-        type: "uint256"
-        sourceType: "static"
-        value: 1
-    models:
-      - name: "ProductOrder"
-        id: "1822680"
-        functions: []
-        hasResponseRelation: true
-    tests:
-      - "ProductOrderExploit"
+  # - name: "ProductOrder"
+  #   numOfVariants: 25
+  #   constructorParamSpecs:
+  #     - name: "_price"
+  #       type: "uint256"
+  #       sourceType: "static"
+  #       value: 1
+  #   models:
+  #     - name: "ProductOrder"
+  #       id: "1822680"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "ProductOrderExploit"
 
-  - name: "Escrow"
-    numOfVariants: 4
-    constructorParamSpecs:
-      - name: "_sender"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_receiver"
-        type: "address"
-        sourceType: "dynamic"
-        source:
-          type: "EOA"
-      - name: "_delayUntilRelease"
-        type: "uint"
-        sourceType: "static"
-        value: 0
-    models:
-      - name: "Escrow"
-        id: "1624258"
-        functions: []
-    tests:
-      - "EscrowExploit"
+  # - name: "Escrow"
+  #   numOfVariants: 4
+  #   constructorParamSpecs:
+  #     - name: "_sender"
+  #       type: "address"
+  #       sourceType: "dynamic"
+  #       source:
+  #         type: "EOA"
+  #     - name: "_receiver"
+  #       type: "address"
+  #       sourceType: "dynamic"
+  #       source:
+  #         type: "EOA"
+  #     - name: "_delayUntilRelease"
+  #       type: "uint"
+  #       sourceType: "static"
+  #       value: 0
+  #   models:
+  #     - name: "Escrow"
+  #       id: "1624258"
+  #       functions: []
+  #   tests:
+  #     - "EscrowExploit"
 
   - name: "PrizeDistribution"
-    numOfVariants: 1
+    numOfVariants: 25
     constructorParamSpecs:
       - name: "_beneficiary"
         type: "address"
@@ -82,16 +82,16 @@ contracts:
     tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
       - "PrizeDistributionExploit"
 
-  - name: "Governance"
-    numOfVariants: 1
-    constructorParamSpecs: []
-    models:
-      - name: "Governance"
-        id: "1822788"
-        functions: []
-        hasResponseRelation: true
-    tests:
-      - "GovernanceExploit"
+  # - name: "Governance"
+  #   numOfVariants: 1
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "Governance"
+  #       id: "1822788"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "GovernanceExploit"
 
 tests:
   - name: "PrizeDistributionExploit"
