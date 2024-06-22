@@ -1,0 +1,124 @@
+# Configuration for Continuous Integration (CI) of smart contract monitoring ecosystem
+
+contracts:
+  # - name: "MultiStageAuction"
+  #   numOfVariants: 25
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "MultiStageAuction"
+  #       id: "1701049"
+  #       functions: []
+  #   tests:
+  #     - "MultiStageAuctionExploit"
+
+  # - name: "ProductOrder"
+  #   numOfVariants: 25
+  #   constructorParamSpecs:
+  #     - name: "_price"
+  #       type: "uint256"
+  #       sourceType: "static"
+  #       value: 1
+  #   models:
+  #     - name: "ProductOrder"
+  #       id: "1822680"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "ProductOrderExploit"
+
+  - name: "Escrow"
+    numOfVariants: 4
+    constructorParamSpecs:
+      - name: "_sender"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_receiver"
+        type: "address"
+        sourceType: "dynamic"
+        source:
+          type: "EOA"
+      - name: "_delayUntilRelease"
+        type: "uint"
+        sourceType: "static"
+        value: 0
+    models:
+      - name: "Escrow"
+        id: "1624258"
+        functions: []
+    tests:
+      - "EscrowExploit"
+
+  # - name: "PrizeDistribution"
+  #   numOfVariants: 1
+  #   constructorParamSpecs:
+  #     - name: "_beneficiary"
+  #       type: "address"
+  #       sourceType: "dynamic" # Indicates the value should be fetched dynamically
+  #       source:
+  #         type: "EOA" # EOA or contract
+  #         # details for a contract source:
+  #         # details:
+  #         #   contractAddress: "0x0"
+  #         #   functionCall: "getSubscriberAddress"
+  #         #   returnType: "address"
+  #         # details for an EOA:
+  #         # For an EOA, you can just get the address from the list of accounts in the environment; no need to specify it here;
+  #       # - name: "threshold"
+  #       #   type: "uint256"
+  #       #   source: "static"
+  #       #   value: "1000"  # Static value provided directly in the config
+  #   models:
+  #     - name: "PrizeDistribution"
+  #       id: "1822535" # The id of the model in DCRGraphs.net website
+  #     # - name: "Model2"
+  #     #   id: "1701159"
+  #     #   functions:
+  #     #     setGreet:
+  #     #       EVMType: "string"
+  #     #       DCRType: "integer"
+  #     #       DCRNodeID: "setGreet"
+  #   tests: # if there are tests specified for this model, it will run them alongside the monitor automatically. Otherwise, only thing that will run is the monitor
+  #     - "PrizeDistributionExploit"
+
+  # - name: "Governance"
+  #   numOfVariants: 1
+  #   constructorParamSpecs: []
+  #   models:
+  #     - name: "Governance"
+  #       id: "1822788"
+  #       functions: []
+  #       hasResponseRelation: true
+  #   tests:
+  #     - "GovernanceExploit"
+
+tests:
+  - name: "PrizeDistributionExploit"
+    description: "Exploits for time-based vulnerability of PrizeDistribution contract which is enabled by a poor logic in the contract implementation."
+    directory: "/exploits//synthesized"
+    environment: "anvil"
+
+  - name: "MultiStageAuctionExploit"
+    description: "Exploits for a temporal property of ..."
+    directory: "/exploits/synthesized"
+    environment: "anvil"
+
+  - name: "ProductOrderExploit"
+    description: "No description yet..."
+    directory: "/exploits/synthesized"
+    environment: "anvil"
+
+  - name: "EscrowExploit"
+    description: "No description yet..."
+    directory: "/exploits/synthesized"
+    environment: "anvil"
+
+  - name: "GovernanceExploit"
+    description: "No description yet..."
+    directory: "/exploits/synthesized"
+    environment: "anvil"
+
+environments:
+  - name: "anvil"
+    version: "0.2.0"

@@ -56,8 +56,14 @@ async function appendToJsonFile(filePath, data) {
     }
 }
 
-async function setupAndRunTests() {
-    let ciConfig = readCIConfig('config-synthesized.yml');
+async function setupAndRunTests(configFilePath) {
+    let ciConfig;
+    if (configFilePath) {
+        ciConfig = readCIConfig(configFilePath);
+    } else {
+        ciConfig = readCIConfig('config-synthesized.yml');
+    }
+
     let successfulExploitsCount = 0;
     let failedExploitsCount = 0;
     let unresolvedExploitsCount = 0;

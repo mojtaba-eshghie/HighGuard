@@ -25,19 +25,53 @@ class Monitor extends EventEmitter {
 
     // Initialize the contract watcher, translator, and executor for this instance
 
-    // watcher
-    this.contractWatcher = new ContractWatcher(
-      this.configs.web3,
-      this.configs.contractAddress,
-      this.configs.contractName, 
-      this.configs.contractABI
+    // The following is just here as an example correct format of how configs should be passed to monitor
+    // let configs = {
+    //     "A": {
+    //         web3: envAnvil.web3,
+    //         contractAddress: contractsA.router._address,
+    //         contractFileName: 'EthRouter',
+    //         contractName: 'EthRouter',
+    //         contractABI: contractABIA,
+    //         modelFunctionParams: null,
+    //     },
+    //     "B": {
+    //         web3: envAnvil.web3,
+    //         contractAddress: contractsA.router._address,
+    //         contractFileName: 'EthRouter',
+    //         contractName: 'EthRouter',
+    //         contractABI: contractABIA,
+    //         modelFunctionParams: null,
+    //     },
+    //     activities: await getActivities(1823056),
+    //     modelId: 1823056,
+    //     hasResponseRelation: true,
+    // };
+
+    // 2 watchers
+    this.contractWatcherA = new ContractWatcher(
+        this.configs.A.web3,
+        this.configs.A.contractAddress,
+        this.configs.A.contractName, 
+        this.configs.A.contractABI
+    );
+    this.contractWatcherB = new ContractWatcher(
+        this.configs.B.web3,
+        this.configs.B.contractAddress,
+        this.configs.B.contractName, 
+        this.configs.B.contractABI
     );
       
-    // translator
-    this.dcrTranslator = new DCRTranslator(
-      this.configs.contractABI,
-      this.configs.modelFunctionParams,
-      this.configs.web3
+    // 2 translators
+    this.dcrTranslatorA = new DCRTranslator(
+        this.configs.A.contractABI,
+        this.configs.A.modelFunctionParams,
+        this.configs.A.web3
+    );
+    this.dcrTranslatorB = new DCRTranslator(
+        this.configs.B.contractABI,
+        this.configs.B.modelFunctionParams,
+        this.configs.B.web3
     );
 
     // executor
@@ -77,21 +111,38 @@ class Monitor extends EventEmitter {
   }
 
   start() {
+    const handleEventFromA = (tx) => this.handleContractEvent(tx, 'A');
+    const handleEventFromB = (tx) => this.handleContractEvent(tx, 'B');
+
     // Bind the event handlers to this instance to ensure they have the correct `this` context
-    this.contractWatcher.on('newTransaction', this.handleContractEvent.bind(this));
-    this.contractWatcher.on('error', this.handleError.bind(this));
+    this.contractWatcherA.on('newTransaction', handleEventFromA);
+    this.contractWatcherA.on('error', this.handleError.bind(this));
+
     // Start watching for contract events
-    this.contractWatcher.startWatching();
-    
-    this.setStatus('RUNNING');  
-    // TODO: other setup steps
+    this.contractWatcherA.startWatching();
+
+    this.contractWatcherB.on('newTransaction', handleEventFromB);
+    this.contractWatcherB.on('error', this.handleError.bind(this));
+
+    // Start watching for contract events
+    this.contractWatcherB.startWatching();
+
+    this.setStatus('RUNNING');
   }
 
-  async handleContractEvent(tx) {
+  async handleContractEvent(tx, source) {
     let violates = false;
     // Process the transaction and translate it into DCR activities
-    console.log(chalk.cyan(`config activities are: ${this.configs.activities}`))
-    const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
+    console.log(chalk.cyan(`config activities are: ${this.configs.activities}`));
+    let dcrActivities; 
+    if (source == 'A') {
+        dcrActivities = this.dcrTranslatorA.getDCRFromTX(tx, this.configs.activities);
+    } else if (source == 'B') {
+        dcrActivities = this.dcrTranslatorB.getDCRFromTX(tx, this.configs.activities);
+    } else {
+        throw new Error("The source in multi-chain monitor is not recognizable");
+    }
+    
     monitorLogger.info(`dcrActivities: ${dcrActivities}`);
     if (dcrActivities) {
       const promises = dcrActivities.map(async activity => {
