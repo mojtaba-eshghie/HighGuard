@@ -58,9 +58,9 @@ To manually install and run HighGuard, follow these steps:
    pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml
    ```
 
-### Docker Installation
+### Running via Docker
 
-To build and run the project using Docker, follow these steps:
+To build and run HighGuard using Docker, follow these steps:
 
 1. **Clone the repository:**
 
@@ -96,13 +96,15 @@ To build and run the project using Docker, follow these steps:
 
 ### Main Features
 
-- Fully automated model-based monitoring/testing of smart contracts
+- Fully automated model-based monitoring/testing of smart contracts.
 - Supports DCR graphs enhanced with data and time.
+- Supports multi- and cross-chain smart contract monitoring
+- Platform agnostic as the models are built based on high-level business logic specifications.
 
 ### Axiliary Features
 
-- Batteries included
-- Distributed logging
+- **Batteries included**: Many of the smart contract libraries HighGuard uses are part of its project under `lib` directory.
+- **Distributed logging**: As HighGuard can monitor many contracts at once, and it includes a distributed logging ecosystem to better suit large-scale monitoring operations.
 <!--
 
 ## Installation
