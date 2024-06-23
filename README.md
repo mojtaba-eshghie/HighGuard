@@ -16,7 +16,7 @@ To manually install and run HighGuard, follow these steps:
 
    ```sh
    git clone https://github.com/mojtaba-eshghie/HighGuard.git
-   cd highguard
+   cd HighGuard
    ```
 
 2. **Install Node.js and npm:**
@@ -66,7 +66,7 @@ To build and run the project using Docker, follow these steps:
 
    ```sh
    git clone https://github.com/mojtaba-eshghie/HighGuard.git
-   cd highguard
+   cd HighGuard
    ```
 
 2. **Build the Docker image:**
