@@ -133,7 +133,7 @@ class Monitor extends EventEmitter {
   async handleContractEvent(tx, source) {
     let violates = false;
     // Process the transaction and translate it into DCR activities
-    console.log(chalk.cyan(`config activities are: ${this.configs.activities}`));
+    monitorLogger.debug(chalk.cyan(`config activities are: ${this.configs.activities}`));
     let dcrActivities; 
     if (source == 'A') {
         dcrActivities = this.dcrTranslatorA.getDCRFromTX(tx, this.configs.activities);
@@ -143,7 +143,7 @@ class Monitor extends EventEmitter {
         throw new Error("The source in multi-chain monitor is not recognizable");
     }
     
-    monitorLogger.info(`dcrActivities: ${dcrActivities}`);
+    monitorLogger.debug(`dcrActivities: ${dcrActivities}`);
     if (dcrActivities) {
       const promises = dcrActivities.map(async activity => {
         if (this.hasResponse) {

@@ -14,7 +14,8 @@ const {
 const { sleep } = require('@lib/os/process');
 
 const getLogger = require('@lib/logging/logger').getLogger;
-const setupSyncLoggerUnified = getLogger('setup-synthesized-unified');
+let setupSyncLoggerUnified = getLogger('setup-synthesized-unified');
+
 
 const yargs = require('yargs/yargs');
 const path = require('path');
@@ -79,7 +80,7 @@ async function setupAndRunTests(configFilePath) {
             let fullContractFileName = contract.name + '-' + variantIndex.toString();
             let fullTestName = contract.name + "Exploit" + '-' + variantIndex.toString() + '.js';
             let testDirectory = '/exploits/synthesized';
-            console.log(`tests are: ${contract.tests}`);
+            setupSyncLoggerUnified.info(`Exploits are: ${contract.tests}`);
             let testName = contract.tests[0];
 
             setupSyncLoggerUnified.debug(chalk.white(`Successfully read test info: ${testName} for ${contract} from config. Full name of test is: ${fullTestName}`));

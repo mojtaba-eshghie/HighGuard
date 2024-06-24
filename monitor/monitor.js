@@ -90,9 +90,9 @@ class Monitor extends EventEmitter {
   async handleContractEvent(tx) {
     let violates = false;
     // Process the transaction and translate it into DCR activities
-    console.log(chalk.cyan(`config activities are: ${this.configs.activities}`))
+    monitorLogger.debug(chalk.cyan(`config activities are: ${this.configs.activities}`))
     const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
-    monitorLogger.info(`dcrActivities: ${dcrActivities}`);
+    monitorLogger.debug(`dcrActivities: ${dcrActivities}`);
     if (dcrActivities) {
       const promises = dcrActivities.map(async activity => {
         if (this.hasResponse) {
