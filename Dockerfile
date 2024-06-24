@@ -21,11 +21,10 @@ RUN curl -L https://foundry.paradigm.xyz | bash \
     && ~/.foundry/bin/foundryup
 
 # Install Avalanche CLI
-RUN curl -L https://github.com/ava-labs/avalanche-cli/releases/download/v1.9.2/avalanche-cli_1.9.2_linux_amd64.tar.gz | tar -xz \
-    && mv avalanche-cli /usr/local/bin/
+RUN curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s
 
-# Set up environment variables for Foundry
-ENV PATH="/root/.foundry/bin:${PATH}"
+# Set up environment variables for Foundry and Avalanche CLI
+ENV PATH="/root/.foundry/bin:/root/bin:${PATH}"
 
 # Create and change to the app directory inside the container
 WORKDIR /usr/src/app
