@@ -26,7 +26,7 @@ let argv = yargs(hideBin(process.argv))
         alias: 't',
         type: 'string',
         description: 'Type of exploit to run (synthesized or regular)',
-        choices: ['synthesized', 'regular'],
+        choices: ['synthesized', 'regular', 'cross-chain'],
         demandOption: true, 
     })
     .option('env', {
