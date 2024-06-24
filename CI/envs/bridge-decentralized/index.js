@@ -11,6 +11,7 @@ const projectRoot = path.resolve(__dirname, '..', '..', '..');
 const contractsDir = path.join(projectRoot, 'contracts', 'src', 'cross-chain');
 
 let tokenSource = fs.readFileSync(path.join(contractsDir, 'CrossToken.sol'), 'utf8');
+let transactions = 0;
 
 
 
@@ -83,6 +84,7 @@ async function deployBridge(web3, envInfo, name, nativeToken, router, vault, ora
 
     //Add event listeners to relay transactions
     routerContract.events.allEvents().on('data', (data) => {
+        console.log(JSON.stringify(data));
         handleEvent(data, name);
     });
 
@@ -151,6 +153,9 @@ async function deposit(data, name){
             switch(memo.operation){
                 case "=":
                 case "SWAP":
+                    let offset = transactions++;
+                    let nonce = await target.web3.eth.getTransactionCount(target.signer, "pending") + offset;
+                    //console.log(nonce);
                     //If 0x0 token, represent it as the name of the native token, eg. ETH or AVAX
                     let sourceAsset = data.returnValues.asset == "0x0000000000000000000000000000000000000000" ? name + '.' + blockchains.get(name).nativeToken : name + '.' + data.returnValues.asset;
                     //If native token, represent as 0x0
@@ -161,14 +166,17 @@ async function deposit(data, name){
                         receipt = await target.bridgeForwards(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, "OUT:" + memo.destaddr).send({
                             from: target.signer,
                             gas: 300000,
+                            nonce: nonce
                         });
                     }
                     else{
                         receipt = await target.bridgeForwardsERC20(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, memo.assetName, "OUT:" + memo.destaddr).send({
                             from: target.signer,
                             gas: 300000,
+                            nonce: nonce
                         });
                     }
+                    transactions--;
                     if(receipt.status){
                         return;
                     }
