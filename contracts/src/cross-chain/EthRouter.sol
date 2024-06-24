@@ -99,7 +99,7 @@ contract EthRouter {
         emit Deposit(msg.sender, vault, asset, depositAmount, memo);
     }
 
-    function depositWithExpiry(
+    function eth_depositWithExpiry(
         address payable vault,
         address asset,
         uint amount,
