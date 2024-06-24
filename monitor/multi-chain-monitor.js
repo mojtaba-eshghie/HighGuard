@@ -43,6 +43,7 @@ class Monitor extends EventEmitter {
     //     activities: await getActivities(1823056),
     //     modelId: 1823056,
     //     hasResponseRelation: true,
+    //     modelName: "something",
     // };
 
 
@@ -182,7 +183,7 @@ class Monitor extends EventEmitter {
 
     const markdownContent = `${headerLine}\n${separatorLine}\n${tableRows}`;
 
-    const fileName = `${this.configs.contractFileName}.md`;
+    const fileName = `${this.configs.modelName}.md`;
     const filePath = path.join('results', fileName);
 
     fs.writeFileSync(filePath, markdownContent, 'utf8');

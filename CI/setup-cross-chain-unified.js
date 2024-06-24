@@ -30,22 +30,14 @@ const exploitsList = [
 async function setupAndRunTests() {
     for (const exploitPath of exploitsList) {
         try {
-            const exploitModule = require(path.resolve(__dirname, exploitPath));
-            if (typeof exploitModule.startUp === 'function') {
-                await exploitModule.startUp();
-                console.log(`Successfully ran startUp for ${exploitPath}`);
-            } else {
-                console.error(`No startUp function found in ${exploitPath}`);
-            }
+            const exploitSetup = require(path.resolve(__dirname, exploitPath));
+            await exploitSetup();
+            bridgeTestLogger.info(`Successfully completed setup for ${exploitPath}`);
         } catch (error) {
-            console.error(`Failed to run startUp for ${exploitPath}:`, error);
+            console.error(`Failed to run setup for ${exploitPath}:`, error);
         }
     }
 }
-
-setupAndRunTests()
-    .then(() => console.log('All tests have been set up and run.'))
-    .catch(err => console.error('Error setting up and running tests:', err));
 
 // proper command to run this would be:
 // pkill anvil; clear; node CI/run.js -t cross-chain -e unified
