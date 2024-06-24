@@ -1,4 +1,4 @@
-## HighGuard: Monitoring High-Level Properties in Smart Contracts
+## HighGuard: Monitoring Smart Contracts Business Logic
 
 <p align="center">
   <img src="https://github.com/mojtaba-eshghie/Clawk/assets/37236297/4ea40602-3791-478b-b121-28f4cd9555a5" width="200" alt="HighGuard Logo">
