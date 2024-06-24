@@ -20,6 +20,10 @@ RUN apt-get update && apt-get install -y \
 RUN curl -L https://foundry.paradigm.xyz | bash \
     && ~/.foundry/bin/foundryup
 
+# Install Avalanche CLI
+RUN curl -L https://github.com/ava-labs/avalanche-cli/releases/download/v1.9.2/avalanche-cli_1.9.2_linux_amd64.tar.gz | tar -xz \
+    && mv avalanche-cli /usr/local/bin/
+
 # Set up environment variables for Foundry
 ENV PATH="/root/.foundry/bin:${PATH}"
 
