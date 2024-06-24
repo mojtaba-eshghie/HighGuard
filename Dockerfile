@@ -20,8 +20,11 @@ RUN apt-get update && apt-get install -y \
 RUN curl -L https://foundry.paradigm.xyz | bash \
     && ~/.foundry/bin/foundryup
 
-# Set up environment variables for Foundry
-ENV PATH="/root/.foundry/bin:${PATH}"
+# Install Avalanche CLI
+RUN curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s
+
+# Set up environment variables for Foundry and Avalanche CLI
+ENV PATH="/root/.foundry/bin:/root/bin:${PATH}"
 
 # Create and change to the app directory inside the container
 WORKDIR /usr/src/app

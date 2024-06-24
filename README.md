@@ -56,6 +56,7 @@ To manually install and run HighGuard, follow these steps:
    pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml
    pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml
    pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml
+   pkill anvil; clear; node CI/run.js -t cross-chain -e unified
    ```
 
 ### Running via Docker
@@ -90,6 +91,13 @@ To build and run HighGuard using Docker, follow these steps:
    docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml"
    docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml"
    docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml"
+   docker run --rm -v $(pwd):/usr/src/app node-cli-app bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified"
+   ```
+
+   Export the `results` directory from the container to your current directory (outside the container) using the following command:
+
+   ```sh
+   docker run --rm -v $(pwd)/results:/results node-cli-app bash -c "cp -r /usr/src/app/results/* /results"
    ```
 
 ## Features
