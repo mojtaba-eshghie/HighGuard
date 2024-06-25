@@ -43,8 +43,10 @@ contract EthVaultOracle {
         address asset,
         uint amountPaid,
         string memory sourceAsset,
-        string memory memo
+        string memory memo,
+        uint expiration
     ) external onlyOwner {
+        require(block.timestamp < expiration);
             uint amount = (oracleContract.getPrice(sourceAsset) * amountPaid)/1000;
             require(
                 address(this).balance >= amount,
@@ -64,8 +66,10 @@ contract EthVaultOracle {
         uint amountPaid,
         string memory sourceAsset,
         string memory targetAsset,//has format ETH.0x12341...
-        string memory memo
+        string memory memo,
+        uint expiration
     ) external onlyOwner {
+        require(block.timestamp < expiration);
         uint amount = oracleContract.getExchangeRate(amountPaid, sourceAsset, targetAsset);
         routerContract.eth_payOut(to, asset, amount, memo);
     }

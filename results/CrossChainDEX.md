@@ -1,5 +1,5 @@
 | Activity ID | Time | Violation | Simulation |
 | --- | --- | --- | --- |
-| eth_deposit | 2024-06-24T20:05:31.468Z | false | 2015476 |
-| avax_bridgeForwards | 2024-06-24T20:05:32.689Z | false | 2015476 |
-| avax_bridgeForwards | 2024-06-24T20:05:32.744Z | false | 2015476 |
+| eth_deposit | 2024-06-25T14:00:22.117Z | false | 2015476 |
+| avax_bridgeForwards | 2024-06-25T14:00:24.104Z | false | 2015476 |
+| avax_bridgeForwards | 2024-06-25T14:00:26.102Z | true | 2015476 |

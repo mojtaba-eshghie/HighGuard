@@ -6,12 +6,18 @@ const {
     compileWithVersion, 
     deployContract 
 } = require('@lib/web3/deploy');
+const Mutex = require('async-mutex').Mutex;
+const Semaphore = require('async-mutex').Semaphore;
+const withTimeout = require('async-mutex').withTimeout;
 
 const projectRoot = path.resolve(__dirname, '..', '..', '..'); 
 const contractsDir = path.join(projectRoot, 'contracts', 'src', 'cross-chain');
+const { sleep } = require('@lib/os/process');
+
 
 let tokenSource = fs.readFileSync(path.join(contractsDir, 'CrossToken.sol'), 'utf8');
-let transactions = 0;
+const mutex = new Mutex();
+let lag;
 
 
 
@@ -33,7 +39,8 @@ const blockchains = new Map();
  * @returns {Object} An object containing the sourceContract, tokenCrontract and destinationContract instances.
  * @throws {Error} If there's an error during the deployment.
  */
-async function deployBridge(web3, envInfo, name, nativeToken, router, vault, oracle, bridgeForwards, bridgeForwardsERC20){
+async function deployBridge(web3, envInfo, name, nativeToken, router, vault, oracle, bridgeForwards, bridgeForwardsERC20, bridgeDelay = 0){
+    lag = bridgeDelay;
     let routerSource = fs.readFileSync(path.join(contractsDir, router+'.sol'), 'utf8');
     let vaultSource = fs.readFileSync(path.join(contractsDir, vault+'.sol'), 'utf8');
     let oracleSource = fs.readFileSync(path.join(contractsDir, oracle+'.sol'), 'utf8');
@@ -84,8 +91,8 @@ async function deployBridge(web3, envInfo, name, nativeToken, router, vault, ora
 
     //Add event listeners to relay transactions
     routerContract.events.allEvents().on('data', (data) => {
-        console.log(JSON.stringify(data));
         handleEvent(data, name);
+        
     });
 
     return {
@@ -145,58 +152,64 @@ async function handleEvent(data, name){
 
 //Handles all calls of the deposit function of the router contract, currently supports swap and add.
 async function deposit(data, name){
-    let memo = parseMemo(data.returnValues.memo);
 
-    let target = blockchains.get(memo.chain);
-    try {
-        if(target){ //If blockchain exists
-            switch(memo.operation){
-                case "=":
-                case "SWAP":
-                    let offset = transactions++;
-                    let nonce = await target.web3.eth.getTransactionCount(target.signer, "pending") + offset;
-                    //console.log(nonce);
-                    //If 0x0 token, represent it as the name of the native token, eg. ETH or AVAX
-                    let sourceAsset = data.returnValues.asset == "0x0000000000000000000000000000000000000000" ? name + '.' + blockchains.get(name).nativeToken : name + '.' + data.returnValues.asset;
-                    //If native token, represent as 0x0
-                    let targetToken = memo.asset == target.nativeToken ? "0x0000000000000000000000000000000000000000" : memo.asset;
-                    //let amount = getExchange(sourceAsset, memo.asset, data.returnValues.amount);
-                    let receipt;
-                    if (targetToken == "0x0000000000000000000000000000000000000000"){
-                        receipt = await target.bridgeForwards(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, "OUT:" + memo.destaddr).send({
-                            from: target.signer,
-                            gas: 300000,
-                            nonce: nonce
-                        });
-                    }
-                    else{
-                        receipt = await target.bridgeForwardsERC20(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, memo.assetName, "OUT:" + memo.destaddr).send({
-                            from: target.signer,
-                            gas: 300000,
-                            nonce: nonce
-                        });
-                    }
-                    transactions--;
-                    if(receipt.status){
+        let memo = parseMemo(data.returnValues.memo);
+        let target = blockchains.get(memo.chain);
+        const release = await mutex.acquire();
+        //await sleep(12000);
+        try {
+            if(target){ //If blockchain exists
+                switch(memo.operation){
+                    case "=":
+                    case "SWAP":
+                        //console.log(nonce);
+                        //If 0x0 token, represent it as the name of the native token, eg. ETH or AVAX
+                        let sourceAsset = data.returnValues.asset == "0x0000000000000000000000000000000000000000" ? name + '.' + blockchains.get(name).nativeToken : name + '.' + data.returnValues.asset;
+                        //If native token, represent as 0x0
+                        let targetToken = memo.asset == target.nativeToken ? "0x0000000000000000000000000000000000000000" : memo.asset;
+                        //let amount = getExchange(sourceAsset, memo.asset, data.returnValues.amount);
+                        let receipt;
+                        let expiry = Math.floor(Date.now() / 1000) + 10;
+                        if(lag !=0){
+                            await sleep(lag);
+                        }
+                        if (targetToken == "0x0000000000000000000000000000000000000000"){
+                            receipt = await target.bridgeForwards(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, "OUT:" + memo.destaddr, expiry).send({
+                                from: target.signer,
+                                gas: 300000,
+                            });
+                        }
+                        else{
+                            receipt = await target.bridgeForwardsERC20(memo.destaddr, targetToken, data.returnValues.amount, sourceAsset, memo.assetName, "OUT:" + memo.destaddr, expiry).send({
+                                from: target.signer,
+                                gas: 300000,
+                            });
+                        }
+                        if(receipt.status){
+                            return;
+                        }
+                        break;
+                    case "ADD": //Liquidity was added to the vault, no relaying necessary
                         return;
-                    }
-                    break;
-                case "ADD": //Liquidity was added to the vault, no relaying necessary
-                    return;
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
+        } catch (error) {
+            console.log(error);
+            console.log("Could not relay transaction");
+            //If above section did not return, refund the transaction, could implement some kind of fee to stop spamming
+            /* console.log("Issuing refund");
+            target = blockchains.get(name);
+            let receipt = await target.vault.methods.bridgeForwards(data.returnValues.from, data.returnValues.asset, data.returnValues.amount, "REFUND:" + data.returnValues.from).send({
+                from: target.signer,
+                gas: 300000,
+            }); */
+        } finally {
+            release();
         }
-    } catch (error) {
-        console.log(error);
-        console.log("Could not relay transaction");
-    }
-    //If above section did not return, refund the transaction, could implement some kind of fee to stop spamming
-    /* target = blockchains.get(name);
-    let receipt = await target.vault.methods.bridgeForwards(data.returnValues.from, data.returnValues.asset, data.returnValues.amount, "REFUND:" + data.returnValues.from).send({
-        from: target.signer,
-        gas: 300000,
-    }); */
+
+    
 }
 
 module.exports = deployBridge;
