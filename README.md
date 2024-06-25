@@ -89,19 +89,19 @@ To build and run HighGuard using Docker, follow these steps:
    Example commands:
 
    ```sh
-   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-escrow.yml"
-   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml"
-   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml"
-   docker run --rm -v $(pwd):/usr/src/app HighGuard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml"
-   docker run --rm -v $(pwd):/usr/src/app node-cli-app bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified"
-   docker run --rm -v $(pwd):/usr/src/app node-cli-app bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified -l "tests/Bridge.exploit1.js"
-   docker run --rm -v $(pwd):/usr/src/app node-cli-app bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified -l "tests/Bridge.exploit2.js"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-escrow.yml"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-multistageauction.yml"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-prizedistribution.yml"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; node CI/run.js -t synthesized -e separate -v -c micro-configs/config-synthesized-productorder.yml"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified"
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified -l \"tests/Bridge.exploit1.js\""
+   docker run --rm -v $(pwd):/usr/src/app highguard-cli-docker bash -c "pkill anvil; clear; node CI/run.js -t cross-chain -e unified -l \"tests/Bridge.exploit2.js\""
    ```
 
    Export the `results` directory from the container to your current directory (outside the container) using the following command:
 
    ```sh
-   docker run --rm -v $(pwd)/results:/results node-cli-app bash -c "cp -r /usr/src/app/results/* /results"
+   docker run --rm -v $(pwd)/results:/results highguard-cli-docker bash -c "cp -r /usr/src/app/results/* /results"
    ```
 
 ## Features
