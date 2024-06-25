@@ -22,13 +22,13 @@ const deployBridge = require('@envs/bridge');
 const bridgeTestLogger = getLogger('bridgetest');
 
 // Manually configured two cross-chain exploits for the tool paper; 
-const exploitsList = [
-    'tests/Bridge.exploit1.js',
-    //'tests/Bridge.exploit2.js',
-];
+// let exploitsList = [
+//     'tests/Bridge.exploit1.js',
+//     //'tests/Bridge.exploit2.js',
+// ];
 
-async function setupAndRunTests() {
-    for (const exploitPath of exploitsList) {
+async function setupAndRunTests(exploitList) {
+    for (const exploitPath of exploitList) {
         try {
             const exploitSetup = require(path.resolve(__dirname, exploitPath));
             await exploitSetup();

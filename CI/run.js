@@ -46,6 +46,11 @@ let argv = yargs(hideBin(process.argv))
         type: 'string',
         description: 'Micro config file full relative path (to the root of the project).',
     })
+    .option('exploitList', {
+        alias: 'l', 
+        type: 'array',
+        description: 'A list of exploit files (relative path to CI directory) to run.'
+    })
     .argv;
 
 if (argv.verbose) {
@@ -58,6 +63,10 @@ let setupAndRunTests = require(`@CI/setup-${argv.type}-${argv.env}`);
 
 if (argv.config) { 
     setupAndRunTests(argv.config).catch(error => {
+        runLogger.error(chalk.red(`Error during setup or test execution:\n${error.stack ? error.stack : error}`));
+    })
+} else if (argv.type == 'cross-chain') {
+    setupAndRunTests(argv.exploitList).catch(error => {
         runLogger.error(chalk.red(`Error during setup or test execution:\n${error.stack ? error.stack : error}`));
     })
 } else {
