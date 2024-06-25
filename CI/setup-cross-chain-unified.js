@@ -24,7 +24,7 @@ const bridgeTestLogger = getLogger('bridgetest');
 // Manually configured two cross-chain exploits for the tool paper; 
 const exploitsList = [
     'tests/Bridge.exploit1.js',
-//    'tests/Bridge.exploit2.js',
+    //'tests/Bridge.exploit2.js',
 ];
 
 async function setupAndRunTests() {
