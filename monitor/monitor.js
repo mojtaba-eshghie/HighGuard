@@ -12,138 +12,120 @@ let { getLastSimulationId, getPendingActivities } = require('@lib/dcr/info');
 const { json } = require('express');
 const { default: chalk } = require('chalk');
 
+
 class Monitor extends EventEmitter {
   constructor(configs) {
     super();
     this.executedActivities = [];
     this.configs = configs;
-
+    
     this._status = 'IDLE';
     this.setStatus('IDLE');
 
-    // The following is just here as an example correct format of how configs should be passed to monitor
-    // let configs = {
-    //     "contracts": [{
-    //         web3: envAnvil.web3,
-    //         contractAddress: contractsA.router._address,
-    //         contractFileName: 'EthRouter',
-    //         contractName: 'EthRouter',
-    //         contractABI: contractABIA,
-    //         modelFunctionParams: null,
-    //       },
-    //       {
-    //         web3: envAnvil.web3,
-    //         contractAddress: contractsA.router._address,
-    //         contractFileName: 'EthRouter',
-    //         contractName: 'EthRouter',
-    //         contractABI: contractABIA,
-    //         modelFunctionParams: null,
-    //     }],
-    //     activities: await getActivities(1823056),
-    //     modelId: 1823056,
-    //     hasResponseRelation: true,
-    // };
 
+    // Initialize the contract watcher, translator, and executor for this instance
 
-    // Initialize the contract watchers and translators arrays
-    this.contractWatchers = [];
-    this.dcrTranslators = [];
-
-    // Loop through the contracts array in configs to create watchers and translators
-    this.configs.contracts.forEach((contractConfig, index) => {
-      const watcher = new ContractWatcher(
-        contractConfig.web3,
-        contractConfig.contractAddress,
-        contractConfig.contractName,
-        contractConfig.contractABI
-      );
-      this.contractWatchers.push(watcher);
-
-      const translator = new DCRTranslator(
-        contractConfig.contractABI,
-        contractConfig.modelFunctionParams,
-        contractConfig.web3
-      );
-      this.dcrTranslators.push(translator);
-    });
+    // watcher
+    this.contractWatcher = new ContractWatcher(
+      this.configs.web3,
+      this.configs.contractAddress,
+      this.configs.contractName, 
+      this.configs.contractABI
+    );
+      
+    // translator
+    this.dcrTranslator = new DCRTranslator(
+      this.configs.contractABI,
+      this.configs.modelFunctionParams,
+      this.configs.web3
+    );
 
     // executor
     this.dcrExecutor = new DCRExecutor();
-
+    
     // Decide if we need the middleware for handling response relation semantics or not
     this.hasResponse = this.configs.hasResponseRelation;
-
+     
+    
     // The trace the monitor is watching can either be violating or not;
     this.violating = false;
 
     // Setting up a new simulation for the model
     this.simulate().catch(err => {
       monitorLogger.error(`Initialization failed: ${err}`);
-      this.status = 'ERROR';
+      this.status = 'ERROR'; 
     });
+    
   }
 
   async simulate() {
-    try {
-      await this.dcrExecutor.makeSimulation(this.configs.modelId);
-      let simId = await getLastSimulationId(this.configs.modelId);
-      this.simId = simId;
-      this.setStatus('INITIALIZED');
-      monitorLogger.debug(`The simulation id for the monitor: ${this.simId}`);
-    } catch (error) {
-      this.setStatus('ERROR');
-      monitorLogger.error(`Simulation setup failed: ${error}`);
-    }
+    await this.dcrExecutor.makeSimulation(this.configs.modelId);
+    let simId = await getLastSimulationId(this.configs.modelId);
+    this.simId = simId;
+    this.setStatus('INITIALIZED');     
+    monitorLogger.debug(`The simulation id for the monitor: ${this.simId}`);
+  } catch (error) {
+    this.setStatus('ERROR');
+    monitorLogger.error(`Simulation setup failed: ${error}`);
   }
 
   setStatus(newStatus) {
     if (this._status !== newStatus) {
       this._status = newStatus;
-      this.emit('statusChange', this._status);
+      this.emit('statusChange', this._status);  
     }
   }
 
   start() {
-    this.contractWatchers.forEach((watcher, index) => {
-      const handleEvent = (tx) => this.handleContractEvent(tx, index);
-      watcher.on('newTransaction', handleEvent);
-      watcher.on('error', this.handleError.bind(this));
-      watcher.startWatching();
-    });
-
-    this.setStatus('RUNNING');
+    // Bind the event handlers to this instance to ensure they have the correct `this` context
+    this.contractWatcher.on('newTransaction', this.handleContractEvent.bind(this));
+    this.contractWatcher.on('error', this.handleError.bind(this));
+    // Start watching for contract events
+    this.contractWatcher.startWatching();
+    
+    this.setStatus('RUNNING');  
+    // TODO: other setup steps
   }
 
-  async handleContractEvent(tx, index) {
+  async handleContractEvent(tx) {
     let violates = false;
-    monitorLogger.debug(chalk.cyan(`config activities are: ${this.configs.activities}`));
-    let dcrActivities = this.dcrTranslators[index].getDCRFromTX(tx, this.configs.activities);
-
+    // Process the transaction and translate it into DCR activities
+    monitorLogger.debug(chalk.cyan(`config activities are: ${this.configs.activities}`))
+    const dcrActivities = this.dcrTranslator.getDCRFromTX(tx, this.configs.activities);
     monitorLogger.debug(`dcrActivities: ${dcrActivities}`);
     if (dcrActivities) {
       const promises = dcrActivities.map(async activity => {
         if (this.hasResponse) {
           let pendingActivities = await getPendingActivities(this.configs.modelId, this.simId);
           let pendingActivity = pendingActivities.find(a => a.id === activity["activityId"]);
-          if (pendingActivity) {
+          if (pendingActivity){
             let deadline = pendingActivity.deadline;
             if (deadline) {
+              // This is where we can use this deadlined pending relation;
               deadline = new Date(deadline);
               const now = new Date();
+              //const futureTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Add 24 hours in milliseconds
               if (now > deadline) {
                 violates = true;
-              }
+              } else {
+                
+              }            
             }
           }
         }
+
         await this.executeDCRActivity(activity, violates);
       });
-      await Promise.all(promises);
+      await Promise.all(promises); // Waits for all activities to finish executing
       this.writeMarkdownFile();
     }
   }
+  
 
   async executeDCRActivity(dcrActivity, violates) {
+    // Execute the DCR activity
+    // Here you would need the simulation ID and other details to execute the activity
+    // Assuming you have a method to get or create a simulation ID
     try {
       const result = await this.dcrExecutor.executeActivity(
         this.configs.modelId,
@@ -152,7 +134,9 @@ class Monitor extends EventEmitter {
         dcrActivity.dcrValue,
         dcrActivity.dcrType
       );
+      //monitorLogger.debug(`Activity execution result: ${result}`);
       this.executedActivities.push(result);
+      //result.violation = violates;
       result.violation = violates ? violates : result.violation;
       this.violating = result.violation ? result.violation : this.violating;
       monitorLogger.debug(`This time, violates is: ${violates}`);
@@ -163,18 +147,21 @@ class Monitor extends EventEmitter {
   }
 
   handleError(error) {
+    // Handle any errors that occur within the contract watcher
     console.error('Error in ContractWatcher:', error);
   }
 
+  
   writeMarkdownFile() {
     const headers = ['Activity ID', 'Time', 'Violation', 'Simulation'];
     const rows = this.executedActivities.map(activity => [
-      activity.name || '',
-      activity.time || '',
-      String(activity.violation) || '',
-      this.simId || ''
+        activity.name || '',
+        activity.time || '',
+        String(activity.violation) || '',
+        this.simId || ''
     ]);
 
+    // Construct markdown content from the headers and rows
     const headerLine = `| ${headers.join(' | ')} |`;
     const separatorLine = `| ${headers.map(() => '---').join(' | ')} |`;
     const tableRows = rows.map(row => `| ${row.join(' | ')} |`).join('\n');
@@ -187,6 +174,7 @@ class Monitor extends EventEmitter {
     fs.writeFileSync(filePath, markdownContent, 'utf8');
     monitorLogger.debug(`Markdown file written: ${filePath}`);
   }
+
 }
 
 module.exports = Monitor;

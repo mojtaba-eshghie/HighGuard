@@ -83,7 +83,7 @@ contracts:
   #     - "PrizeDistributionExploit"
 
   - name: "Governance"
-    numOfVariants: 1
+    numOfVariants: 10
     constructorParamSpecs: []
     models:
       - name: "Governance"
