@@ -6,6 +6,21 @@
 
 Smart contracts embody complex business processes that can be difficult to analyze statically. Therefore, we present HighGuard, a runtime monitoring tool that leverages business process specifications written in DCR graphs to provide runtime verification of smart contract execution. We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart contracts deployed in the Ethereum network without code instrumentation and any additional gas costs.
 
+## Features
+
+### Main Features
+
+- Fully automated model-based monitoring/testing of smart contracts.
+- Supports DCR graphs enhanced with data and time.
+- Supports multi- and cross-chain smart contract monitoring
+- Platform agnostic as the models are built based on high-level business logic specifications.
+
+### Axiliary Features
+
+- **Batteries included**: Many of the smart contract libraries HighGuard uses are part of its project under `lib` directory.
+- **Distributed logging**: As HighGuard can monitor many contracts at once, and it includes a distributed logging ecosystem to better suit large-scale monitoring operations.
+
+
 ## Installation
 
 ### Manual Installation
@@ -104,19 +119,6 @@ To build and run HighGuard using Docker, follow these steps:
    docker run --rm -v $(pwd)/results:/results highguard-cli-docker bash -c "cp -r /usr/src/app/results/* /results"
    ```
 
-## Features
-
-### Main Features
-
-- Fully automated model-based monitoring/testing of smart contracts.
-- Supports DCR graphs enhanced with data and time.
-- Supports multi- and cross-chain smart contract monitoring
-- Platform agnostic as the models are built based on high-level business logic specifications.
-
-### Axiliary Features
-
-- **Batteries included**: Many of the smart contract libraries HighGuard uses are part of its project under `lib` directory.
-- **Distributed logging**: As HighGuard can monitor many contracts at once, and it includes a distributed logging ecosystem to better suit large-scale monitoring operations.
 <!--
 
 ## Installation
