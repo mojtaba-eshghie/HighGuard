@@ -163,4 +163,4 @@ Run the `npm install` in the main repository directory and the following directo
 
 ## Using HighGuard in Client-Server Mode
 
-This part is deprecated, and is not actively maintained. You can look [here](https://github.com/mojtaba-eshghie/HighGuard/wiki/Using-HighGuard-in-Client%E2%80%90Server-Mode) for the old documentation.
+This part is deprecated, and is not actively maintained. You can look [here](https://github.com/mojtaba-eshghie/HighGuard/wiki/HighGuard-in-Client%E2%80%90Server-Mode) for the old documentation.
