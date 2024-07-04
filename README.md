@@ -136,7 +136,12 @@ Run the `npm install` in the main repository directory and the following directo
 
 `client` -->
 
-## Cite Us
+
+## Extended Documentation
+For an extended documentation on how to use and extend HighGuard, refer to [HighGuard wiki](https://github.com/mojtaba-eshghie/HighGuard/wiki)
+
+
+## Cite HighGuard
 
 ```
 @misc{HighGuard,
