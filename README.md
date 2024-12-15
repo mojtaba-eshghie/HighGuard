@@ -144,28 +144,21 @@ For an extended documentation on how to use and extend HighGuard, refer to [High
 ## Cite HighGuard
 
 ```
-@misc{HighGuard,
-  author       = {Mojtaba Eshghie and Wolfgang Ahrendt and
-                  Cyrille Artho and Thomas Troels Hildebrandt and
-                  Gerardo Schneider},
-  title        = {HighGuard: Monitoring Business Processes in
-                  Smart Contracts},
-  year         = {2023},
-  month        = {May},
-  url          = {https://arxiv.org/abs/2305.08254},
-  doi          = {10.48550/arXiv.2305.08254},
-  abstract     = {Smart contracts embody complex business processes that can be difficult to analyze statically.
-                  In this paper, we present HighGuard, a runtime monitoring tool that leverages business process
-                  specifications written in DCR graphs to provide runtime verification of smart contract execution.
-                  We demonstrate how HighGuard can detect and flag deviations from specified behaviors in smart
-                  contracts deployed in the Ethereum network without code instrumentation or additional gas costs.},
-  note         = {arXiv:2305.08254v1 [cs.CR]},
-  keywords     = {dcr-graphs, dynamic-condition-response,
-                  runtime-monitoring, runtime-verification,
-                  smart-contract-specifications,
-                  smart-contracts-security}
+@inproceedings{eshghieHighGuardCrossChainBusiness2024,
+  title = {{{HighGuard}}: {{Cross-Chain Business Logic Monitoring}} of {{Smart Contracts}}},
+  shorttitle = {{{HighGuard}}},
+  booktitle = {Proceedings of the 39th {{IEEE}}/{{ACM International Conference}} on {{Automated Software Engineering}}},
+  author = {Eshghie, Mojtaba and Artho, Cyrille and Stammler, Hans and Ahrendt, Wolfgang and Hildebrandt, Thomas and Schneider, Gerardo},
+  year = {2024},
+  month = oct,
+  series = {{{ASE}} '24},
+  pages = {2378--2381},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/3691620.3695356},
+  urldate = {2024-12-15},
+  isbn = {9798400712487},
 }
-
 ```
 
 ## Using HighGuard in Client-Server Mode
